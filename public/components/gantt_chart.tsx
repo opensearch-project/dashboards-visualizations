@@ -3,6 +3,7 @@ import Plot from 'react-plotly.js';
 
 
 export function GanttChart(props) {
+  console.log('props', props)
   const getGanttData = () => {
     const rawData = JSON.parse(props.visParams.data);
     const data = [];

@@ -1,5 +1,7 @@
 import { CoreSetup, Plugin } from 'kibana/public';
 import { VisualizationsSetup } from '../../../src/plugins/visualizations/public';
+import { Schemas } from '../../../src/plugins/vis_default_editor/public';
+import { ReactVisController } from '../../../src/plugins/visualizations/public/vis_types/react_vis_controller';
 import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttChart } from './components/gantt_chart';
 
@@ -7,15 +9,27 @@ export interface SetupDependencies {
   visualizations: VisualizationsSetup;
 }
 
+const myRequestHandler = async (vis) => {
+  console.log(vis)
+  return null;
+};
+
+const myResponseHandler = async (vis, a, b) => {
+  console.log(vis, a, b)
+  return null;
+};
+
 export class CustomVisualizationsPublicPlugin
   implements Plugin<CustomVisualizationsSetup, CustomVisualizationsStart> {
   public setup(core: CoreSetup, setupDeps: SetupDependencies) {
     setupDeps.visualizations.createReactVisualization({
+      // setupDeps.visualizations.createBaseVisualization({
       name: 'gantt_vis',
       title: 'Gantt Chart',
       icon: 'visBarHorizontalStacked',
       description:
         'This visualization allows you to create a Gantt chart.',
+      // visualization: ReactVisController,
       visConfig: {
         component: GanttChart,
         defaults: {
@@ -26,16 +40,29 @@ export class CustomVisualizationsPublicPlugin
 }`,
         },
       },
+      // editor: 'default',
       editorConfig: {
-        optionTabs: [
+        optionsTemplate: GanttChartEditor,
+        schemas: new Schemas([
           {
-            name: 'editor',
-            title: 'Editor',
-            editor: GanttChartEditor,
-          },
-        ],
+            group: 'metrics',
+            name: 'metric',
+            title: 'Metric',
+            min: 1,
+            aggFilter: ['!derivative', '!geo_centroid'],
+            defaults: [{ type: 'count', schema: 'metric' }]
+          }, {
+            group: 'buckets',
+            name: 'segment',
+            title: 'Bucket Split',
+            min: 0,
+            max: 1,
+            aggFilter: ['!geohash_grid', '!filter']
+          }
+        ]),
       },
-      requestHandler: 'none',
+      // requestHandler: myRequestHandler,
+      // responseHandler: myResponseHandler,
     });
   }
 
