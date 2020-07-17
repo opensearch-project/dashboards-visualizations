@@ -5,6 +5,6 @@
   "requiredPlugins": [
     "visualizations"
   ],
-  "server": false,
+  "server": true,
   "ui": true
 }

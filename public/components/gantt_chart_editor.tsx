@@ -3,7 +3,7 @@ import { EuiCodeEditor } from '@elastic/eui';
 
 
 export function GanttChartEditor(props) {
-  console.log('editor props', props)
+  // console.log('editor props', props)
   const onCounterChange = (ev: any) => {
     props.setValue('data', ev);
   };

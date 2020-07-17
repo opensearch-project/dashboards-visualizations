@@ -10,13 +10,47 @@ export interface SetupDependencies {
 }
 
 const myRequestHandler = async (vis) => {
-  console.log(vis)
-  return null;
+  const request = {
+    filters: vis.filters,
+    query: vis.query,
+    timeRange: vis.timeRange,
+    index: vis.index.title
+  };
+  return fetch('../api/gantt_vis/query', {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'kbn-xsrf': 'query',
+    },
+    body: JSON.stringify(request),
+  })
+    .then(resp => {
+      // console.log('resp', resp)
+      return resp.json()
+    })
+    .then(json => {
+      // console.log('json', json)
+      // JSON.parse(json.resp)
+      return json.hits;
+    })
 };
 
-const myResponseHandler = async (vis, a, b) => {
-  console.log(vis, a, b)
-  return null;
+const myResponseHandler = async (vis, response) => {
+  console.log('response handler')
+  console.log('vis', vis)
+  console.log('response', response)
+  const x_start = [], x_duration = [], y = [];
+  vis.forEach((resp, i) => {
+    const { bytes, response } = resp._source;
+    x_start.push(bytes)
+    x_duration.push(response)
+    y.push(i)
+  });
+  return {
+    x_start,
+    x_duration,
+    y
+  };
 };
 
 export class CustomVisualizationsPublicPlugin
@@ -61,8 +95,8 @@ export class CustomVisualizationsPublicPlugin
           }
         ]),
       },
-      // requestHandler: myRequestHandler,
-      // responseHandler: myResponseHandler,
+      requestHandler: myRequestHandler,
+      responseHandler: myResponseHandler,
     });
   }
 
