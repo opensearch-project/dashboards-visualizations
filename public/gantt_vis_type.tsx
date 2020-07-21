@@ -1,41 +1,52 @@
-import { Schemas } from '../../../src/plugins/vis_default_editor/public';
 import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttChart } from './components/gantt_chart';
 import { GanttVisDependencies } from './plugin';
-import { buildEsQuery } from '../../../src/plugins/data/common';
+import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/data/common';
+import { VisParams } from 'src/plugins/visualizations/public';
+import { IndexPattern } from 'src/plugins/data/public';
+import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
 
-const ganttRequestHandler = async (vis) => {
-  const DSL = buildEsQuery(vis.index, vis.query, vis.filters);
-  const request = {
-    index: vis.index.title,
-    DSL: DSL,
+const getGanttRequestHandler = ({
+  uiSettings,
+  http,
+}: GanttVisDependencies) => {
+  return async ({
+    timeRange,
+    filters,
+    query,
+    index,
+    visParams,
+  }: {
+    timeRange: TimeRange;
+    filters: Filter[];
+    query: Query;
+    index: IndexPattern;
+    visParams: VisParams;
+    forceFetch?: boolean;
+  }) => {
+    const timezone = getTimezone(uiSettings);
+    
+    const DSL = buildEsQuery(index, query, filters);
+    const request = {
+      index: index.title,
+      DSL: DSL,
+    };
+    console.log('request POST: ', request)
+    return await http.post('../api/gantt_vis/query', {
+      body: JSON.stringify(request),
+    })
   };
-  console.log('request vis: ', vis)
-  console.log('request POST: ', request)
-  return fetch('../api/gantt_vis/query', {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-      'kbn-xsrf': 'query',
-    },
-    body: JSON.stringify(request),
-  })
-    .then(resp => {
-      // console.log('resp', resp)
-      return resp.json()
-    })
-    .then(json => {
-      // console.log('json', json)
-      // JSON.parse(json.resp)
-      return json.hits;
-    })
 };
 
-const ganttResponseHandler = async (vis) => {
-  // console.log('response handler')
-  // console.log('vis', vis)
+const getGanttResponseHandler = () => async ({
+  total,
+  hits
+}: {
+  total: number,
+  hits: Object[];
+}) => {
   const x_start = [], x_duration = [], y = [];
-  vis.forEach((resp, i) => {
+  hits.forEach((resp, i) => {
     const { bytes, response } = resp._source;
     x_start.push(bytes)
     x_duration.push(response)
@@ -49,6 +60,8 @@ const ganttResponseHandler = async (vis) => {
 };
 
 export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
+  const ganttRequestHandler = getGanttRequestHandler(dependencies);
+  const ganttResponseHandler = getGanttResponseHandler();
   return {
     name: 'gantt_vis',
     title: 'Gantt Chart',
@@ -67,23 +80,6 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     },
     editorConfig: {
       optionsTemplate: GanttChartEditor,
-      schemas: new Schemas([
-        {
-          group: 'metrics',
-          name: 'metric',
-          title: 'Metric',
-          min: 1,
-          aggFilter: ['!derivative', '!geo_centroid'],
-          defaults: [{ type: 'count', schema: 'metric' }]
-        }, {
-          group: 'buckets',
-          name: 'segment',
-          title: 'Bucket Split',
-          min: 0,
-          max: 1,
-          aggFilter: ['!geohash_grid', '!filter']
-        }
-      ]),
     },
     requestHandler: ganttRequestHandler,
     responseHandler: ganttResponseHandler,
