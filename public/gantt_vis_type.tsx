@@ -1,6 +1,5 @@
 import { GanttChart } from './components/gantt_chart';
 import { GanttChartEditor } from './components/gantt_chart_editor';
-import { GanttChartFieldEditor } from './components/gantt_chart_field_editor';
 import { GanttVisDependencies } from './plugin';
 import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/data/common';
 import { VisParams } from 'src/plugins/visualizations/public';
@@ -46,17 +45,9 @@ const getGanttResponseHandler = () => async ({
   total: number,
   hits: Object[];
 }) => {
-  const x_start = [], x_duration = [], y = [];
-  hits.forEach((resp, i) => {
-    const { bytes, response } = resp._source;
-    x_start.push(bytes)
-    x_duration.push(response)
-    y.push(i)
-  });
   return {
-    x_start,
-    x_duration,
-    y
+    total: total,
+    source: hits.map(hit => hit._source)
   };
 };
 

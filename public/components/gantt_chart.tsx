@@ -5,13 +5,13 @@ import Plot from 'react-plotly.js';
 export function GanttChart(props) {
   console.log('gantt chart props', props)
   const getGanttData = () => {
-    // let rawData = JSON.parse(props.visParams.data);
-    const rawData = props.visData;
+    const source = props.visData.source;
+    console.log('plotly source', source)
     const data = [];
-    for (let i = 0; i < rawData.y.length; i++) {
-      const x_start = rawData.x_start[i];
-      const x_duration = rawData.x_duration[i];
-      const y = rawData.y[i];
+    for (let i = 0; i < source.length; i++) {
+      const x_start = source[i][props.visParams.startTimeField];
+      const x_duration = source[i][props.visParams.durationField];
+      const y = source[i][props.visParams.labelField];
       data.push(
         {
           x: [x_start],
@@ -32,31 +32,37 @@ export function GanttChart(props) {
         }
       )
     }
+    console.log('plotly data:', data)
     return data;
   };
-  
+
   return (
     <Fragment>
-      <Plot
-        data={getGanttData()}
-        style={{ width: "100%", height: "100%" }}
-        layout={{
-          autosize: true,
-          barmode: 'stack',
-          margin: {
-            l: 40,
-            r: 10,
-            b: 40,
-            t: 10,
-            pad: 4
-          },
-          showlegend: true,
-          legend: {
-            orientation: 'h',
-            traceorder: 'normal',
-          },
-        }}
-      />
+      {props.visParams.labelField && props.visParams.startTimeField && props.visParams.durationField ? (
+        <Plot
+          data={getGanttData()}
+          style={{ width: "100%", height: "100%" }}
+          layout={{
+            autosize: true,
+            barmode: 'stack',
+            margin: {
+              l: 40,
+              r: 10,
+              b: 40,
+              t: 10,
+              pad: 4
+            },
+            showlegend: true,
+            legend: {
+              orientation: 'h',
+              traceorder: 'normal',
+            },
+            yaxis: {
+              type: 'category'
+            }
+          }}
+        />
+      ) : (null)}
     </Fragment>
   );
 };
