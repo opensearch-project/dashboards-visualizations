@@ -1,6 +1,5 @@
 import { IRouter } from '../../../../src/core/server';
 import { schema } from '@kbn/config-schema';
-import { Client } from '@elastic/elasticsearch';
 import { RequestParams } from '@elastic/elasticsearch';
 
 export function defineRoutes(router: IRouter) {
@@ -9,41 +8,51 @@ export function defineRoutes(router: IRouter) {
       path: '/api/gantt_vis/query',
       validate: {
         body: schema.any()
+        // body: schema.object({
+        //   sheet: schema.arrayOf(schema.string()),
+        //   extended: schema.maybe(
+        //     schema.object({
+        //       es: schema.object({
+        //         filter: schema.object({
+        //           bool: schema.object({
+        //             filter: schema.maybe(schema.arrayOf(schema.object({}, { unknowns: 'allow' }))),
+        //             must: schema.maybe(schema.arrayOf(schema.object({}, { unknowns: 'allow' }))),
+        //             should: schema.maybe(schema.arrayOf(schema.object({}, { unknowns: 'allow' }))),
+        //             must_not: schema.maybe(
+        //               schema.arrayOf(schema.object({}, { unknowns: 'allow' }))
+        //             ),
+        //           }),
+        //         }),
+        //       }),
+        //     })
+        //   ),
+        //   time: schema.maybe(
+        //     schema.object({
+        //       from: schema.maybe(schema.string()),
+        //       interval: schema.string(),
+        //       timezone: schema.string(),
+        //       to: schema.maybe(schema.string()),
+        //     })
+        //   ),
+        // }),
       },
     },
     async (context, request, response) => {
-
-      // const cluster = context.core.elasticsearch.dataClient.callAsCurrentUser('ping');
-      // const params: RequestParams.Search = {
-      //   index: 'report',
-      //   size: sizeNumber,
-      //   sort: `${sortField}:${sortDirection}`,
-      // };
-      // try {
-      //   const esResp = await context.core.elasticsearch.legacy.client.callAsInternalUser(
-      //     'search',
-      //     params
-      //   );
-      //   return response.ok({
-      //     body: {
-      //       total: esResp.hits.total.value,
-      //       data: esResp.hits.hits,
-      //     },
-      //   });
-        
-      const client = new Client({ node: 'http://localhost:9200' })
-      const result = await client.search({
+      const params: RequestParams.Search = {
         index: request.body.index,
+        size: 20,
         body: {
-          from: 0,
-          size: 20
+          query: request.body.DSL
         }
-      })
-      
+      };
+      const resp = await context.core.elasticsearch.dataClient.callAsInternalUser(
+        'search',
+        params
+      );
       return response.ok({
         body: {
-          body: request.body,
-          hits: result.body.hits.hits,
+          total: resp.hits.total.value,
+          hits: resp.hits.hits,
         },
       });
     }
