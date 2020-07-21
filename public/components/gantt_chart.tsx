@@ -5,8 +5,8 @@ import Plot from 'react-plotly.js';
 export function GanttChart(props) {
   console.log('gantt chart props', props)
   const getGanttData = () => {
-    let rawData = JSON.parse(props.visParams.data);
-    rawData = props.visData;
+    // let rawData = JSON.parse(props.visParams.data);
+    const rawData = props.visData;
     const data = [];
     for (let i = 0; i < rawData.y.length; i++) {
       const x_start = rawData.x_start[i];

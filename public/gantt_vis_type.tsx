@@ -1,5 +1,6 @@
-import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttChart } from './components/gantt_chart';
+import { GanttChartEditor } from './components/gantt_chart_editor';
+import { GanttChartFieldEditor } from './components/gantt_chart_field_editor';
 import { GanttVisDependencies } from './plugin';
 import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/data/common';
 import { VisParams } from 'src/plugins/visualizations/public';
@@ -25,7 +26,7 @@ const getGanttRequestHandler = ({
     forceFetch?: boolean;
   }) => {
     const timezone = getTimezone(uiSettings);
-    
+
     const DSL = buildEsQuery(index, query, filters);
     const request = {
       index: index.title,
@@ -76,10 +77,13 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
   "x_duration": [3, 4, 7, 8, 7],
   "y":[5, 4, 3, 2, 1]
 }`,
+        labelField: '',
+        startTimeField: '',
+        durationField: '',
       },
     },
     editorConfig: {
-      optionsTemplate: GanttChartEditor,
+      optionsTemplate: GanttChartEditor
     },
     requestHandler: ganttRequestHandler,
     responseHandler: ganttResponseHandler,
