@@ -1,13 +1,13 @@
-import { IRouter } from '../../../../src/core/server';
 import { schema } from '@kbn/config-schema';
 import { RequestParams } from '@elastic/elasticsearch';
+import { IRouter } from '../../../../src/core/server';
 
 export function defineRoutes(router: IRouter) {
   router.post(
     {
       path: '/api/gantt_vis/query',
       validate: {
-        body: schema.any()
+        body: schema.any(),
         // body: schema.object({
         //   sheet: schema.arrayOf(schema.string()),
         //   extended: schema.maybe(
@@ -42,13 +42,10 @@ export function defineRoutes(router: IRouter) {
         index: request.body.index,
         size: request.body.size,
         body: {
-          query: request.body.query
-        }
+          query: request.body.query,
+        },
       };
-      const resp = await context.core.elasticsearch.dataClient.callAsInternalUser(
-        'search',
-        params
-      );
+      const resp = await context.core.elasticsearch.dataClient.callAsInternalUser('search', params);
       return response.ok({
         body: {
           total: resp.hits.total.value,

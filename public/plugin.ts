@@ -21,8 +21,8 @@ export class CustomVisualizationsPublicPlugin
     setupDeps.visualizations.createReactVisualization(getGanttVisDefinition(dependencies));
   }
 
-  public start() { }
-  public stop() { }
+  public start() {}
+  public stop() {}
 }
 
 export type CustomVisualizationsSetup = ReturnType<CustomVisualizationsPublicPlugin['setup']>;

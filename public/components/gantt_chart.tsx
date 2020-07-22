@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react';
 import Plot from 'react-plotly.js';
 
-
 export function GanttChart(props) {
-  console.log('gantt chart props', props)
+  console.log('gantt chart props', props);
   const getGanttData = () => {
     const source = props.visData.source;
-    console.log('plotly source', source)
+    console.log('plotly source', source);
     const data = [];
     for (let i = 0; i < source.length; i++) {
       const x_start = source[i][props.visParams.startTimeField];
@@ -29,20 +28,22 @@ export function GanttChart(props) {
           type: 'bar',
           orientation: 'h',
           width: 0.4,
-          name: y
+          name: y,
         }
-      )
+      );
     }
-    console.log('plotly data:', data)
+    console.log('plotly data:', data);
     return data;
   };
 
   return (
     <Fragment>
-      {props.visParams.labelField && props.visParams.startTimeField && props.visParams.durationField ? (
+      {props.visParams.labelField &&
+      props.visParams.startTimeField &&
+      props.visParams.durationField ? (
         <Plot
           data={getGanttData()}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: '100%', height: '100%' }}
           layout={{
             autosize: true,
             barmode: 'stack',
@@ -51,7 +52,7 @@ export function GanttChart(props) {
               r: 10,
               b: 30,
               t: 10,
-              pad: 4
+              pad: 4,
             },
             showlegend: true,
             legend: {
@@ -59,11 +60,11 @@ export function GanttChart(props) {
               traceorder: 'normal',
             },
             yaxis: {
-              type: 'category'
-            }
+              type: 'category',
+            },
           }}
         />
-      ) : (null)}
+      ) : null}
     </Fragment>
   );
-};
+}

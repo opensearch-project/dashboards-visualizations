@@ -9,17 +9,16 @@ import { EuiFlexGrid } from '@elastic/eui';
 import { EuiSpacer } from '@elastic/eui';
 import { EuiFieldNumber } from '@elastic/eui';
 
-
 export function GanttChartEditor(props) {
-  console.log('editor props', props)
+  console.log('editor props', props);
 
   const fieldOptions = props.aggs.indexPattern.fields.map((field: Field) => {
     return {
-      'value': field.name,
-      'inputDisplay': field.name
-    }
+      value: field.name,
+      inputDisplay: field.name,
+    };
   });
-  
+
   const createFieldSelect = (fieldName: string, displayName: string) => {
     return (
       <>
@@ -31,7 +30,7 @@ export function GanttChartEditor(props) {
         />
         <EuiSpacer />
       </>
-    )
+    );
   };
 
   const codeEditor = () => {
@@ -40,17 +39,17 @@ export function GanttChartEditor(props) {
         mode="json"
         width="100%"
         value={props.stateParams.data}
-        onChange={value => props.setValue('data', value)}
+        onChange={(value) => props.setValue('data', value)}
         showPrintMargin={false}
         setOptions={{
           fontSize: '12px',
           enableBasicAutocompletion: true,
           enableSnippets: true,
-          enableLiveAutocompletion: true
+          enableLiveAutocompletion: true,
         }}
         aria-label="Code Editor"
       />
-    )
+    );
   };
 
   return (
@@ -58,7 +57,7 @@ export function GanttChartEditor(props) {
       <EuiText>Size</EuiText>
       <EuiFieldNumber
         value={props.stateParams.size}
-        onChange={e => props.setValue('size', e.target.value)}
+        onChange={(e) => props.setValue('size', e.target.value)}
       />
       <EuiSpacer />
       {createFieldSelect('labelField', 'Label')}
@@ -67,4 +66,4 @@ export function GanttChartEditor(props) {
       {/* {codeEditor()} */}
     </>
   );
-};
+}

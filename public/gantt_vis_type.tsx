@@ -1,9 +1,9 @@
+import { VisParams } from 'src/plugins/visualizations/public';
+import { IndexPattern } from 'src/plugins/data/public';
 import { GanttChart } from './components/gantt_chart';
 import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttVisDependencies } from './plugin';
 import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/data/common';
-import { VisParams } from 'src/plugins/visualizations/public';
-import { IndexPattern } from 'src/plugins/data/public';
 import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
 import { calculateBounds } from '../../../src/plugins/data/public/query/timefilter/get_time';
 
@@ -21,10 +21,7 @@ export interface SearchResponse {
   sort?: string[];
 }
 
-const getGanttRequestHandler = ({
-  uiSettings,
-  http,
-}: GanttVisDependencies) => {
+const getGanttRequestHandler = ({ uiSettings, http }: GanttVisDependencies) => {
   return async ({
     timeRange,
     filters,
@@ -39,7 +36,7 @@ const getGanttRequestHandler = ({
     visParams: VisParams;
     forceFetch?: boolean;
   }) => {
-    const time_zone = getTimezone(uiSettings);
+    const timeZone = getTimezone(uiSettings);
     const parsedTimeRange = calculateBounds(timeRange);
 
     const DSL = buildEsQuery(index, query, filters);
@@ -48,32 +45,32 @@ const getGanttRequestHandler = ({
         timestamp: {
           gte: parsedTimeRange.min,
           lte: parsedTimeRange.max,
-          time_zone,
-        }
-      }
-    })
+          time_zone: timeZone,
+        },
+      },
+    });
     const request = {
       index: index.title,
       size: visParams.size,
       query: DSL,
     };
-    console.log('request POST: ', request)
+    console.log('request POST: ', request);
     return await http.post('../api/gantt_vis/query', {
       body: JSON.stringify(request),
-    })
+    });
   };
 };
 
 const getGanttResponseHandler = () => async ({
   total,
-  hits
+  hits,
 }: {
-  total: number,
+  total: number;
   hits: SearchResponse[];
 }) => {
   return {
-    total: total,
-    source: hits.map(hit => hit._source)
+    total,
+    source: hits.map((hit) => hit._source),
   };
 };
 
@@ -84,8 +81,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     name: 'gantt_vis',
     title: 'Gantt Chart',
     icon: 'visBarHorizontalStacked',
-    description:
-      'This visualization allows you to create a Gantt chart.',
+    description: 'This visualization allows you to create a Gantt chart.',
     visConfig: {
       component: GanttChart,
       defaults: {
@@ -102,9 +98,9 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
       },
     },
     editorConfig: {
-      optionsTemplate: GanttChartEditor
+      optionsTemplate: GanttChartEditor,
     },
     requestHandler: ganttRequestHandler,
     responseHandler: ganttResponseHandler,
-  }
+  };
 }
