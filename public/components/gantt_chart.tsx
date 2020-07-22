@@ -1,20 +1,32 @@
 import React, { Fragment } from 'react';
 import Plot from 'react-plotly.js';
+import { UiSettingsClient } from 'src/core/public/ui_settings';
+import { ExprVis } from 'src/plugins/visualizations/public';
+import { GanttSuccessResponse, GanttParams } from '../gantt_vis_type';
 
-export function GanttChart(props) {
-  console.log('gantt chart props', props);
+export function GanttChart({
+  config,
+  vis,
+  visData,
+  visParams,
+}: {
+  config: UiSettingsClient;
+  vis: ExprVis;
+  visData: GanttSuccessResponse;
+  visParams: GanttParams;
+}) {
   const getGanttData = () => {
-    const source = props.visData.source;
+    const source = visData.source;
     console.log('plotly source', source);
     const data = [];
     for (let i = 0; i < source.length; i++) {
-      const x_start = source[i][props.visParams.startTimeField];
-      const x_duration = source[i][props.visParams.durationField];
-      const y = source[i][props.visParams.labelField];
+      const startTime = source[i][visParams.startTimeField];
+      const duration = source[i][visParams.durationField];
+      const label = source[i][visParams.labelField];
       data.push(
         {
-          x: [x_start],
-          y: [y],
+          x: [startTime],
+          y: [label],
           type: 'bar',
           orientation: 'h',
           width: 0.4,
@@ -23,12 +35,12 @@ export function GanttChart(props) {
           showlegend: false,
         },
         {
-          x: [x_duration],
-          y: [y],
+          x: [duration],
+          y: [label],
           type: 'bar',
           orientation: 'h',
           width: 0.4,
-          name: y,
+          name: label,
         }
       );
     }
@@ -38,33 +50,33 @@ export function GanttChart(props) {
 
   return (
     <Fragment>
-      {props.visParams.labelField &&
-      props.visParams.startTimeField &&
-      props.visParams.durationField ? (
-        <Plot
-          data={getGanttData()}
-          style={{ width: '100%', height: '100%' }}
-          layout={{
-            autosize: true,
-            barmode: 'stack',
-            margin: {
-              l: 80,
-              r: 10,
-              b: 30,
-              t: 10,
-              pad: 4,
-            },
-            showlegend: true,
-            legend: {
-              orientation: 'h',
-              traceorder: 'normal',
-            },
-            yaxis: {
-              type: 'category',
-            },
-          }}
-        />
-      ) : null}
+      {visParams.labelField &&
+        visParams.startTimeField &&
+        visParams.durationField ? (
+          <Plot
+            data={getGanttData()}
+            style={{ width: '100%', height: '100%' }}
+            layout={{
+              autosize: true,
+              barmode: 'stack',
+              margin: {
+                l: 80,
+                r: 10,
+                b: 30,
+                t: 10,
+                pad: 4,
+              },
+              showlegend: true,
+              legend: {
+                orientation: 'h',
+                traceorder: 'normal',
+              },
+              yaxis: {
+                type: 'category',
+              },
+            }}
+          />
+        ) : null}
     </Fragment>
   );
 }
