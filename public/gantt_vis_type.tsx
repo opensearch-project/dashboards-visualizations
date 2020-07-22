@@ -5,6 +5,21 @@ import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/dat
 import { VisParams } from 'src/plugins/visualizations/public';
 import { IndexPattern } from 'src/plugins/data/public';
 import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
+import { calculateBounds } from '../../../src/plugins/data/public/query/timefilter/get_time';
+
+export interface SearchResponse {
+  _index: string;
+  _type: string;
+  _id: string;
+  _score: number;
+  _source: any;
+  _version?: number;
+  fields?: any;
+  highlight?: any;
+  inner_hits?: any;
+  matched_queries?: string[];
+  sort?: string[];
+}
 
 const getGanttRequestHandler = ({
   uiSettings,
@@ -24,11 +39,18 @@ const getGanttRequestHandler = ({
     visParams: VisParams;
     forceFetch?: boolean;
   }) => {
-    const timezone = getTimezone(uiSettings);
+    const time_zone = getTimezone(uiSettings);
+    const parsedTimeRange = calculateBounds(timeRange);
 
     const DSL = buildEsQuery(index, query, filters);
     const request = {
+      timestamp: {
+        gte: parsedTimeRange.min,
+        lte: parsedTimeRange.max,
+        time_zone,
+      },
       index: index.title,
+      size: visParams.size,
       DSL: DSL,
     };
     console.log('request POST: ', request)
@@ -43,7 +65,7 @@ const getGanttResponseHandler = () => async ({
   hits
 }: {
   total: number,
-  hits: Object[];
+  hits: SearchResponse[];
 }) => {
   return {
     total: total,
@@ -63,14 +85,16 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     visConfig: {
       component: GanttChart,
       defaults: {
-        data: `{
-  "x_start":[1, 2, 5, 6, 11],
-  "x_duration": [3, 4, 7, 8, 7],
-  "y":[5, 4, 3, 2, 1]
-}`,
+        data: '',
+        // `{
+        //   "x_start":[1, 2, 5, 6, 11],
+        //   "x_duration": [3, 4, 7, 8, 7],
+        //   "y":[5, 4, 3, 2, 1]
+        // }`,
         labelField: '',
         startTimeField: '',
         durationField: '',
+        size: 10,
       },
     },
     editorConfig: {

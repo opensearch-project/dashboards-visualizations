@@ -40,7 +40,7 @@ export function defineRoutes(router: IRouter) {
     async (context, request, response) => {
       const params: RequestParams.Search = {
         index: request.body.index,
-        size: 5,
+        size: request.body.size,
         body: {
           query: request.body.DSL
         }

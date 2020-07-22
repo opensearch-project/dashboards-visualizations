@@ -20,7 +20,7 @@ export function GanttChart(props) {
           orientation: 'h',
           width: 0.4,
           marker: { color: 'rgba(255,255,255,0)' },
-          hoverinfo: "none",
+          hoverinfo: 'none',
           showlegend: false,
         },
         {
@@ -29,6 +29,7 @@ export function GanttChart(props) {
           type: 'bar',
           orientation: 'h',
           width: 0.4,
+          name: y
         }
       )
     }
@@ -46,9 +47,9 @@ export function GanttChart(props) {
             autosize: true,
             barmode: 'stack',
             margin: {
-              l: 40,
+              l: 80,
               r: 10,
-              b: 40,
+              b: 30,
               t: 10,
               pad: 4
             },
