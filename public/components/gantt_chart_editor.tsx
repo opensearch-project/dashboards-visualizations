@@ -6,7 +6,7 @@ import { EuiSpacer } from '@elastic/eui';
 import { EuiFieldNumber } from '@elastic/eui';
 import { AggConfigs } from 'src/plugins/data/public/search';
 import { Vis, PersistedState } from 'src/plugins/visualizations/public';
-import { GanttParams } from '../gantt_vis_type';
+import { GanttParams, GanttParamsFields } from '../gantt_vis_type';
 
 export function GanttChartEditor(props: {
   aggs: AggConfigs;
@@ -24,7 +24,7 @@ export function GanttChartEditor(props: {
     };
   });
 
-  const createFieldSelect = (fieldName: keyof GanttParams, displayName: string) => {
+  const createFieldSelect = (fieldName: keyof GanttParamsFields, displayName: string) => {
     return (
       <>
         <EuiText>{displayName}</EuiText>
@@ -43,7 +43,7 @@ export function GanttChartEditor(props: {
       <EuiText>Size</EuiText>
       <EuiFieldNumber
         value={props.stateParams.size}
-        onChange={(e) => props.setValue('size', e.target.value)}
+        onChange={(e) => props.setValue('size', parseInt(e.target.value))}
       />
       <EuiSpacer />
       {createFieldSelect('labelField', 'Label')}

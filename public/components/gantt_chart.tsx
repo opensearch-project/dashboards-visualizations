@@ -3,6 +3,7 @@ import Plot from 'react-plotly.js';
 import { UiSettingsClient } from 'src/core/public/ui_settings';
 import { ExprVis } from 'src/plugins/visualizations/public';
 import { GanttSuccessResponse, GanttParams } from '../gantt_vis_type';
+import { PlotData } from 'plotly.js';
 
 export function GanttChart({
   config,
@@ -15,14 +16,14 @@ export function GanttChart({
   visData: GanttSuccessResponse;
   visParams: GanttParams;
 }) {
-  const getGanttData = () => {
-    const source = visData.source;
-    console.log('plotly source', source);
-    const data = [];
-    for (let i = 0; i < source.length; i++) {
-      const startTime = source[i][visParams.startTimeField];
-      const duration = source[i][visParams.durationField];
-      const label = source[i][visParams.labelField];
+  const getGanttData = (): PlotData[] => {
+    const source: any[] = visData.source;
+    const data: PlotData[] = [];
+    
+    source.forEach(document => {
+      const startTime = document[visParams.startTimeField];
+      const duration = document[visParams.durationField];
+      const label = document[visParams.labelField];
       data.push(
         {
           x: [startTime],
@@ -33,7 +34,7 @@ export function GanttChart({
           marker: { color: 'rgba(255,255,255,0)' },
           hoverinfo: 'none',
           showlegend: false,
-        },
+        } as PlotData,
         {
           x: [duration],
           y: [label],
@@ -41,10 +42,9 @@ export function GanttChart({
           orientation: 'h',
           width: 0.4,
           name: label,
-        }
+        } as PlotData
       );
-    }
-    console.log('plotly data:', data);
+    });
     return data;
   };
 

@@ -21,12 +21,17 @@ export interface SearchResponse {
   sort?: string[];
 };
 
-export interface GanttParams {
+export interface GanttParamsFields {
   labelField: string;
   startTimeField: string;
   durationField: string;
-  size: string;
 };
+
+export interface GanttParamsOptions {
+  size: number;
+}
+
+export type GanttParams = GanttParamsFields & GanttParamsOptions;
 
 export interface GanttSuccessResponse {
   source: any[];
@@ -97,7 +102,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     labelField: '',
     startTimeField: '',
     durationField: '',
-    size: '10',
+    size: 10,
   };
 
   return {
