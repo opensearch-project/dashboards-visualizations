@@ -42,7 +42,7 @@ export function defineRoutes(router: IRouter) {
         index: request.body.index,
         size: request.body.size,
         body: {
-          query: request.body.DSL
+          query: request.body.query
         }
       };
       const resp = await context.core.elasticsearch.dataClient.callAsInternalUser(

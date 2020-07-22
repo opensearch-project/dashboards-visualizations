@@ -43,15 +43,19 @@ const getGanttRequestHandler = ({
     const parsedTimeRange = calculateBounds(timeRange);
 
     const DSL = buildEsQuery(index, query, filters);
+    DSL.bool.must.push({
+      range: {
+        timestamp: {
+          gte: parsedTimeRange.min,
+          lte: parsedTimeRange.max,
+          time_zone,
+        }
+      }
+    })
     const request = {
-      timestamp: {
-        gte: parsedTimeRange.min,
-        lte: parsedTimeRange.max,
-        time_zone,
-      },
       index: index.title,
       size: visParams.size,
-      DSL: DSL,
+      query: DSL,
     };
     console.log('request POST: ', request)
     return await http.post('../api/gantt_vis/query', {
