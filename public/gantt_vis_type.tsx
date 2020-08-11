@@ -1,5 +1,5 @@
-import { VisParams } from 'src/plugins/visualizations/public';
-import { IndexPattern } from 'src/plugins/data/public';
+import { VisParams, Vis, PersistedState } from 'src/plugins/visualizations/public';
+import { IndexPattern, IAggConfigs } from 'src/plugins/data/public';
 import { GanttChart } from './components/gantt_chart';
 import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttVisDependencies } from './plugin';
@@ -32,6 +32,19 @@ export interface GanttParamsOptions {
 }
 
 export type GanttParams = GanttParamsFields & GanttParamsOptions;
+
+export interface VisOptionsProps<VisParamType = unknown> {
+  aggs: IAggConfigs;
+  hasHistogramAgg: boolean;
+  isTabSelected: boolean;
+  stateParams: VisParamType;
+  vis: Vis;
+  uiState: PersistedState;
+  setValue<T extends keyof VisParamType>(paramName: T, value: VisParamType[T]): void;
+  setValidity(isValid: boolean): void;
+  setTouched(isTouched: boolean): void;
+}
+
 
 export interface GanttSuccessResponse {
   source: any[];
@@ -74,7 +87,6 @@ const getGanttRequestHandler = ({
       size: visParams.size,
       query: DSL,
     };
-    console.log('request POST: ', request);
     return await http.post('../api/gantt_vis/query', {
       body: JSON.stringify(request),
     });
@@ -115,7 +127,11 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
       defaults: ganttParams,
     },
     editorConfig: {
-      optionsTemplate: GanttChartEditor,
+      optionTabs: [
+        { name: 'gantt_chart_editor', title: 'data', editor: GanttChartEditor },
+        { name: 'b', title: 'Axes', editor: GanttChartEditor },
+        { name: 'b', title: 'Panel settings', editor: GanttChartEditor },
+      ]
     },
     requestHandler: ganttRequestHandler,
     responseHandler: ganttResponseHandler,

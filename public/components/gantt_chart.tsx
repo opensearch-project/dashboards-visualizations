@@ -21,9 +21,9 @@ export function GanttChart({
     const data: PlotData[] = [];
     
     source.forEach(document => {
-      const startTime = document[visParams.startTimeField];
-      const duration = document[visParams.durationField];
-      const label = document[visParams.labelField];
+      const startTime: any = document[visParams.startTimeField];
+      const duration: any = document[visParams.durationField];
+      const label: any = document[visParams.labelField];
       data.push(
         {
           x: [startTime],

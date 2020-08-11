@@ -1,23 +1,14 @@
+import { EuiFieldNumber, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiSuperSelect, EuiSwitch, EuiText } from '@elastic/eui';
 import React from 'react';
-import { EuiSuperSelect } from '@elastic/eui';
 import { Field } from 'src/plugins/data/public/index_patterns';
-import { EuiText } from '@elastic/eui';
-import { EuiSpacer } from '@elastic/eui';
-import { EuiFieldNumber } from '@elastic/eui';
-import { AggConfigs } from 'src/plugins/data/public/search';
-import { Vis, PersistedState } from 'src/plugins/visualizations/public';
-import { GanttParams, GanttParamsFields } from '../gantt_vis_type';
+import { GanttParams, GanttParamsFields, VisOptionsProps } from '../gantt_vis_type';
 
-export function GanttChartEditor(props: {
-  aggs: AggConfigs;
-  vis: Vis;
-  uiState: PersistedState;
-  stateParams: GanttParams;
-  setValue<T extends keyof GanttParams>(paramName: T, value: GanttParams[T]): void;
-  setValidity(isValid: boolean): void;
-  setTouched(isTouched: boolean): void;
-}) {
-  const fieldOptions = props.aggs.indexPattern.fields.map((field: Field) => {
+export function GanttChartEditor({
+  aggs,
+  stateParams,
+  setValue,
+}: VisOptionsProps<GanttParams>) {
+  const fieldOptions = aggs.indexPattern.fields.map((field: Field) => {
     return {
       value: field.name,
       inputDisplay: field.name,
@@ -27,12 +18,18 @@ export function GanttChartEditor(props: {
   const createFieldSelect = (fieldName: keyof GanttParamsFields, displayName: string) => {
     return (
       <>
-        <EuiText>{displayName}</EuiText>
-        <EuiSuperSelect
-          options={fieldOptions}
-          valueOfSelected={props.stateParams[fieldName]}
-          onChange={(value) => props.setValue(fieldName, value)}
-        />
+        <EuiFlexGroup alignItems='center' gutterSize='none'>
+          <EuiFlexItem grow={false} style={{ width: 80 }}>
+            <EuiText>{displayName}</EuiText>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <EuiSuperSelect
+              options={fieldOptions}
+              valueOfSelected={stateParams[fieldName]}
+              onChange={(value) => setValue(fieldName, value)}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
         <EuiSpacer />
       </>
     );
@@ -40,15 +37,26 @@ export function GanttChartEditor(props: {
 
   return (
     <>
-      <EuiText>Size</EuiText>
-      <EuiFieldNumber
-        value={props.stateParams.size}
-        onChange={(e) => props.setValue('size', parseInt(e.target.value))}
-      />
+      <EuiFlexGroup alignItems='center' gutterSize='none'>
+        <EuiFlexItem grow={false} style={{ width: 80 }}>
+          <EuiText>Size</EuiText>
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiFieldNumber
+            value={stateParams.size}
+            onChange={(e) => setValue('size', parseInt(e.target.value, 10))}
+          />
+        </EuiFlexItem>
+      </EuiFlexGroup>
       <EuiSpacer />
       {createFieldSelect('labelField', 'Label')}
       {createFieldSelect('startTimeField', 'Start time')}
       {createFieldSelect('durationField', 'Duration')}
+      <EuiSwitch
+        label='Use "End time" instead of "Duration"'
+        checked={false}
+        onChange={() => { }}
+      />
     </>
   );
 }
