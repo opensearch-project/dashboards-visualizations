@@ -69,9 +69,9 @@ export function GanttChart({
               margin: {
                 t: 30,
               },
-              showlegend: true,
+              showlegend: visParams.showLegend,
               legend: {
-                orientation: 'h',
+                orientation: visParams.legendOrientation,
                 traceorder: 'normal',
               },
               xaxis: {
@@ -80,6 +80,7 @@ export function GanttChart({
                 type: visParams.xAxisType,
                 visible: visParams.xAxisShow,
                 showticklabels: visParams.xAxisShowLabels,
+                showgrid: visParams.xAxisShowGrid,
               },
               yaxis: {
                 side: visParams.yAxisPosition,
@@ -87,6 +88,7 @@ export function GanttChart({
                 type: 'category',
                 visible: visParams.yAxisShow,
                 showticklabels: visParams.yAxisShowLabels,
+                showgrid: visParams.yAxisShowGrid,
               },
             }}
           />

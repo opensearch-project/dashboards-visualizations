@@ -8,17 +8,17 @@ export function AxesEditor({
   setValue,
 }: VisOptionsProps<GanttParams>) {
 
-  const yAxisPositions: { value: PlotlyAxisPosition; text: string }[] = [
+  const yAxisPositionOptions: { value: PlotlyAxisPosition; text: string }[] = [
     { value: 'left', text: 'Left' },
     { value: 'right', text: 'Right' },
   ];
 
-  const xAxisPositions: { value: PlotlyAxisPosition; text: string }[] = [
+  const xAxisPositionOptions: { value: PlotlyAxisPosition; text: string }[] = [
     { value: 'top', text: 'Top' },
     { value: 'bottom', text: 'Bottom' },
   ];
 
-  const axisType: { value: PlotlyAxisType; text: string }[] = [
+  const axisTypeOptions: { value: PlotlyAxisType; text: string }[] = [
     { value: '-', text: 'Auto' },
     { value: 'linear', text: 'Linear' },
     { value: 'log', text: 'Log' },
@@ -34,7 +34,7 @@ export function AxesEditor({
 
         <EuiFormRow label="Position">
           <EuiSelect
-            options={yAxisPositions}
+            options={yAxisPositionOptions}
             value={stateParams.yAxisPosition}
             onChange={(e) => setValue('yAxisPosition', e.target.value as PlotlyAxisPosition)}
           />
@@ -80,14 +80,14 @@ export function AxesEditor({
 
         <EuiFormRow label="Position">
           <EuiSelect
-            options={xAxisPositions}
+            options={xAxisPositionOptions}
             value={stateParams.xAxisPosition}
             onChange={(e) => setValue('xAxisPosition', e.target.value as PlotlyAxisPosition)}
           />
         </EuiFormRow>
         <EuiFormRow label="Scale type">
           <EuiSelect
-            options={axisType}
+            options={axisTypeOptions}
             value={stateParams.xAxisType}
             onChange={(e) => setValue('xAxisType', e.target.value as PlotlyAxisType)}
           />

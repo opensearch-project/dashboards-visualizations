@@ -7,6 +7,7 @@ import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/dat
 import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
 import { calculateBounds } from '../../../src/plugins/data/public/query/timefilter/get_time';
 import { AxesEditor } from './components/axes_editor';
+import { PanelEditor } from './components/panel_editor';
 
 export interface SearchResponse {
   _index: string;
@@ -30,19 +31,27 @@ export interface GanttParamsFields {
 
 export type PlotlyAxisPosition = 'top' | 'left' | 'right' | 'bottom';
 export type PlotlyAxisType = '-' | 'linear' | 'log' | 'date' | 'category';
+export type PlotlyLegendOrientation = 'v' | 'h';
 
 export interface GanttParamsOptions {
   size: number;
   useDuration: boolean;
+
   yAxisPosition: PlotlyAxisPosition;
   yAxisShow: boolean;
   yAxisShowLabels: boolean;
   yAxisTitle: string;
+
   xAxisPosition: PlotlyAxisPosition;
   xAxisType: PlotlyAxisType;
   xAxisShow: boolean;
   xAxisShowLabels: boolean;
   xAxisTitle: string;
+
+  legendOrientation: PlotlyLegendOrientation;
+  showLegend: boolean;
+  yAxisShowGrid: boolean;
+  xAxisShowGrid: boolean;
 }
 
 export type GanttParams = GanttParamsFields & GanttParamsOptions;
@@ -127,17 +136,25 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     labelField: '',
     startTimeField: '',
     endTimeField: '',
+
     size: 10,
     useDuration: false,
+
     yAxisPosition: 'left',
     yAxisShow: true,
     yAxisShowLabels: true,
     yAxisTitle: '',
     xAxisPosition: 'bottom',
+
     xAxisType: '-',
     xAxisShow: true,
     xAxisShowLabels: true,
     xAxisTitle: '',
+
+    legendOrientation: 'v',
+    showLegend: true,
+    xAxisShowGrid: true,
+    yAxisShowGrid: false,
   };
 
   return {
@@ -152,7 +169,8 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     editorConfig: {
       optionTabs: [
         { name: 'gantt_chart_editor', title: 'Data', editor: GanttChartEditor },
-        { name: 'b', title: 'Axes', editor: AxesEditor },
+        { name: 'axes_editor', title: 'Axes', editor: AxesEditor },
+        { name: 'panel_editor', title: 'Panel Settings', editor: PanelEditor },
       ]
     },
     requestHandler: ganttRequestHandler,
