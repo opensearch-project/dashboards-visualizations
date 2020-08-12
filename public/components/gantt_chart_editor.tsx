@@ -2,7 +2,6 @@ import { EuiFieldNumber, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiSuperSelect, E
 import React from 'react';
 import { Field } from 'src/plugins/data/public/index_patterns';
 import { GanttParams, GanttParamsFields, VisOptionsProps } from '../gantt_vis_type';
-import { EuiPanel } from '@elastic/eui';
 
 export function GanttChartEditor({
   aggs,
@@ -38,7 +37,6 @@ export function GanttChartEditor({
 
   return (
     <>
-      {/* <EuiPanel paddingSize="s"> */}
       <EuiFlexGroup alignItems='center' gutterSize='none'>
         <EuiFlexItem grow={false} style={{ width: 80 }}>
           <EuiText>Size</EuiText>
@@ -59,7 +57,6 @@ export function GanttChartEditor({
         checked={stateParams.useDuration}
         onChange={(e) => setValue('useDuration', e.target.checked)}
       />
-      {/* </EuiPanel> */}
     </>
   );
 }

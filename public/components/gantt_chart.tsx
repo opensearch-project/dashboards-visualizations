@@ -4,6 +4,7 @@ import { UiSettingsClient } from 'src/core/public/ui_settings';
 import { ExprVis } from 'src/plugins/visualizations/public';
 import { GanttSuccessResponse, GanttParams } from '../gantt_vis_type';
 import { PlotData } from 'plotly.js';
+import _ from 'lodash';
 
 export function GanttChart({
   config,
@@ -19,11 +20,14 @@ export function GanttChart({
   const getGanttData = (): PlotData[] => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
-    
+
     source.forEach(document => {
-      const startTime: any = document[visParams.startTimeField];
-      const endTime: any = document[visParams.endTimeField];
-      const label: any = document[visParams.labelField];
+      const startTime: any = _.get(document, visParams.startTimeField);
+      const endTime: any = _.get(document, visParams.endTimeField);
+      const label: any = _.get(document, visParams.labelField);
+      const duration = visParams.useDuration ? endTime : Date.parse(endTime) - Date.parse(startTime);
+      // console.log(label, startTime, endTime, duration)
+      const rest = visParams.useDefaultColors ? {} : { marker: { color: visParams.colors } };
       data.push(
         {
           x: [startTime],
@@ -31,17 +35,18 @@ export function GanttChart({
           type: 'bar',
           orientation: 'h',
           width: 0.4,
-          marker: { color: 'rgba(255,255,255,0)' },
+          marker: { color: 'rgba(0, 0, 0, 0)' },
           hoverinfo: 'none',
           showlegend: false,
         } as PlotData,
         {
-          x: [visParams.useDuration ? endTime : endTime - startTime],
+          x: [duration],
           y: [label],
           type: 'bar',
           orientation: 'h',
           width: 0.4,
           name: label,
+          ...rest,
         } as PlotData
       );
     });

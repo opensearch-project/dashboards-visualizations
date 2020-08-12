@@ -52,6 +52,8 @@ export interface GanttParamsOptions {
   showLegend: boolean;
   yAxisShowGrid: boolean;
   xAxisShowGrid: boolean;
+  useDefaultColors: boolean;
+  colors: string;
 }
 
 export type GanttParams = GanttParamsFields & GanttParamsOptions;
@@ -155,6 +157,8 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     showLegend: true,
     xAxisShowGrid: true,
     yAxisShowGrid: false,
+    useDefaultColors: false,
+    colors: '#367c74',
   };
 
   return {

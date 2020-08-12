@@ -1,6 +1,7 @@
 import { EuiFieldText, EuiFormRow, EuiHorizontalRule, EuiPanel, EuiSelect, EuiSpacer, EuiSwitch, EuiTitle } from '@elastic/eui';
 import React from 'react';
 import { GanttParams, PlotlyAxisPosition, PlotlyAxisType, VisOptionsProps, PlotlyLegendOrientation } from '../gantt_vis_type';
+import { EuiColorPicker } from '@elastic/eui';
 
 export function PanelEditor({
   aggs,
@@ -62,11 +63,37 @@ export function PanelEditor({
     )
   };
 
+  const renderColorOptions = () => {
+    return (
+      <EuiPanel paddingSize="s">
+        <EuiTitle size="xs"><h3>Colors</h3></EuiTitle>
+        <EuiSpacer size="s" />
+
+        <EuiFormRow>
+          <EuiSwitch
+            label='Use Plotly default colors'
+            checked={stateParams.useDefaultColors}
+            onChange={(e) => setValue('useDefaultColors', e.target.checked)}
+          />
+        </EuiFormRow>
+        <EuiFormRow label="Color">
+          <EuiColorPicker
+            color={stateParams.colors}
+            onChange={(e) => setValue('colors', e)}
+            disabled={stateParams.useDefaultColors}
+          />
+        </EuiFormRow>
+      </EuiPanel>
+    )
+  };
+
   return (
     <>
       {renderLegendOptions()}
       <EuiSpacer size='s' />
       {renderGridOptions()}
+      <EuiSpacer size='s' />
+      {renderColorOptions()}
     </>
   );
 }
