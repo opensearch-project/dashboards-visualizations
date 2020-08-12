@@ -57,7 +57,7 @@ export function GanttChartEditor({
       <EuiSwitch
         label='Use "Duration" instead of "End time"'
         checked={stateParams.useDuration}
-        onChange={() => setValue('useDuration', !stateParams.useDuration)}
+        onChange={(e) => setValue('useDuration', e.target.checked)}
       />
       {/* </EuiPanel> */}
     </>

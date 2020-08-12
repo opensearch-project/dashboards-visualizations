@@ -71,6 +71,9 @@ export function GanttChart({
                 orientation: 'h',
                 traceorder: 'normal',
               },
+              xaxis: {
+                // type: 'linear',
+              },
               yaxis: {
                 type: 'category',
               },

@@ -28,13 +28,24 @@ export interface GanttParamsFields {
   endTimeField: string;
 };
 
+export type PlotlyAxisPosition = 'top' | 'left' | 'right' | 'bottom';
+export type PlotlyAxisType = '-' | 'linear' | 'log' | 'date' | 'category' | 'multicategory';
+
 export interface GanttParamsOptions {
   size: number;
   useDuration: boolean;
+  yAxisPosition: PlotlyAxisPosition;
+  yAxisType: PlotlyAxisType;
+  yAxisShow: boolean;
+  yAxisShowLabels: boolean;
+  yAxisTitle: string;
+  xAxisPosition: PlotlyAxisPosition;
+  xAxisShow: boolean;
+  xAxisShowLabels: boolean;
+  xAxisTitle: string;
 }
 
 export type GanttParams = GanttParamsFields & GanttParamsOptions;
-
 export interface VisOptionsProps<VisParamType = unknown> {
   aggs: IAggConfigs;
   hasHistogramAgg: boolean;
@@ -118,6 +129,15 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     endTimeField: '',
     size: 10,
     useDuration: false,
+    yAxisPosition: 'left',
+    yAxisType: '-',
+    yAxisShow: true,
+    yAxisShowLabels: true,
+    yAxisTitle: '',
+    xAxisPosition: 'bottom',
+    xAxisShow: true,
+    xAxisShowLabels: true,
+    xAxisTitle: '',
   };
 
   return {
