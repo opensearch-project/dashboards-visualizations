@@ -59,12 +59,15 @@ export function GanttChart({
             layout={{
               autosize: true,
               barmode: 'stack',
+              // margin: {
+              //   l: 80,
+              //   r: 10,
+              //   b: 30,
+              //   t: 10,
+              //   pad: 4,
+              // },
               margin: {
-                l: 80,
-                r: 10,
-                b: 30,
-                t: 10,
-                pad: 4,
+                t: 30,
               },
               showlegend: true,
               legend: {
@@ -72,10 +75,18 @@ export function GanttChart({
                 traceorder: 'normal',
               },
               xaxis: {
-                // type: 'linear',
+                side: visParams.xAxisPosition,
+                title: visParams.xAxisTitle,
+                type: visParams.xAxisType,
+                visible: visParams.xAxisShow,
+                showticklabels: visParams.xAxisShowLabels,
               },
               yaxis: {
+                side: visParams.yAxisPosition,
+                title: visParams.xAxisTitle,
                 type: 'category',
+                visible: visParams.yAxisShow,
+                showticklabels: visParams.yAxisShowLabels,
               },
             }}
           />
