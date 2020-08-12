@@ -6,6 +6,7 @@ import { GanttVisDependencies } from './plugin';
 import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/data/common';
 import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
 import { calculateBounds } from '../../../src/plugins/data/public/query/timefilter/get_time';
+import { AxesEditor } from './components/axes_editor';
 
 export interface SearchResponse {
   _index: string;
@@ -24,11 +25,12 @@ export interface SearchResponse {
 export interface GanttParamsFields {
   labelField: string;
   startTimeField: string;
-  durationField: string;
+  endTimeField: string;
 };
 
 export interface GanttParamsOptions {
   size: number;
+  useDuration: boolean;
 }
 
 export type GanttParams = GanttParamsFields & GanttParamsOptions;
@@ -113,8 +115,9 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
   const ganttParams: GanttParams = {
     labelField: '',
     startTimeField: '',
-    durationField: '',
+    endTimeField: '',
     size: 10,
+    useDuration: false,
   };
 
   return {
@@ -128,9 +131,8 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     },
     editorConfig: {
       optionTabs: [
-        { name: 'gantt_chart_editor', title: 'data', editor: GanttChartEditor },
-        { name: 'b', title: 'Axes', editor: GanttChartEditor },
-        { name: 'b', title: 'Panel settings', editor: GanttChartEditor },
+        { name: 'gantt_chart_editor', title: 'Data', editor: GanttChartEditor },
+        { name: 'b', title: 'Axes', editor: AxesEditor },
       ]
     },
     requestHandler: ganttRequestHandler,

@@ -22,7 +22,7 @@ export function GanttChart({
     
     source.forEach(document => {
       const startTime: any = document[visParams.startTimeField];
-      const duration: any = document[visParams.durationField];
+      const endTime: any = document[visParams.endTimeField];
       const label: any = document[visParams.labelField];
       data.push(
         {
@@ -36,7 +36,7 @@ export function GanttChart({
           showlegend: false,
         } as PlotData,
         {
-          x: [duration],
+          x: [visParams.useDuration ? endTime : endTime - startTime],
           y: [label],
           type: 'bar',
           orientation: 'h',
@@ -52,7 +52,7 @@ export function GanttChart({
     <Fragment>
       {visParams.labelField &&
         visParams.startTimeField &&
-        visParams.durationField ? (
+        visParams.endTimeField ? (
           <Plot
             data={getGanttData()}
             style={{ width: '100%', height: '100%' }}
