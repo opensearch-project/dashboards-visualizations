@@ -46,6 +46,8 @@ export function GanttChart({
           orientation: 'h',
           width: 0.4,
           name: label,
+          text: [duration],
+          hovertemplate: '%{text:.2f}',
           ...rest,
         } as PlotData
       );

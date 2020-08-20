@@ -158,7 +158,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     xAxisShowGrid: true,
     yAxisShowGrid: false,
     useDefaultColors: false,
-    colors: '#367c74',
+    colors: '#2b6caf',
   };
 
   return {
