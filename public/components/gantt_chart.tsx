@@ -23,10 +23,8 @@ export function GanttChart({
 
     source.forEach(document => {
       const startTime: any = _.get(document, visParams.startTimeField);
-      const endTime: any = _.get(document, visParams.endTimeField);
+      const duration: any = _.get(document, visParams.durationField);
       const label: any = _.get(document, visParams.labelField);
-      const duration = visParams.useDuration ? endTime : Date.parse(endTime) - Date.parse(startTime);
-      // console.log(label, startTime, endTime, duration)
       const rest = visParams.useDefaultColors ? {} : { marker: { color: visParams.colors } };
       data.push(
         {
@@ -59,10 +57,11 @@ export function GanttChart({
     <Fragment>
       {visParams.labelField &&
         visParams.startTimeField &&
-        visParams.endTimeField ? (
+        visParams.durationField ? (
           <Plot
             data={getGanttData()}
             style={{ width: '100%', height: '100%' }}
+            config={{ displayModeBar: false }}
             layout={{
               autosize: true,
               barmode: 'stack',
@@ -91,7 +90,7 @@ export function GanttChart({
               },
               yaxis: {
                 side: visParams.yAxisPosition,
-                title: visParams.xAxisTitle,
+                title: visParams.yAxisTitle,
                 type: 'category',
                 visible: visParams.yAxisShow,
                 showticklabels: visParams.yAxisShowLabels,

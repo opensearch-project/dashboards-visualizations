@@ -51,12 +51,7 @@ export function GanttChartEditor({
       <EuiSpacer />
       {createFieldSelect('labelField', 'Label')}
       {createFieldSelect('startTimeField', 'Start time')}
-      {createFieldSelect('endTimeField', stateParams.useDuration ? 'Duration' : 'End time')}
-      {/* <EuiSwitch
-        label='Use "Duration" instead of "End time"'
-        checked={stateParams.useDuration}
-        onChange={(e) => setValue('useDuration', e.target.checked)}
-      /> */}
+      {createFieldSelect('durationField', 'Duration')}
     </>
   );
 }

@@ -26,7 +26,7 @@ export interface SearchResponse {
 export interface GanttParamsFields {
   labelField: string;
   startTimeField: string;
-  endTimeField: string;
+  durationField: string;
 };
 
 export type PlotlyAxisPosition = 'top' | 'left' | 'right' | 'bottom';
@@ -35,7 +35,6 @@ export type PlotlyLegendOrientation = 'v' | 'h';
 
 export interface GanttParamsOptions {
   size: number;
-  useDuration: boolean;
 
   yAxisPosition: PlotlyAxisPosition;
   yAxisShow: boolean;
@@ -137,10 +136,9 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
   const ganttParams: GanttParams = {
     labelField: '',
     startTimeField: '',
-    endTimeField: '',
+    durationField: '',
 
     size: 10,
-    useDuration: true,
 
     yAxisPosition: 'left',
     yAxisShow: true,
