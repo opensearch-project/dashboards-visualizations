@@ -93,19 +93,19 @@ const getGanttRequestHandler = ({
     visParams: VisParams;
     forceFetch?: boolean;
   }) => {
-    const timeZone = getTimezone(uiSettings);
-    const parsedTimeRange = calculateBounds(timeRange);
+    // const timeZone = getTimezone(uiSettings);
+    // const parsedTimeRange = calculateBounds(timeRange);
 
     const DSL = buildEsQuery(index, query, filters);
-    DSL.bool.must.push({
-      range: {
-        timestamp: {
-          gte: parsedTimeRange.min,
-          lte: parsedTimeRange.max,
-          time_zone: timeZone,
-        },
-      },
-    });
+    // DSL.bool.must.push({
+    //   range: {
+    //     timestamp: {
+    //       gte: parsedTimeRange.min,
+    //       lte: parsedTimeRange.max,
+    //       time_zone: timeZone,
+    //     },
+    //   },
+    // });
     const request = {
       index: index.title,
       size: visParams.size,
@@ -140,7 +140,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     endTimeField: '',
 
     size: 10,
-    useDuration: false,
+    useDuration: true,
 
     yAxisPosition: 'left',
     yAxisShow: true,
@@ -158,7 +158,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     xAxisShowGrid: true,
     yAxisShowGrid: false,
     useDefaultColors: false,
-    colors: '#2b6caf',
+    colors: '#6092C0',
   };
 
   return {
