@@ -20,9 +20,20 @@ export function GanttChart({
   const getGanttData = (): PlotData[] => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
+    if (source.length === 0)
+      return data;
 
-    source.forEach(document => {
-      const startTime: any = _.get(document, visParams.startTimeField);
+      // source is ordered by startTimeField, source[0] is the earliest trace and should start at 0
+    let minStartTime: any = _.get(source[0], visParams.startTimeField);
+    if (typeof minStartTime === 'string')
+      minStartTime = Date.parse(minStartTime)
+
+    source.reverse().forEach(document => {
+      let rawStartTime: any = _.get(document, visParams.startTimeField);
+      if (typeof rawStartTime === 'string')
+        rawStartTime = Date.parse(rawStartTime)
+      const startTime: any = rawStartTime - minStartTime;
+
       const duration: any = _.get(document, visParams.durationField);
       const label: any = _.get(document, visParams.labelField);
       const rest = visParams.useDefaultColors ? {} : { marker: { color: visParams.colors } };

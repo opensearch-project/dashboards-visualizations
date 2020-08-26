@@ -38,12 +38,11 @@ export function defineRoutes(router: IRouter) {
       },
     },
     async (context, request, response) => {
+      const { index, size, ...rest } = request.body;
       const params: RequestParams.Search = {
-        index: request.body.index,
-        size: request.body.size,
-        body: {
-          query: request.body.query,
-        },
+        index,
+        size,
+        ...rest,
       };
       const resp = await context.core.elasticsearch.dataClient.callAsInternalUser('search', params);
       return response.ok({

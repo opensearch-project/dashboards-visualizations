@@ -108,8 +108,17 @@ const getGanttRequestHandler = ({
     const request = {
       index: index.title,
       size: visParams.size,
-      query: DSL,
+      body: {
+        sort: [],
+        query: DSL,
+      }
     };
+    if (visParams.startTimeField)
+      request.body.sort.push({
+        [visParams.startTimeField]: {
+          "order": "asc"
+        }
+      });
     return await http.post('../api/gantt_vis/query', {
       body: JSON.stringify(request),
     });
@@ -146,7 +155,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     yAxisTitle: '',
     xAxisPosition: 'bottom',
 
-    xAxisType: '-',
+    xAxisType: 'linear',
     xAxisShow: true,
     xAxisShowLabels: true,
     xAxisTitle: '',
