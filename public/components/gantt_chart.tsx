@@ -22,21 +22,23 @@ export function GanttChart({
     const data: PlotData[] = [];
     if (source.length === 0)
       return data;
+      
+    const getStartTime = typeof _.get(source[0], visParams.startTimeField) === 'string' ?
+      (document: any): number => Date.parse(_.get(document, visParams.startTimeField)) :
+      (document: any): number => _.get(document, visParams.startTimeField);
 
-      // source is ordered by startTimeField, source[0] is the earliest trace and should start at 0
-    let minStartTime: any = _.get(source[0], visParams.startTimeField);
-    if (typeof minStartTime === 'string')
-      minStartTime = Date.parse(minStartTime)
+    // source is ordered by startTimeField desc, last trace is the earliest trace and should start at 0
+    const minStartTime: number = getStartTime(source[source.length - 1])
 
-    source.reverse().forEach(document => {
-      let rawStartTime: any = _.get(document, visParams.startTimeField);
-      if (typeof rawStartTime === 'string')
-        rawStartTime = Date.parse(rawStartTime)
-      const startTime: any = rawStartTime - minStartTime;
+    source.forEach(document => {
+      const rawStartTime: number = getStartTime(document);
+      const startTime: number = rawStartTime - minStartTime;
 
       const duration: any = _.get(document, visParams.durationField);
       const label: any = _.get(document, visParams.labelField);
-      const rest = visParams.useDefaultColors ? {} : { marker: { color: visParams.colors } };
+      const rest = visParams.useDefaultColors ? {} : {
+        marker: { color: visParams.colors }
+      };
       data.push(
         {
           x: [startTime],
@@ -56,59 +58,63 @@ export function GanttChart({
           width: 0.4,
           name: label,
           text: [duration],
-          hovertemplate: '%{text:.2f}',
+          hovertemplate: '%{text}<extra></extra>',
           ...rest,
         } as PlotData
       );
     });
     return data;
   };
+  
+  const ganttData = getGanttData();
 
   return (
     <Fragment>
       {visParams.labelField &&
         visParams.startTimeField &&
         visParams.durationField ? (
-          <Plot
-            data={getGanttData()}
-            style={{ width: '100%', height: '100%' }}
-            config={{ displayModeBar: false }}
-            layout={{
-              autosize: true,
-              barmode: 'stack',
-              // margin: {
-              //   l: 80,
-              //   r: 10,
-              //   b: 30,
-              //   t: 10,
-              //   pad: 4,
-              // },
-              margin: {
-                t: 30,
-              },
-              showlegend: visParams.showLegend,
-              legend: {
-                orientation: visParams.legendOrientation,
-                traceorder: 'normal',
-              },
-              xaxis: {
-                side: visParams.xAxisPosition,
-                title: visParams.xAxisTitle,
-                type: visParams.xAxisType,
-                visible: visParams.xAxisShow,
-                showticklabels: visParams.xAxisShowLabels,
-                showgrid: visParams.xAxisShowGrid,
-              },
-              yaxis: {
-                side: visParams.yAxisPosition,
-                title: visParams.yAxisTitle,
-                type: 'category',
-                visible: visParams.yAxisShow,
-                showticklabels: visParams.yAxisShowLabels,
-                showgrid: visParams.yAxisShowGrid,
-              },
-            }}
-          />
+            <Plot
+              data={ganttData}
+              style={{ width: '100%', height: '100%' }}
+              config={{ displayModeBar: false }}
+              layout={{
+                height: ganttData.length * 30,
+                autosize: true,
+                barmode: 'stack',
+                // margin: {
+                //   l: 80,
+                //   r: 10,
+                //   b: 30,
+                //   t: 10,
+                //   pad: 4,
+                // },
+                margin: {
+                  t: 30,
+                  l: 150,
+                },
+                showlegend: visParams.showLegend,
+                legend: {
+                  orientation: visParams.legendOrientation,
+                  traceorder: 'normal',
+                },
+                xaxis: {
+                  side: visParams.xAxisPosition,
+                  title: visParams.xAxisTitle,
+                  type: visParams.xAxisType,
+                  visible: visParams.xAxisShow,
+                  showticklabels: visParams.xAxisShowLabels,
+                  showgrid: visParams.xAxisShowGrid,
+                },
+                yaxis: {
+                  side: visParams.yAxisPosition,
+                  title: visParams.yAxisTitle,
+                  type: 'category',
+                  visible: visParams.yAxisShow,
+                  showticklabels: visParams.yAxisShowLabels,
+                  showgrid: visParams.yAxisShowGrid,
+                },
+              }}
+            />
         ) : null}
     </Fragment>
   );

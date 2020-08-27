@@ -116,7 +116,7 @@ const getGanttRequestHandler = ({
     if (visParams.startTimeField)
       request.body.sort.push({
         [visParams.startTimeField]: {
-          "order": "asc"
+          "order": "desc"
         }
       });
     return await http.post('../api/gantt_vis/query', {
