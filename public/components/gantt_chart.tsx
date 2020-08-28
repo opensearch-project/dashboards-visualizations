@@ -78,7 +78,7 @@ export function GanttChart({
               style={{ width: '100%', height: '100%' }}
               config={{ displayModeBar: false }}
               layout={{
-                height: ganttData.length * 30,
+                height: ganttData.length * 30 + 80,
                 autosize: true,
                 barmode: 'stack',
                 // margin: {
