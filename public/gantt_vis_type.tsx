@@ -1,13 +1,11 @@
-import { VisParams, Vis, PersistedState } from 'src/plugins/visualizations/public';
-import { IndexPattern, IAggConfigs } from 'src/plugins/data/public';
+import { Vis, PersistedState } from 'src/plugins/visualizations/public';
+import { IAggConfigs } from 'src/plugins/data/public';
 import { GanttChart } from './components/gantt_chart';
 import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttVisDependencies } from './plugin';
-import { buildEsQuery, TimeRange, Filter, Query } from '../../../src/plugins/data/common';
-import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
-import { calculateBounds } from '../../../src/plugins/data/public/query/timefilter/get_time';
 import { AxesEditor } from './components/axes_editor';
 import { PanelEditor } from './components/panel_editor';
+import { getGanttRequestHandler } from './gantt_request_handler';
 
 export interface SearchResponse {
   _index: string;
@@ -68,61 +66,9 @@ export interface VisOptionsProps<VisParamType = unknown> {
   setTouched(isTouched: boolean): void;
 }
 
-
 export interface GanttSuccessResponse {
   source: any[];
   total: number;
-};
-
-const getGanttRequestHandler = ({
-  uiSettings,
-  http
-}: GanttVisDependencies) => {
-  return async ({
-    timeRange,
-    filters,
-    query,
-    index,
-    visParams,
-  }: {
-    timeRange: TimeRange;
-    filters: Filter[];
-    query: Query;
-    index: IndexPattern;
-    visParams: VisParams;
-    forceFetch?: boolean;
-  }) => {
-    // const timeZone = getTimezone(uiSettings);
-    // const parsedTimeRange = calculateBounds(timeRange);
-
-    const DSL = buildEsQuery(index, query, filters);
-    // DSL.bool.must.push({
-    //   range: {
-    //     timestamp: {
-    //       gte: parsedTimeRange.min,
-    //       lte: parsedTimeRange.max,
-    //       time_zone: timeZone,
-    //     },
-    //   },
-    // });
-    const request = {
-      index: index.title,
-      size: visParams.size,
-      body: {
-        sort: [],
-        query: DSL,
-      }
-    };
-    if (visParams.startTimeField)
-      request.body.sort.push({
-        [visParams.startTimeField]: {
-          "order": "desc"
-        }
-      });
-    return await http.post('../api/gantt_vis/query', {
-      body: JSON.stringify(request),
-    });
-  };
 };
 
 const getGanttResponseHandler = () => async ({
