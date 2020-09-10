@@ -23,33 +23,6 @@ export function defineRoutes(router: IRouter) {
       path: '/api/gantt_vis/query',
       validate: {
         body: schema.any(),
-        // body: schema.object({
-        //   sheet: schema.arrayOf(schema.string()),
-        //   extended: schema.maybe(
-        //     schema.object({
-        //       es: schema.object({
-        //         filter: schema.object({
-        //           bool: schema.object({
-        //             filter: schema.maybe(schema.arrayOf(schema.object({}, { unknowns: 'allow' }))),
-        //             must: schema.maybe(schema.arrayOf(schema.object({}, { unknowns: 'allow' }))),
-        //             should: schema.maybe(schema.arrayOf(schema.object({}, { unknowns: 'allow' }))),
-        //             must_not: schema.maybe(
-        //               schema.arrayOf(schema.object({}, { unknowns: 'allow' }))
-        //             ),
-        //           }),
-        //         }),
-        //       }),
-        //     })
-        //   ),
-        //   time: schema.maybe(
-        //     schema.object({
-        //       from: schema.maybe(schema.string()),
-        //       interval: schema.string(),
-        //       timezone: schema.string(),
-        //       to: schema.maybe(schema.string()),
-        //     })
-        //   ),
-        // }),
       },
     },
     async (context, request, response) => {
@@ -59,13 +32,24 @@ export function defineRoutes(router: IRouter) {
         size,
         ...rest,
       };
-      const resp = await context.core.elasticsearch.dataClient.callAsInternalUser('search', params);
-      return response.ok({
-        body: {
-          total: resp.hits.total.value,
-          hits: resp.hits.hits,
-        },
-      });
+      try {
+        const resp = await context.core.elasticsearch.dataClient.callAsInternalUser(
+          'search',
+          params
+        );
+        return response.ok({
+          body: {
+            total: resp.hits.total.value,
+            hits: resp.hits.hits,
+          },
+        });
+      } catch (error) {
+        console.error(error);
+        return response.custom({
+          statusCode: error.statusCode || 500,
+          body: error.message,
+        });
+      }
     }
   );
 }

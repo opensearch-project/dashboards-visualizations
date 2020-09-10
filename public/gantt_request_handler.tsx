@@ -70,8 +70,10 @@ const constructRequest = (
 export const getGanttRequestHandler = ({ uiSettings, http }: GanttVisDependencies) => {
   return async (params: GanttRequestHandlerDeps) => {
     const request = constructRequest(uiSettings, params);
-    return await http.post('../api/gantt_vis/query', {
-      body: JSON.stringify(request),
-    });
+    return http
+      .post('../api/gantt_vis/query', {
+        body: JSON.stringify(request),
+      })
+      .catch((error) => console.error(error));
   };
 };
