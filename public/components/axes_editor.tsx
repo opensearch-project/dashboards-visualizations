@@ -1,24 +1,48 @@
-import { EuiFieldText, EuiFormRow, EuiHorizontalRule, EuiPanel, EuiSelect, EuiSpacer, EuiSwitch, EuiTitle } from '@elastic/eui';
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+import {
+  EuiFieldText,
+  EuiFormRow,
+  EuiHorizontalRule,
+  EuiPanel,
+  EuiSelect,
+  EuiSpacer,
+  EuiSwitch,
+  EuiTitle,
+} from '@elastic/eui';
 import React from 'react';
-import { GanttParams, PlotlyAxisPosition, PlotlyAxisType, VisOptionsProps } from '../gantt_vis_type';
+import {
+  GanttParams,
+  PlotlyAxisPosition,
+  PlotlyAxisType,
+  VisOptionsProps,
+} from '../gantt_vis_type';
 
-export function AxesEditor({
-  aggs,
-  stateParams,
-  setValue,
-}: VisOptionsProps<GanttParams>) {
-
-  const yAxisPositionOptions: { value: PlotlyAxisPosition; text: string }[] = [
+export function AxesEditor({ aggs, stateParams, setValue }: VisOptionsProps<GanttParams>) {
+  const yAxisPositionOptions: Array<{ value: PlotlyAxisPosition; text: string }> = [
     { value: 'left', text: 'Left' },
     { value: 'right', text: 'Right' },
   ];
 
-  const xAxisPositionOptions: { value: PlotlyAxisPosition; text: string }[] = [
+  const xAxisPositionOptions: Array<{ value: PlotlyAxisPosition; text: string }> = [
     { value: 'top', text: 'Top' },
     { value: 'bottom', text: 'Bottom' },
   ];
 
-  const axisTypeOptions: { value: PlotlyAxisType; text: string }[] = [
+  const axisTypeOptions: Array<{ value: PlotlyAxisType; text: string }> = [
     { value: '-', text: 'Auto' },
     { value: 'linear', text: 'Linear' },
     { value: 'log', text: 'Log' },
@@ -29,7 +53,9 @@ export function AxesEditor({
   const renderYAxisOptions = () => {
     return (
       <EuiPanel paddingSize="s">
-        <EuiTitle size="xs"><h3>Y-axis</h3></EuiTitle>
+        <EuiTitle size="xs">
+          <h3>Y-axis</h3>
+        </EuiTitle>
         <EuiSpacer size="s" />
 
         <EuiFormRow label="Position">
@@ -39,7 +65,7 @@ export function AxesEditor({
             onChange={(e) => setValue('yAxisPosition', e.target.value as PlotlyAxisPosition)}
           />
         </EuiFormRow>
-        <EuiHorizontalRule margin='m' />
+        <EuiHorizontalRule margin="m" />
 
         <EuiFormRow>
           <EuiSwitch
@@ -53,7 +79,7 @@ export function AxesEditor({
           <>
             <EuiFormRow label="Title">
               <EuiFieldText
-                placeholder='Title'
+                placeholder="Title"
                 value={stateParams.yAxisTitle}
                 onChange={(e) => setValue('yAxisTitle', e.target.value)}
               />
@@ -69,13 +95,15 @@ export function AxesEditor({
           </>
         ) : null}
       </EuiPanel>
-    )
+    );
   };
 
   const renderXAxisOptions = () => {
     return (
       <EuiPanel paddingSize="s">
-        <EuiTitle size="xs"><h3>X-axis</h3></EuiTitle>
+        <EuiTitle size="xs">
+          <h3>X-axis</h3>
+        </EuiTitle>
         <EuiSpacer size="s" />
 
         <EuiFormRow label="Position">
@@ -92,7 +120,7 @@ export function AxesEditor({
             onChange={(e) => setValue('xAxisType', e.target.value as PlotlyAxisType)}
           />
         </EuiFormRow>
-        <EuiHorizontalRule margin='m' />
+        <EuiHorizontalRule margin="m" />
 
         <EuiFormRow>
           <EuiSwitch
@@ -106,7 +134,7 @@ export function AxesEditor({
           <>
             <EuiFormRow label="Title">
               <EuiFieldText
-                placeholder='Title'
+                placeholder="Title"
                 value={stateParams.xAxisTitle}
                 onChange={(e) => setValue('xAxisTitle', e.target.value)}
               />
@@ -122,13 +150,13 @@ export function AxesEditor({
           </>
         ) : null}
       </EuiPanel>
-    )
-  }
+    );
+  };
 
   return (
     <>
       {renderYAxisOptions()}
-      <EuiSpacer size='s' />
+      <EuiSpacer size="s" />
       {renderXAxisOptions()}
     </>
   );

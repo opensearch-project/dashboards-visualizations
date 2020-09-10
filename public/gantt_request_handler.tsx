@@ -1,3 +1,18 @@
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
 import { IUiSettingsClient } from 'kibana/public';
 import { IndexPattern } from 'src/plugins/data/public';
 import { VisParams } from 'src/plugins/visualizations/public';
@@ -15,13 +30,10 @@ interface GanttRequestHandlerDeps {
   forceFetch?: boolean;
 }
 
-const constructRequest = (uiSettings: IUiSettingsClient, {
-  timeRange,
-  filters,
-  query,
-  index,
-  visParams,
-}: GanttRequestHandlerDeps) => {
+const constructRequest = (
+  uiSettings: IUiSettingsClient,
+  { timeRange, filters, query, index, visParams }: GanttRequestHandlerDeps
+) => {
   const DSL = buildEsQuery(index, query, filters);
   const request = {
     index: index.title,
@@ -29,7 +41,7 @@ const constructRequest = (uiSettings: IUiSettingsClient, {
     body: {
       sort: [] as any,
       query: DSL,
-    }
+    },
   };
 
   if (visParams.startTimeField) {
@@ -48,17 +60,14 @@ const constructRequest = (uiSettings: IUiSettingsClient, {
 
     request.body.sort.push({
       [visParams.startTimeField]: {
-        "order": "desc"
-      }
+        order: 'desc',
+      },
     });
   }
   return request;
-}
+};
 
-export const getGanttRequestHandler = ({
-  uiSettings,
-  http
-}: GanttVisDependencies) => {
+export const getGanttRequestHandler = ({ uiSettings, http }: GanttVisDependencies) => {
   return async (params: GanttRequestHandlerDeps) => {
     const request = constructRequest(uiSettings, params);
     return await http.post('../api/gantt_vis/query', {

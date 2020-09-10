@@ -1,13 +1,31 @@
-import { EuiFieldNumber, EuiFlexGroup, EuiFlexItem, EuiSpacer, EuiSuperSelect, EuiSwitch, EuiText } from '@elastic/eui';
+/*
+ * Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * You may not use this file except in compliance with the License.
+ * A copy of the License is located at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * or in the "license" file accompanying this file. This file is distributed
+ * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ */
+
+import {
+  EuiFieldNumber,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiSpacer,
+  EuiSuperSelect,
+  EuiText,
+} from '@elastic/eui';
 import React from 'react';
 import { Field } from 'src/plugins/data/public/index_patterns';
 import { GanttParams, GanttParamsFields, VisOptionsProps } from '../gantt_vis_type';
 
-export function GanttChartEditor({
-  aggs,
-  stateParams,
-  setValue,
-}: VisOptionsProps<GanttParams>) {
+export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProps<GanttParams>) {
   const fieldOptions = aggs.indexPattern.fields.map((field: Field) => {
     return {
       value: field.name,
@@ -18,7 +36,7 @@ export function GanttChartEditor({
   const createFieldSelect = (fieldName: keyof GanttParamsFields, displayName: string) => {
     return (
       <>
-        <EuiFlexGroup alignItems='center' gutterSize='none'>
+        <EuiFlexGroup alignItems="center" gutterSize="none">
           <EuiFlexItem grow={false} style={{ width: 80 }}>
             <EuiText>{displayName}</EuiText>
           </EuiFlexItem>
@@ -37,7 +55,7 @@ export function GanttChartEditor({
 
   return (
     <>
-      <EuiFlexGroup alignItems='center' gutterSize='none'>
+      <EuiFlexGroup alignItems="center" gutterSize="none">
         <EuiFlexItem grow={false} style={{ width: 80 }}>
           <EuiText>Size</EuiText>
         </EuiFlexItem>
