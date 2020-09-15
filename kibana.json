@@ -1,9 +1,11 @@
 {
   "id": "gantt_vis",
-  "version": "7.7.0",
-  "kibanaVersion": "kibana",
+  "version": "0.0.1",
+  "kibanaVersion": "7.9.1",
   "requiredPlugins": [
-    "visualizations"
+    "visualizations",
+    "data",
+    "visTypeTimeseries"
   ],
   "server": true,
   "ui": true
