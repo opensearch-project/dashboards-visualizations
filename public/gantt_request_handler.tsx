@@ -16,9 +16,7 @@
 import { IUiSettingsClient } from 'kibana/public';
 import { IndexPattern } from 'src/plugins/data/public';
 import { VisParams } from 'src/plugins/visualizations/public';
-import { buildEsQuery, Filter, Query, TimeRange } from '../../../src/plugins/data/common';
-// import { calculateBounds } from '../../../src/plugins/data/public/query/timefilter/get_time';
-// import { getTimezone } from '../../../src/plugins/vis_type_timeseries/public/application/lib/get_timezone';
+import { buildEsQuery, Filter, Query, TimeRange, getTime } from '../../../src/plugins/data/common';
 import { GanttVisDependencies } from './plugin';
 
 interface GanttRequestHandlerDeps {
@@ -44,20 +42,14 @@ const constructRequest = (
     },
   };
 
+  const timeFilter = getTime(index, timeRange);
+  if (timeFilter && timeFilter.range) {
+    request.body.query.bool.must.push({
+      range: timeFilter.range,
+    });
+  }
+
   if (visParams.startTimeField) {
-    // const timeZone = getTimezone(uiSettings);
-    // const parsedTimeRange = calculateBounds(timeRange);
-
-    // request.body.query.bool.must.push({
-    //   range: {
-    //     timestamp: {
-    //       gte: parsedTimeRange.min,
-    //       lte: parsedTimeRange.max,
-    //       time_zone: timeZone,
-    //     },
-    //   },
-    // });
-
     request.body.sort.push({
       [visParams.startTimeField]: {
         order: 'desc',

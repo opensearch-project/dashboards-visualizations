@@ -4,8 +4,7 @@
   "kibanaVersion": "7.9.1",
   "requiredPlugins": [
     "visualizations",
-    "data",
-    "visTypeTimeseries"
+    "data"
   ],
   "server": true,
   "ui": true
