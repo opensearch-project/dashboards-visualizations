@@ -14,9 +14,11 @@
  */
 
 import _ from 'lodash';
+import moment from 'moment';
 import { PlotData } from 'plotly.js';
 import React, { Fragment } from 'react';
 import Plot from 'react-plotly.js';
+import { EuiEmptyPrompt, EuiText } from '@elastic/eui';
 import { UiSettingsClient } from 'src/core/public/ui_settings';
 import { ExprVis } from 'src/plugins/visualizations/public';
 import { GanttParams, GanttSuccessResponse } from '../gantt_vis_type';
@@ -32,30 +34,28 @@ export function GanttChart({
   visData: GanttSuccessResponse;
   visParams: GanttParams;
 }) {
-  const getGanttData = (): PlotData[] => {
+  const getGanttData = (): { data: PlotData[], tickvals: number[], ticktext: string[] } => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
-    if (source.length === 0) return data;
+    if (source.length === 0) return { data, tickvals: [], ticktext: [] };
 
     const getStartTime =
       typeof _.get(source[0], visParams.startTimeField) === 'string'
         ? (document: any): number => Date.parse(_.get(document, visParams.startTimeField))
         : (document: any): number => _.get(document, visParams.startTimeField);
 
-    // source is ordered by startTimeField desc, last trace is the earliest trace and should start at 0
+    // source is ordered by startTimeField desc, last trace in source is the earliest trace and should start at 0
     const minStartTime: number = getStartTime(source[source.length - 1]);
+    let maxEndTime: number = 0;
 
     source.forEach((document) => {
       const rawStartTime: number = getStartTime(document);
+      // subtract with start time of earliest trace to get relative start time
       const startTime: number = rawStartTime - minStartTime;
+      const duration: number = _.get(document, visParams.durationField);
+      maxEndTime = Math.max(maxEndTime, rawStartTime + duration);
 
-      const duration: any = _.get(document, visParams.durationField);
-      const label: any = _.get(document, visParams.labelField);
-      const rest = visParams.useDefaultColors
-        ? {}
-        : {
-            marker: { color: visParams.colors },
-          };
+      const label: string = _.get(document, visParams.labelField);
       data.push(
         {
           x: [startTime],
@@ -74,63 +74,99 @@ export function GanttChart({
           orientation: 'h',
           width: 0.4,
           name: label,
-          text: [duration],
+          text: [duration && duration.toString()],
           hovertemplate: '%{text}<extra></extra>',
-          ...rest,
+          marker: {
+            color: visParams.colors,
+          },
         } as PlotData
       );
     });
-    return data;
+
+    return { data, ...getTicks(minStartTime, maxEndTime) };
+  };
+
+  const getTicks = (minStartTime: number, maxEndTime: number) => {
+    const ticks = 5;
+    const interval = Math.round((maxEndTime - minStartTime) / ticks);
+    const tickvals = Array.from({ length: ticks }, (v, i: number) => interval * i);
+    const ticktext = tickvals.map((val: number) => toTimeString(val + minStartTime));
+    return { tickvals, ticktext };
+  };
+
+  const toTimeString = (val: number) => {
+    let divisor = 1;
+    const valStr = Math.floor(val).toString();
+    if (valStr.length <= 10)  // unit is seconds
+      divisor = 0.001;
+    else if (valStr.length <= 13)  // unit is milliseconds
+      divisor = 1;
+    else if (valStr.length <= 16)  // unit is microseconds
+      divisor = 1000
+    else if (valStr.length <= 19)  // unit is nanoseconds
+      divisor = 1000 * 1000;
+    return moment(val / divisor).format(visParams.timeFormat);
   };
 
   const ganttData = getGanttData();
 
   return (
     <Fragment>
-      {visParams.labelField && visParams.startTimeField && visParams.durationField ? (
+      {visParams.labelField && visParams.startTimeField && visParams.durationField && ganttData.data.length > 0 ? (
         <Plot
-          data={ganttData}
+          data={ganttData.data}
           style={{ width: '100%', height: '100%' }}
           config={{ displayModeBar: false }}
           layout={{
-            height: ganttData.length * 30 + 80,
+            height: ganttData.data.length * 30 + 80,
             autosize: true,
             barmode: 'stack',
-            // margin: {
-            //   l: 80,
-            //   r: 10,
-            //   b: 30,
-            //   t: 10,
-            //   pad: 4,
-            // },
             margin: {
-              t: 30,
-              l: 150,
+              t: visParams.xAxisPosition === 'top' ? 80 : 30,
+              b: visParams.xAxisPosition === 'bottom' ? 80 : 30,
+              l: visParams.yAxisPosition === 'left' ? 150 : 30,
+              r: visParams.yAxisPosition === 'right' ? 150 + (visParams.legendOrientation === 'v' ? 150 : 0) : 30,
             },
             showlegend: visParams.showLegend,
             legend: {
               orientation: visParams.legendOrientation,
+              x: visParams.legendOrientation === 'h' ? 0 : visParams.yAxisPosition === 'right' ? 1.23 : 1.02,
               traceorder: 'normal',
             },
             xaxis: {
               side: visParams.xAxisPosition,
-              title: visParams.xAxisTitle,
+              title: visParams.xAxisShowTitle ? visParams.xAxisTitle : '',
               type: visParams.xAxisType,
-              visible: visParams.xAxisShow,
-              showticklabels: visParams.xAxisShowLabels,
+              showticklabels: visParams.xAxisShow,
               showgrid: visParams.xAxisShowGrid,
+              showline: visParams.xAxisShowLine,
+              zeroline: false,
+              tickmode: "array",
+              tickvals: ganttData.tickvals,
+              ticktext: ganttData.ticktext,
             },
             yaxis: {
               side: visParams.yAxisPosition,
-              title: visParams.yAxisTitle,
+              title: visParams.yAxisShowTitle ? visParams.yAxisTitle : '',
+              showline: visParams.yAxisShowLine,
               type: 'category',
-              visible: visParams.yAxisShow,
-              showticklabels: visParams.yAxisShowLabels,
+              showticklabels: visParams.yAxisShow,
               showgrid: visParams.yAxisShowGrid,
             },
           }}
         />
-      ) : null}
+      ) : (
+          visParams.labelField && visParams.startTimeField && visParams.durationField ?
+            (<EuiEmptyPrompt
+              title={<h2>No data</h2>}
+              body={<EuiText>No data matching the selected filter.</EuiText>}
+            />
+            ) : (
+              <EuiEmptyPrompt
+                title={<h2>No data</h2>}
+                body={<EuiText>Specify data to plot the chart using the Data & Options panel<br />on the right.</EuiText>}
+              />
+            ))}
     </Fragment>
   );
 }

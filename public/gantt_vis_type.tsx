@@ -18,8 +18,7 @@ import { IAggConfigs } from 'src/plugins/data/public';
 import { GanttChart } from './components/gantt_chart';
 import { GanttChartEditor } from './components/gantt_chart_editor';
 import { GanttVisDependencies } from './plugin';
-import { AxesEditor } from './components/axes_editor';
-import { PanelEditor } from './components/panel_editor';
+import { OptionsEditor } from './components/options_editor';
 import { getGanttRequestHandler } from './gantt_request_handler';
 
 export interface SearchResponse {
@@ -43,28 +42,30 @@ export interface GanttParamsFields {
 }
 
 export type PlotlyAxisPosition = 'top' | 'left' | 'right' | 'bottom';
-export type PlotlyAxisType = '-' | 'linear' | 'log' | 'date' | 'category';
+export type PlotlyAxisType = '-' | 'linear' | 'log';
 export type PlotlyLegendOrientation = 'v' | 'h';
 
 export interface GanttParamsOptions {
   size: number;
+  timeFormat: string;
 
   yAxisPosition: PlotlyAxisPosition;
   yAxisShow: boolean;
-  yAxisShowLabels: boolean;
+  yAxisShowLine: boolean;
+  yAxisShowTitle: boolean;
   yAxisTitle: string;
 
   xAxisPosition: PlotlyAxisPosition;
   xAxisType: PlotlyAxisType;
   xAxisShow: boolean;
-  xAxisShowLabels: boolean;
+  xAxisShowLine: boolean;
+  xAxisShowTitle: boolean;
   xAxisTitle: string;
 
   legendOrientation: PlotlyLegendOrientation;
   showLegend: boolean;
   yAxisShowGrid: boolean;
   xAxisShowGrid: boolean;
-  useDefaultColors: boolean;
   colors: string;
 }
 
@@ -109,23 +110,25 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     durationField: '',
 
     size: 10,
+    timeFormat: 'hh:mm:ss.SSS A',
 
     yAxisPosition: 'left',
     yAxisShow: true,
-    yAxisShowLabels: true,
+    yAxisShowLine: true,
+    yAxisShowTitle: true,
     yAxisTitle: '',
-    xAxisPosition: 'bottom',
 
+    xAxisPosition: 'bottom',
     xAxisType: 'linear',
     xAxisShow: true,
-    xAxisShowLabels: true,
+    xAxisShowLine: true,
+    xAxisShowTitle: true,
     xAxisTitle: '',
 
     legendOrientation: 'v',
     showLegend: true,
     xAxisShowGrid: true,
     yAxisShowGrid: false,
-    useDefaultColors: false,
     colors: '#6092C0',
   };
 
@@ -141,8 +144,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     editorConfig: {
       optionTabs: [
         { name: 'gantt_chart_editor', title: 'Data', editor: GanttChartEditor },
-        { name: 'axes_editor', title: 'Axes', editor: AxesEditor },
-        { name: 'panel_editor', title: 'Panel Settings', editor: PanelEditor },
+        { name: 'options_editor', title: 'Options', editor: OptionsEditor },
       ],
     },
     requestHandler: ganttRequestHandler,
