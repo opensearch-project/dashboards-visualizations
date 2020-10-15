@@ -1,6 +1,6 @@
 {
   "name": "gantt_vis",
-  "version": "0.0.1",
+  "version": "1.11.0.0",
   "kibana": {
     "version": "7.9.1",
     "templateVersion": "1.0.0"

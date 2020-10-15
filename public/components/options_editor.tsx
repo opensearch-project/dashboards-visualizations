@@ -125,9 +125,12 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
   ];
 
   const timeFormatOptions: Array<{ value: string; text: string }> = [
-    { value: 'hh:mm:ss.SSS A', text: 'hh:mm:ss.SSS A' },
-    { value: 'MM/DD hh:mm:ss A', text: 'MM/DD hh:mm:ss A' },
-    { value: 'MM/DD/YY hh:mm A', text: 'MM/DD/YY hh:mm A' },
+    { value: 'hh:mm:ss.SSS A', text: 'hh:mm:ss.SSS (12 hours)' },
+    { value: 'MM/DD hh:mm:ss A', text: 'MM/DD hh:mm:ss (12 hours)' },
+    { value: 'MM/DD/YY hh:mm A', text: 'MM/DD/YY hh:mm (12 hours)' },
+    { value: 'HH:mm:ss.SSS', text: 'hh:mm:ss.SSS (24 hours)' },
+    { value: 'MM/DD HH:mm:ss', text: 'MM/DD hh:mm:ss (24 hours)' },
+    { value: 'MM/DD/YY HH:mm', text: 'MM/DD/YY hh:mm (24 hours)' },
   ];
 
   const renderYAxisOptions = () => {
@@ -148,7 +151,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow>
           <EuiSwitch
-            label="Show Y-axis lines"
+            label="Show Y-axis line"
             checked={stateParams.yAxisShowLine}
             onChange={(e) => setValue('yAxisShowLine', e.target.checked)}
           />
@@ -206,7 +209,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow>
           <EuiSwitch
-            label="Show X-axis lines"
+            label="Show X-axis line"
             checked={stateParams.xAxisShowLine}
             onChange={(e) => setValue('xAxisShowLine', e.target.checked)}
           />

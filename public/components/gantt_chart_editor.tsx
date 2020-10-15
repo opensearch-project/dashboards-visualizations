@@ -43,21 +43,21 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           <h3>Metrics</h3>
         </EuiTitle>
         <EuiSpacer size="s" />
-        <EuiFormRow label="Y-axis field" helpText="Gantt chart allows you to compare schedules of the selected field.">
+        <EuiFormRow label="Event" helpText="Gantt chart allows you to compare schedules of the selected field.">
           <EuiSuperSelect
             options={fieldOptions}
             valueOfSelected={stateParams.labelField || 'select'}
             onChange={(value) => setValue('labelField', value)}
           />
         </EuiFormRow>
-        <EuiFormRow label="X-axis field" helpText="Select a timestamp field to represent the beginning of aschedule.">
+        <EuiFormRow label="Start time" helpText="Select a timestamp field to represent the beginning of a schedule.">
           <EuiSuperSelect
             options={fieldOptions}
             valueOfSelected={stateParams.startTimeField}
             onChange={(value) => setValue('startTimeField', value)}
           />
         </EuiFormRow>
-        <EuiFormRow label="Schedule duration" helpText="Value of duration field must be a time interval that can be added to the start timestamp field.">
+        <EuiFormRow label="Duration" helpText="Value of duration field must be a time interval that can be added to the start timestamp field.">
           <EuiSuperSelect
             options={fieldOptions}
             valueOfSelected={stateParams.durationField}

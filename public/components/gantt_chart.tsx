@@ -149,6 +149,7 @@ export function GanttChart({
               side: visParams.yAxisPosition,
               title: visParams.yAxisShowTitle ? visParams.yAxisTitle : '',
               showline: visParams.yAxisShowLine,
+              zeroline: false,
               type: 'category',
               showticklabels: visParams.yAxisShow,
               showgrid: visParams.yAxisShowGrid,

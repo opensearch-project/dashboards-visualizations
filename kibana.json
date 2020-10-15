@@ -1,6 +1,6 @@
 {
   "id": "gantt_vis",
-  "version": "0.0.1",
+  "version": "1.11.0.0",
   "kibanaVersion": "7.9.1",
   "requiredPlugins": [
     "visualizations",

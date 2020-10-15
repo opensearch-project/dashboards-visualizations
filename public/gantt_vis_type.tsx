@@ -144,7 +144,7 @@ export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
     editorConfig: {
       optionTabs: [
         { name: 'gantt_chart_editor', title: 'Data', editor: GanttChartEditor },
-        { name: 'options_editor', title: 'Options', editor: OptionsEditor },
+        { name: 'options_editor', title: 'Panel settings', editor: OptionsEditor },
       ],
     },
     requestHandler: ganttRequestHandler,
