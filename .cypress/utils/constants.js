@@ -13,7 +13,7 @@
  *   permissions and limitations under the License.
  */
 
-export const delay = 400;
+export const delay = 1000;
 export const GANTT_VIS_NAME = 'A test gantt chart ' + Math.random().toString(36).substring(2);
 export const Y_LABEL = 'A unique label for Y-axis';
 export const X_LABEL = 'A unique label for X-axis';

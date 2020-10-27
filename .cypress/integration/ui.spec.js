@@ -15,9 +15,9 @@
 
 /// <reference types="cypress" />
 
-import { delay, GANTT_VIS_NAME, Y_LABEL, X_LABEL, DEFAULT_SIZE } from "../utils/constants";
+import { delay, GANTT_VIS_NAME, Y_LABEL, X_LABEL, DEFAULT_SIZE } from '../utils/constants';
 
-describe.skip('Create sample index pattern', () => {
+describe('Create sample index pattern', () => {
   it('Creates sample index pattern', () => {
     cy.visit('app/management/kibana/indexPatterns/create');
     cy.get('[data-test-subj="createIndexPatternNameInput"]').type('jaeger{del}');
@@ -40,7 +40,9 @@ describe('Save a gantt chart', () => {
     cy.wait(delay * 3);
     cy.get('span[data-test-subj="visTypeTitle"]').contains('Gantt Chart').click();
     cy.wait(delay * 3);
-    cy.get('.euiListGroupItem__label').contains(/^jaeger$/).click();
+    cy.get('.euiListGroupItem__label')
+      .contains(/^jaeger$/)
+      .click();
     cy.wait(delay * 3);
     cy.get('.euiButton__text').contains('Save').click();
     cy.wait(delay);
@@ -68,15 +70,21 @@ describe('Render and configure a gantt chart', () => {
   it('Renders the chart', () => {
     cy.get('button.euiSuperSelectControl').eq(0).click();
     cy.wait(delay);
-    cy.get('.euiContextMenuItem__text').contains(/^spanID$/).click();
+    cy.get('.euiContextMenuItem__text')
+      .contains(/^spanID$/)
+      .click();
     cy.wait(delay);
     cy.get('button.euiSuperSelectControl').eq(1).click();
     cy.wait(delay);
-    cy.get('.euiContextMenuItem__text').contains(/^startTime$/).click();
+    cy.get('.euiContextMenuItem__text')
+      .contains(/^startTime$/)
+      .click();
     cy.wait(delay);
     cy.get('button.euiSuperSelectControl').eq(2).click();
     cy.wait(delay);
-    cy.get('.euiContextMenuItem__text').contains(/^duration$/).click();
+    cy.get('.euiContextMenuItem__text')
+      .contains(/^duration$/)
+      .click();
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click();
     cy.wait(delay);
@@ -173,7 +181,7 @@ describe('Configure panel settings', () => {
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click();
     cy.wait(delay);
-    
+
     cy.get('g.traces').should('not.exist');
   });
 });
@@ -182,14 +190,14 @@ describe('Add gantt chart to dashboard', () => {
   it('Adds gantt chart to dashboard', () => {
     cy.visit('app/dashboards#/create');
     cy.wait(delay * 5);
-    
+
     cy.get('.euiLink').contains('Add an existing').click();
     cy.wait(delay);
     cy.get('input[data-test-subj="savedObjectFinderSearchInput"]').focus().type(GANTT_VIS_NAME);
     cy.wait(delay);
     cy.get(`.euiListGroupItem__label[title="${GANTT_VIS_NAME}"]`).click();
     cy.wait(delay);
-    
+
     cy.get('g.traces').should('have.length', DEFAULT_SIZE);
   });
 });
