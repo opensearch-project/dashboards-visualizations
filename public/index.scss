@@ -12,16 +12,8 @@
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
-import './index.scss';
 
-import { PluginInitializer } from 'kibana/public';
-import {
-  CustomVisualizationsPublicPlugin,
-  CustomVisualizationsSetup,
-  CustomVisualizationsStart,
-} from './plugin';
-
-export { CustomVisualizationsPublicPlugin as Plugin };
-
-export const plugin: PluginInitializer<CustomVisualizationsSetup, CustomVisualizationsStart> = () =>
-  new CustomVisualizationsPublicPlugin();
+.embPanel__content[data-loading][data-type=plotlyGanttChart] {
+  pointer-events: auto;
+  filter: none;
+}

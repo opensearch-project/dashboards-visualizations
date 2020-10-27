@@ -16,7 +16,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import { PlotData } from 'plotly.js';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import { EuiEmptyPrompt, EuiText } from '@elastic/eui';
 import { UiSettingsClient } from 'src/core/public/ui_settings';
@@ -109,11 +109,27 @@ export function GanttChart({
   };
 
   const ganttData = getGanttData();
+  
+  // workaround to disable 'data-loading' filter effects
+  useEffect(() => {
+    let node = document.querySelector('#plotly-gantt-chart');
+    while (node?.tagName !== 'HTML') {
+      if (node?.className.includes('visEditor')) {
+        break;
+      }
+      if (node?.getAttribute('data-loading')) {
+        node.setAttribute('data-type', 'plotlyGanttChart')
+        break;
+      }
+      node = node.parentNode;
+    }
+  }, []);
 
   return (
-    <Fragment>
+    <>
       {visParams.labelField && visParams.startTimeField && visParams.durationField && ganttData.data.length > 0 ? (
         <Plot
+          divId="plotly-gantt-chart"
           data={ganttData.data}
           style={{ width: '100%', height: '100%' }}
           config={{ displayModeBar: false }}
@@ -168,6 +184,6 @@ export function GanttChart({
                 body={<EuiText>Specify data to plot the chart using the Data & Options panel<br />on the right.</EuiText>}
               />
             ))}
-    </Fragment>
+    </>
   );
 }
