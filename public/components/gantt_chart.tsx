@@ -22,6 +22,7 @@ import { EuiEmptyPrompt, EuiText } from '@elastic/eui';
 import { UiSettingsClient } from 'src/core/public/ui_settings';
 import { ExprVis } from 'src/plugins/visualizations/public';
 import { GanttParams, GanttSuccessResponse } from '../gantt_vis_type';
+import { v1 as uuid } from 'uuid';
 
 export function GanttChart({
   config,
@@ -34,7 +35,7 @@ export function GanttChart({
   visData: GanttSuccessResponse;
   visParams: GanttParams;
 }) {
-  const getGanttData = (): { data: PlotData[], tickvals: number[], ticktext: string[] } => {
+  const getGanttData = (): { data: PlotData[], tickvals: number[], ticktext: string[], yLabels: string[], yTexts: string[] } => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
     if (source.length === 0) return { data, tickvals: [], ticktext: [] };
@@ -56,10 +57,11 @@ export function GanttChart({
       maxEndTime = Math.max(maxEndTime, rawStartTime + duration);
 
       const label: string = _.get(document, visParams.labelField);
+      const uniqueLabel: string = label + uuid();
       data.push(
         {
           x: [startTime],
-          y: [label],
+          y: [uniqueLabel],
           type: 'bar',
           orientation: 'h',
           width: 0.4,
@@ -69,11 +71,11 @@ export function GanttChart({
         } as PlotData,
         {
           x: [duration],
-          y: [label],
+          y: [uniqueLabel],
           type: 'bar',
           orientation: 'h',
           width: 0.4,
-          name: label,
+          name: label || 'undefined',
           text: [duration && duration.toString()],
           hovertemplate: '%{text}<extra></extra>',
           marker: {
@@ -83,7 +85,11 @@ export function GanttChart({
       );
     });
 
-    return { data, ...getTicks(minStartTime, maxEndTime) };
+    // get unique labels from traces
+    const yLabels = data.map((d) => d.y[0]).filter((label, i, self) => self.indexOf(label) === i);
+    // remove uuid when displaying y-ticks
+    const yTexts = yLabels.map((label) => label.substring(0, label.length - 36));
+    return { data, ...getTicks(minStartTime, maxEndTime), yLabels, yTexts };
   };
 
   const getTicks = (minStartTime: number, maxEndTime: number) => {
@@ -169,6 +175,8 @@ export function GanttChart({
               type: 'category',
               showticklabels: visParams.yAxisShow,
               showgrid: visParams.yAxisShowGrid,
+              tickvals: ganttData.yLabels,
+              ticktext: ganttData.yTexts,
             },
           }}
         />
