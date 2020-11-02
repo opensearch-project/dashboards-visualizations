@@ -119,7 +119,7 @@ export function GanttChart({
   // workaround to disable 'data-loading' filter effects
   useEffect(() => {
     let node = document.querySelector('#plotly-gantt-chart');
-    while (node?.tagName !== 'HTML') {
+    while (node && node?.tagName !== 'HTML') {
       if (node?.className.includes('visEditor')) {
         break;
       }
@@ -127,7 +127,7 @@ export function GanttChart({
         node.setAttribute('data-type', 'plotlyGanttChart')
         break;
       }
-      node = node.parentNode;
+      node = node?.parentNode;
     }
   }, []);
 
