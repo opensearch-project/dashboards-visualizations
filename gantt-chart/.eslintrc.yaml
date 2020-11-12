@@ -4,6 +4,6 @@ extends: '@elastic/kibana'
 settings:
   import/resolver:
     '@kbn/eslint-import-resolver-kibana':
-      rootPackageName: 'gantt_vis'
+      rootPackageName: 'gantt-chart'
       pluginPaths:
         - .

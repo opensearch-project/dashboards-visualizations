@@ -38,7 +38,7 @@ export function GanttChart({
   const getGanttData = (): { data: PlotData[], tickvals: number[], ticktext: string[], yLabels: string[], yTexts: string[] } => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
-    if (source.length === 0) return { data, tickvals: [], ticktext: [] };
+    if (source.length === 0) return { data, tickvals: [], ticktext: [], yLabels: [], yTexts: [] };
 
     const getStartTime =
       typeof _.get(source[0], visParams.startTimeField) === 'string'
