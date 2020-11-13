@@ -1,0 +1,11 @@
+{
+  "id": "opendistroGanttChartKibana",
+  "version": "1.11.0.0",
+  "kibanaVersion": "7.9.1",
+  "requiredPlugins": [
+    "visualizations",
+    "data"
+  ],
+  "server": true,
+  "ui": true
+}
