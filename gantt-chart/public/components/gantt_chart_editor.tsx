@@ -25,8 +25,8 @@ import {
   EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
-import { Field } from 'src/plugins/data/public/index_patterns';
 import { GanttParams, GanttParamsFields, VisOptionsProps } from '../gantt_vis_type';
+import { Field } from 'src/plugins/dashboard/public/types';
 
 export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProps<GanttParams>) {
   const fieldOptions = aggs.indexPattern.fields.map((field: Field) => {

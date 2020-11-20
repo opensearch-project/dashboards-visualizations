@@ -1,0 +1,45 @@
+
+name: Test and Build Gantt Chart
+
+on: [pull_request, push]
+
+env:
+  PLUGIN_NAME: opendistroGanttChartKibana
+  OD_VERSION: 1.12.0.0
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Plugin
+        uses: actions/checkout@v1
+      - name: Checkout Kibana
+        uses: actions/checkout@v1
+        with:
+          repository: elastic/kibana
+          ref: v7.10.0
+          path: kibana-visualizations/kibana
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.22.1'
+      - name: Move Gantt Chart to Plugins Dir
+        run: |
+          mv gantt-chart kibana/plugins
+      - name: Kibana Plugin Bootstrap
+        run: |
+          cd kibana/plugins/gantt-chart
+          yarn kbn bootstrap
+      - name: Build Artifact
+        run: |
+          cd kibana/plugins/gantt-chart
+          yarn build
+          mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OD_VERSION }}.zip
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: gantt-chart
+          path: kibana/plugins/gantt-chart/build

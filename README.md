@@ -19,7 +19,9 @@ Please see our technical [documentation](https://opendistro.github.io/for-elasti
 1. cd into the Kibana source code directory.
 1. Check out this package from version control into the `plugins` directory.
 ```
+rm plugins -r
 git clone git@github.com:opendistro-for-elasticsearch/kibana-visualizations.git plugins --no-checkout
+cd plugins
 echo 'gantt-chart/*' >> .git/info/sparse-checkout
 git config core.sparseCheckout true
 git checkout main
@@ -40,7 +42,7 @@ Ultimately, your directory structure should look like this:
 
 To build the plugin's distributable zip simply run `yarn build`.
 
-Example output: `./build/opendistro-gantt-chart-kibana-*.zip`
+Example output: `./build/opendistroGanttChartKibana-*.zip`
 
 
 ## Run
