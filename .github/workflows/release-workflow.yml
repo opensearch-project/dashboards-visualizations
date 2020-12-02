@@ -25,6 +25,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: Checkout Plugin
+        uses: actions/checkout@v1
+
       - name: Checkout Kibana
         uses: actions/checkout@v1
         with:
@@ -32,9 +35,6 @@ jobs:
           ref: 7.10.0
           token: ${{secrets.OD_ACCESS}}
           path: kibana-visualizations/kibana
-
-      - name: Checkout Plugin
-        uses: actions/checkout@v1
 
       - name: Setup Node
         uses: actions/setup-node@v1
