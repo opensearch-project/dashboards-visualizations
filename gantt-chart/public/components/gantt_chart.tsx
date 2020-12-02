@@ -15,9 +15,9 @@
 
 import _ from 'lodash';
 import moment from 'moment';
-import { PlotData } from 'plotly.js';
 import React, { Fragment, useEffect } from 'react';
-import Plot from 'react-plotly.js';
+import plotComponentFactory from "react-plotly.js/factory";
+import Plotly, { PlotData } from "plotly.js-dist";
 import { EuiEmptyPrompt, EuiText } from '@elastic/eui';
 import { UiSettingsClient } from 'src/core/public/ui_settings';
 import { ExprVis } from 'src/plugins/visualizations/public';
@@ -35,6 +35,8 @@ export function GanttChart({
   visData: GanttSuccessResponse;
   visParams: GanttParams;
 }) {
+  const PlotComponent = plotComponentFactory(Plotly);
+
   const getGanttData = (): { data: PlotData[], tickvals: number[], ticktext: string[], yLabels: string[], yTexts: string[] } => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
@@ -134,7 +136,7 @@ export function GanttChart({
   return (
     <>
       {visParams.labelField && visParams.startTimeField && visParams.durationField && ganttData.data.length > 0 ? (
-        <Plot
+        <PlotComponent
           divId="plotly-gantt-chart"
           data={ganttData.data}
           style={{ width: '100%', height: '100%' }}

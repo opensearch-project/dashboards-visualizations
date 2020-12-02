@@ -14,12 +14,12 @@
     "test:cypress": "cypress run"
   },
   "dependencies": {
-    "plotly.js": "^1.54.1",
+    "plotly.js-dist": "^1.57.1",
     "react-plotly.js": "^2.4.0"
   },
   "devDependencies": {
-    "cypress": "^5.0.0",
     "@types/react-plotly.js": "^2.2.4",
+    "cypress": "^5.0.0",
     "eslint": "^6.8.0"
   },
   "engines": {
