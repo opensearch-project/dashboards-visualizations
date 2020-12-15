@@ -129,37 +129,37 @@ describe('Configure panel settings', () => {
   });
 
   it('Changes time formats', () => {
-    cy.get('g.xtick > text').contains('01:15:36.424 PM').should('exist');
+    cy.get('g.xtick > text').contains('12:59:07.303 PM').should('exist');
 
     cy.get('select').eq(3).select('MM/DD hh:mm:ss A');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
     cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28 01:15:36 PM').should('exist');
+    cy.get('g.xtick > text').contains('05/28 12:59:07 PM').should('exist');
 
     cy.get('select').eq(3).select('MM/DD/YY hh:mm A');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
     cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28/20 01:15 PM').should('exist');
+    cy.get('g.xtick > text').contains('05/28/20 12:59 PM').should('exist');
 
     cy.get('select').eq(3).select('HH:mm:ss.SSS');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
     cy.wait(delay);
-    cy.get('g.xtick > text').contains('13:15:36.424').should('exist');
+    cy.get('g.xtick > text').contains('12:59:07.303').should('exist');
 
     cy.get('select').eq(3).select('MM/DD HH:mm:ss');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
     cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28 13:15:36').should('exist');
+    cy.get('g.xtick > text').contains('05/28 12:59:07').should('exist');
 
     cy.get('select').eq(3).select('MM/DD/YY HH:mm');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
     cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28/20 13:15').should('exist');
+    cy.get('g.xtick > text').contains('05/28/20 12:59').should('exist');
   });
 
   it('Hides legends', () => {
