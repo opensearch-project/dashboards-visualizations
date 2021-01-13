@@ -24,7 +24,7 @@ describe('Save a gantt chart', () => {
   });
 
   it('Creates and saves a gantt chart', () => {
-    cy.get('.euiButton__text').contains('Create visualization').click({ force: true });
+    cy.get('.euiButton__text').contains('Create ').click({ force: true });
     cy.wait(delay * 3);
     cy.get('span[data-test-subj="visTypeTitle"]').contains('Gantt Chart').click({ force: true });
     cy.wait(delay * 3);
