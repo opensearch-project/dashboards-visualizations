@@ -60,6 +60,8 @@ jobs:
         run: |
           cd kibana/plugins/gantt-chart
           artifact=`ls ./build/*.zip`
+          
+          # inject build number before the suffix
           zip_outfile=`basename ${artifact%.zip}-build-${GITHUB_RUN_NUMBER}.zip`
 
           s3_prefix="s3://staging.artifacts.opendistroforelasticsearch.amazon.com/snapshots/kibana-plugins/gantt-chart/"
