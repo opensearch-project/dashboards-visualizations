@@ -67,5 +67,5 @@ jobs:
 
           s3_prefix="s3://staging.artifacts.opendistroforelasticsearch.amazon.com/snapshots/kibana-plugins/gantt-chart/"
 
-          echo "Copying ${zip} to ${s3_prefix}${zip_outfile}"
-          aws s3 cp --quiet $zip ${s3_prefix}${zip_outfile}
+          echo "Copying ${artifact} to ${s3_prefix}${zip_outfile}"
+          aws s3 cp --quiet $artifact ${s3_prefix}${zip_outfile}
