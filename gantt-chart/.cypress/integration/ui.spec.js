@@ -19,7 +19,7 @@ import { delay, GANTT_VIS_NAME, Y_LABEL, X_LABEL, DEFAULT_SIZE } from '../utils/
 
 describe('Save a gantt chart', () => {
   beforeEach(() => {
-    cy.visit('app/visualize#');
+    cy.visit(`${Cypress.env('kibana')}/app/visualize#`);
     cy.wait(delay * 5);
   });
 
@@ -45,7 +45,7 @@ describe('Save a gantt chart', () => {
 
 describe('Render and configure a gantt chart', () => {
   beforeEach(() => {
-    cy.visit('app/visualize#');
+    cy.visit(`${Cypress.env('kibana')}/app/visualize#`);
     cy.wait(delay * 5);
     cy.get('button').contains(GANTT_VIS_NAME).click({ force: true });
     cy.wait(delay * 5);
@@ -88,7 +88,7 @@ describe('Render and configure a gantt chart', () => {
 
 describe('Configure panel settings', () => {
   beforeEach(() => {
-    cy.visit('app/visualize#');
+    cy.visit(`${Cypress.env('kibana')}/app/visualize#`);
     cy.wait(delay * 5);
     cy.get('button').contains(GANTT_VIS_NAME).click({ force: true });
     cy.wait(delay * 5);
@@ -176,7 +176,7 @@ describe('Configure panel settings', () => {
 
 describe('Add gantt chart to dashboard', () => {
   it('Adds gantt chart to dashboard', () => {
-    cy.visit('app/dashboards#/create');
+    cy.visit(`${Cypress.env('kibana')}/app/dashboards#/create`);
     cy.wait(delay * 5);
 
     cy.get('.euiLink').contains('Add an existing').click({ force: true });
