@@ -14,7 +14,7 @@
  */
 import './index.scss';
 
-import { PluginInitializer } from 'kibana/public';
+import { PluginInitializer } from 'opensearch-dashboards/public';
 import {
   CustomVisualizationsPublicPlugin,
   CustomVisualizationsSetup,

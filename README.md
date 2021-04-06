@@ -1,6 +1,6 @@
-# Open Distro for Elasticsearch Kibana Visualizations
+# Open Distro for Elasticsearch OpenSearch Dashboards Visualizations
 
-The Open Distro for Elasticsearch Kibana Visualizations enables you to use additional types of visualizations inside Kibana Visualize and integrate them in Kibana Dashboard.
+The Open Distro for Elasticsearch OpenSearch Dashboards Visualizations enables you to use additional types of visualizations inside OpenSearch Dashboards Visualize and integrate them in Dashboard.
 
 
 ## Documentation
@@ -10,13 +10,13 @@ Please see our technical [documentation](https://opendistro.github.io/for-elasti
 
 ## Setup
 
-1. Download Elasticsearch for the version that matches the [Kibana version specified in package.json](./package.json#L5).
-1. Download the Kibana source code for the [version specified in package.json](./package.json#L5) you want to set up.
+1. Download OpenSearch for the version that matches the [OpenSearch Dashboards version specified in package.json](./package.json#L5).
+1. Download the OpenSearch Dashboards source code for the [version specified in package.json](./package.json#L5) you want to set up.
 
    See the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md#setting-up-your-development-environment) for more instructions on setting up your development environment.
    
-1. Change your node version to the version specified in `.node-version` inside the Kibana root directory.
-1. cd into the Kibana source code directory.
+1. Change your node version to the version specified in `.node-version` inside the OpenSearch Dashboards root directory.
+1. cd into the OpenSearch Dashboards source code directory.
 1. Check out this package from version control into the `plugins` directory.
 ```
 rm plugins -r
@@ -26,13 +26,13 @@ echo 'gantt-chart/*' >> .git/info/sparse-checkout
 git config core.sparseCheckout true
 git checkout main
 ```
-6. Run `yarn kbn bootstrap` inside `kibana` directory.
+6. Run `yarn osd bootstrap` inside `OpenSearch Dashboards` directory.
 
 Ultimately, your directory structure should look like this:
 
 ```md
 .
-├── kibana
+├── OpenSearch Dashboards
 │   └── plugins
 │       └── gantt-chart
 ```
@@ -42,21 +42,21 @@ Ultimately, your directory structure should look like this:
 
 To build the plugin's distributable zip simply run `yarn build`.
 
-Example output: `./build/opendistroGanttChartKibana-*.zip`
+Example output: `./build/opendistroGanttChart*.zip`
 
 
 ## Run
 
 - `yarn start`
 
-  Starts Kibana and includes this plugin. Kibana will be available on `localhost:5601`.
+  Starts OpenSearch Dashboards and includes this plugin. OpenSearch Dashboards will be available on `localhost:5601`.
 
 - `npx cypress run`
 
   Runs the plugin cypress tests.
 
 
-## Contributing to Open Distro for Elasticsearch Kibana Visualizations
+## Contributing to Open Distro for Elasticsearch OpenSearch Dashboards Visualizations
 
 We welcome you to get involved in development, documentation, testing the kibana reports plugin. See our [CONTRIBUTING.md](./CONTRIBUTING.md) and join in.
 

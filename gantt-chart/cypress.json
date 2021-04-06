@@ -12,8 +12,8 @@
   "responseTimeout": 60000,
   "defaultCommandTimeout": 60000,
   "env": {
-    "elasticsearch": "localhost:9200",
-    "kibana": "localhost:5601",
+    "opensearch": "localhost:9200",
+    "opensearchDashboards": "localhost:5601",
     "security_enabled": true
   }
 }

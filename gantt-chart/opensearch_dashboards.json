@@ -1,7 +1,7 @@
 {
-  "id": "opendistroGanttChartKibana",
+  "id": "opendistroGanttChartOpenSearchDashboards",
   "version": "1.13.0.0",
-  "kibanaVersion": "7.10.2",
+  "opensearchDashboardsVersion": "7.10.2",
   "requiredPlugins": [
     "visualizations",
     "data"

@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import { schema } from '@kbn/config-schema';
+import { schema } from '@osd/config-schema';
 import { RequestParams } from '@elastic/elasticsearch';
 import { IRouter } from '../../../../src/core/server';
 
@@ -49,7 +49,7 @@ export function defineRoutes(router: IRouter) {
         ...rest,
       };
       try {
-        const resp = await context.core.elasticsearch.legacy.client.callAsCurrentUser(
+        const resp = await context.core.opensearch.legacy.client.callAsCurrentUser(
           'search',
           params
         );
