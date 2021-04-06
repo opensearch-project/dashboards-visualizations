@@ -7,8 +7,8 @@ on:
       - 'v*'
 
 env:
-  PLUGIN_NAME: opendistroGanttChartKibana
-  OD_VERSION: 1.13.0.0
+  PLUGIN_NAME: opendistroGanttChartOpenSearchDashboards
+  OD_VERSION: 1.15.0.0
 
 jobs:
 
@@ -28,13 +28,14 @@ jobs:
       - name: Checkout Plugin
         uses: actions/checkout@v1
 
+      # TODO change to opensearch dashboards
       - name: Checkout Kibana
         uses: actions/checkout@v1
         with:
           repository: opendistro-for-elasticsearch/kibana-oss
           ref: 7.10.2
           token: ${{secrets.OD_ACCESS}}
-          path: kibana-visualizations/kibana
+          path: kibana-visualizations/OpenSearch-Dashboards
 
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -43,27 +44,28 @@ jobs:
 
       - name: Move Gantt Chart to Plugins Dir
         run: |
-          mv gantt-chart kibana/plugins
+          mv gantt-chart OpenSearch-Dashboards/plugins
 
-      - name: Kibana Pluign Bootstrap
+      - name: Pluign Bootstrap
         run: |
-          cd kibana/plugins/gantt-chart
+          cd OpenSearch-Dashboards/plugins/gantt-chart
           yarn kbn bootstrap
 
       - name: Build Artifact
         run: |
-          cd kibana/plugins/gantt-chart
+          cd OpenSearch-Dashboards/plugins/gantt-chart
           yarn build
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OD_VERSION }}.zip
 
       - name: Upload to S3
         run: |
-          cd kibana/plugins/gantt-chart
+          cd OpenSearch-Dashboards/plugins/gantt-chart
           artifact=`ls ./build/*.zip`
-          
+
           # inject build number before the suffix
           zip_outfile=`basename ${artifact%.zip}-build-${GITHUB_RUN_NUMBER}.zip`
 
+          # TODO update s3 bucket
           s3_prefix="s3://staging.artifacts.opendistroforelasticsearch.amazon.com/snapshots/kibana-plugins/gantt-chart/"
 
           echo "Copying ${artifact} to ${s3_prefix}${zip_outfile}"

@@ -13,13 +13,12 @@ Please see our technical [documentation](https://opendistro.github.io/for-elasti
 1. Download OpenSearch for the version that matches the [OpenSearch Dashboards version specified in package.json](./package.json#L5).
 1. Download the OpenSearch Dashboards source code for the [version specified in package.json](./package.json#L5) you want to set up.
 
-   See the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md#setting-up-your-development-environment) for more instructions on setting up your development environment.
-   
 1. Change your node version to the version specified in `.node-version` inside the OpenSearch Dashboards root directory.
 1. cd into the OpenSearch Dashboards source code directory.
 1. Check out this package from version control into the `plugins` directory.
 ```
 rm plugins -r
+# TODO change repo url
 git clone git@github.com:opendistro-for-elasticsearch/kibana-visualizations.git plugins --no-checkout
 cd plugins
 echo 'gantt-chart/*' >> .git/info/sparse-checkout
@@ -58,9 +57,7 @@ Example output: `./build/opendistroGanttChart*.zip`
 
 ## Contributing to Open Distro for Elasticsearch OpenSearch Dashboards Visualizations
 
-We welcome you to get involved in development, documentation, testing the kibana reports plugin. See our [CONTRIBUTING.md](./CONTRIBUTING.md) and join in.
-
-Since this is a Kibana plugin, it can be useful to review the [Kibana contributing guide](https://github.com/elastic/kibana/blob/master/CONTRIBUTING.md) alongside the documentation around [Kibana plugins](https://www.elastic.co/guide/en/kibana/master/kibana-plugins.html) and [plugin development](https://www.elastic.co/guide/en/kibana/current/plugin-development.html).
+We welcome you to get involved in development, documentation, testing the visualizations plugin. See our [CONTRIBUTING.md](./CONTRIBUTING.md) and join in.
 
 ## Bugs, Enhancements or Questions
 

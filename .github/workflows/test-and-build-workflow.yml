@@ -4,8 +4,8 @@ name: Test and Build Gantt Chart
 on: [pull_request, push]
 
 env:
-  PLUGIN_NAME: opendistroGanttChartKibana
-  OD_VERSION: 1.13.0.0
+  PLUGIN_NAME: opendistroGanttChartOpenSearchDashboards
+  OD_VERSION: 1.15.0.0
 
 jobs:
 
@@ -16,30 +16,31 @@ jobs:
     steps:
       - name: Checkout Plugin
         uses: actions/checkout@v1
+      # TODO change to opensearch dashboards
       - name: Checkout Kibana
         uses: actions/checkout@v1
         with:
           repository: elastic/kibana
           ref: v7.10.2
-          path: kibana-visualizations/kibana
+          path: kibana-visualizations/OpenSearch-Dashboards
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '10.23.1'
       - name: Move Gantt Chart to Plugins Dir
         run: |
-          mv gantt-chart kibana/plugins
-      - name: Kibana Plugin Bootstrap
+          mv gantt-chart OpenSearch-Dashboards/plugins
+      - name: Plugin Bootstrap
         run: |
-          cd kibana/plugins/gantt-chart
-          yarn kbn bootstrap
+          cd OpenSearch-Dashboards/plugins/gantt-chart
+          yarn osd bootstrap
       - name: Build Artifact
         run: |
-          cd kibana/plugins/gantt-chart
+          cd OpenSearch-Dashboards/plugins/gantt-chart
           yarn build
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OD_VERSION }}.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
           name: gantt-chart
-          path: kibana/plugins/gantt-chart/build
+          path: OpenSearch-Dashboards/plugins/gantt-chart/build
