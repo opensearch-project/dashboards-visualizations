@@ -16,13 +16,12 @@ jobs:
     steps:
       - name: Checkout Plugin
         uses: actions/checkout@v1
-      # TODO change to opensearch dashboards
-      - name: Checkout Kibana
+      - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v1
         with:
           repository: elastic/kibana
           ref: v7.10.2
-          path: kibana-visualizations/OpenSearch-Dashboards
+          path: opensearch-dashboards-visualizations/OpenSearch-Dashboards
       - name: Setup Node
         uses: actions/setup-node@v1
         with:

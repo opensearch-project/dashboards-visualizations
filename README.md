@@ -1,6 +1,6 @@
-# Open Distro for Elasticsearch OpenSearch Dashboards Visualizations
+# OpenSearch Dashboards Visualizations
 
-The Open Distro for Elasticsearch OpenSearch Dashboards Visualizations enables you to use additional types of visualizations inside OpenSearch Dashboards Visualize and integrate them in Dashboard.
+The OpenSearch Dashboards Visualizations enables you to use additional types of visualizations inside OpenSearch Dashboards Visualize and integrate them in Dashboard.
 
 
 ## Documentation
@@ -18,8 +18,7 @@ Please see our technical [documentation](https://opendistro.github.io/for-elasti
 1. Check out this package from version control into the `plugins` directory.
 ```
 rm plugins -r
-# TODO change repo url
-git clone git@github.com:opendistro-for-elasticsearch/kibana-visualizations.git plugins --no-checkout
+git clone git@github.com:opensearch-project/opensearch-dashboards-visualizations.git plugins --no-checkout
 cd plugins
 echo 'gantt-chart/*' >> .git/info/sparse-checkout
 git config core.sparseCheckout true
@@ -55,13 +54,13 @@ Example output: `./build/opendistroGanttChart*.zip`
   Runs the plugin cypress tests.
 
 
-## Contributing to Open Distro for Elasticsearch OpenSearch Dashboards Visualizations
+## Contributing to OpenSearch Dashboards Visualizations
 
 We welcome you to get involved in development, documentation, testing the visualizations plugin. See our [CONTRIBUTING.md](./CONTRIBUTING.md) and join in.
 
 ## Bugs, Enhancements or Questions
 
-Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opendistro-for-elasticsearch/kibana-visualizations/issues).
+Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opensearch-project/opensearch-dashboards-visualizations/issues).
 
 ## License
 
