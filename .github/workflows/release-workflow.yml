@@ -34,7 +34,7 @@ jobs:
           repository: opendistro-for-elasticsearch/kibana-oss
           ref: 7.10.2
           token: ${{secrets.OD_ACCESS}}
-          path: opensearch-dashboards-visualizations/OpenSearch-Dashboards
+          path: dashboards-visualizations/OpenSearch-Dashboards
 
       - name: Setup Node
         uses: actions/setup-node@v1

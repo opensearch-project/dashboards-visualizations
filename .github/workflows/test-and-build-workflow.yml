@@ -21,7 +21,7 @@ jobs:
         with:
           repository: elastic/kibana
           ref: v7.10.2
-          path: opensearch-dashboards-visualizations/OpenSearch-Dashboards
+          path: dashboards-visualizations/OpenSearch-Dashboards
       - name: Setup Node
         uses: actions/setup-node@v1
         with:

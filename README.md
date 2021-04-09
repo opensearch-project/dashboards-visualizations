@@ -5,7 +5,7 @@ The OpenSearch Dashboards Visualizations enables you to use additional types of 
 
 ## Documentation
 
-Please see our technical [documentation](https://opendistro.github.io/for-elasticsearch-docs/) to learn more about its features.
+Please see our technical [documentation](https://opendistro.github.io/for-elasticsearch-docs/docs/kibana/gantt/) to learn more about its features.
 
 
 ## Setup
@@ -18,13 +18,13 @@ Please see our technical [documentation](https://opendistro.github.io/for-elasti
 1. Check out this package from version control into the `plugins` directory.
 ```
 rm plugins -r
-git clone git@github.com:opensearch-project/opensearch-dashboards-visualizations.git plugins --no-checkout
+git clone git@github.com:opensearch-project/dashboards-visualizations.git plugins --no-checkout
 cd plugins
 echo 'gantt-chart/*' >> .git/info/sparse-checkout
 git config core.sparseCheckout true
 git checkout main
 ```
-6. Run `yarn osd bootstrap` inside `OpenSearch Dashboards` directory.
+6. Run `yarn osd bootstrap` inside `OpenSearch-Dashboards` directory.
 
 Ultimately, your directory structure should look like this:
 
@@ -60,7 +60,7 @@ We welcome you to get involved in development, documentation, testing the visual
 
 ## Bugs, Enhancements or Questions
 
-Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opensearch-project/opensearch-dashboards-visualizations/issues).
+Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opensearch-project/dashboards-visualizations/issues).
 
 ## License
 
