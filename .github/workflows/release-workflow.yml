@@ -7,7 +7,7 @@ on:
       - 'v*'
 
 env:
-  PLUGIN_NAME: opendistroGanttChartOpenSearchDashboards
+  PLUGIN_NAME: ganttChartDashboards
   OD_VERSION: 1.15.0.0
 
 jobs:
