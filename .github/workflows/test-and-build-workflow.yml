@@ -4,7 +4,7 @@ name: Test and Build Gantt Chart
 on: [pull_request, push]
 
 env:
-  PLUGIN_NAME: ganttChartDashboards
+  PLUGIN_NAME: ganttchartDashboards
   OD_VERSION: 1.15.0.0
 
 jobs:
@@ -19,8 +19,8 @@ jobs:
       - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v1
         with:
-          repository: elastic/kibana
-          ref: v7.10.2
+          repository: opensearch-project/Opensearch-Dashboards
+          ref: 1.x
           path: dashboards-visualizations/OpenSearch-Dashboards
       - name: Setup Node
         uses: actions/setup-node@v1

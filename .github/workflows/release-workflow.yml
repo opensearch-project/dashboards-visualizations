@@ -7,7 +7,7 @@ on:
       - 'v*'
 
 env:
-  PLUGIN_NAME: ganttChartDashboards
+  PLUGIN_NAME: ganttchartDashboards
   OD_VERSION: 1.15.0.0
 
 jobs:
@@ -31,9 +31,8 @@ jobs:
       - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v1
         with:
-          repository: opendistro-for-elasticsearch/kibana-oss
-          ref: 7.10.2
-          token: ${{secrets.OD_ACCESS}}
+          repository: opensearch-project/Opensearch-Dashboards
+          ref: 1.x
           path: dashboards-visualizations/OpenSearch-Dashboards
 
       - name: Setup Node
@@ -45,10 +44,10 @@ jobs:
         run: |
           mv gantt-chart OpenSearch-Dashboards/plugins
 
-      - name: Pluign Bootstrap
+      - name: Plugin Bootstrap
         run: |
           cd OpenSearch-Dashboards/plugins/gantt-chart
-          yarn kbn bootstrap
+          yarn osd bootstrap
 
       - name: Build Artifact
         run: |
