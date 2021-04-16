@@ -13,7 +13,7 @@
  * permissions and limitations under the License.
  */
 
-import { CoreSetup, Plugin, CoreStart, IUiSettingsClient, HttpSetup } from 'kibana/public';
+import { CoreSetup, Plugin, CoreStart, IUiSettingsClient, HttpSetup } from 'opensearch-dashboards/public';
 import { VisualizationsSetup } from '../../../src/plugins/visualizations/public';
 import { getGanttVisDefinition } from './gantt_vis_type';
 

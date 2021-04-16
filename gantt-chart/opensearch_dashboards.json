@@ -1,0 +1,11 @@
+{
+  "id": "ganttchartDashboards",
+  "version": "1.15.0.0",
+  "opensearchDashboardsVersion": "7.10.2",
+  "requiredPlugins": [
+    "visualizations",
+    "data"
+  ],
+  "server": true,
+  "ui": true
+}

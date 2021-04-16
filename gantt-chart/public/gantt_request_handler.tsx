@@ -13,10 +13,10 @@
  * permissions and limitations under the License.
  */
 
-import { IUiSettingsClient } from 'kibana/public';
+import { IUiSettingsClient } from 'opensearch-dashboards/public';
 import { IndexPattern } from 'src/plugins/data/public';
 import { VisParams } from 'src/plugins/visualizations/public';
-import { buildEsQuery, Filter, Query, TimeRange, getTime } from '../../../src/plugins/data/common';
+import { buildOpenSearchQuery, Filter, Query, TimeRange, getTime } from '../../../src/plugins/data/common';
 import { GanttVisDependencies } from './plugin';
 
 interface GanttRequestHandlerDeps {
@@ -32,7 +32,7 @@ const constructRequest = (
   uiSettings: IUiSettingsClient,
   { timeRange, filters, query, index, visParams }: GanttRequestHandlerDeps
 ) => {
-  const DSL = buildEsQuery(index, query, filters);
+  const DSL = buildOpenSearchQuery(index, query, filters);
   const request = {
     index: index.title,
     size: visParams.size,
