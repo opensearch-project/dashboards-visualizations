@@ -42,7 +42,7 @@ describe('Save a gantt chart', () => {
     cy.get('.euiListGroupItem__label')
       .contains(/^jaeger$/)
       .click({ force: true });
-    cy.wait(delay * 3);
+    cy.wait(delay * 5);
     cy.get('.euiButton__text').contains('Save').click({ force: true });
     cy.wait(delay);
     cy.get('input[data-test-subj="savedObjectTitle"]').type(GANTT_VIS_NAME);
