@@ -1,5 +1,5 @@
 {
-  "id": "ganttchartDashboards",
+  "id": "ganttChartDashboards",
   "version": "1.0.0.0-beta1",
   "opensearchDashboardsVersion": "1.0.0-beta1",
   "requiredPlugins": [
