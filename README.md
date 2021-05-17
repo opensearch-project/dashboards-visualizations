@@ -5,7 +5,7 @@ The OpenSearch Dashboards Visualizations enables you to use additional types of 
 
 ## Documentation
 
-Please see our technical [documentation](https://opendistro.github.io/for-elasticsearch-docs/docs/kibana/gantt/) to learn more about its features.
+Please see our technical [documentation](https://docs-beta.opensearch.org/docs/opensearch-dashboards/gantt/) to learn more about its features.
 
 
 ## Setup
