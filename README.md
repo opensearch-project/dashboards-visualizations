@@ -5,68 +5,30 @@ The OpenSearch Dashboards Visualizations enables you to use additional types of 
 
 ## Documentation
 
-Please see our technical [documentation](https://docs-beta.opensearch.org/docs/opensearch-dashboards/gantt/) to learn more about its features.
+Please see our technical [documentation](https://docs-beta.opensearch.org/dashboards/gantt/) to learn more about its features.
 
+## Contributing
 
-## Setup
+See [developer guide](DEVELOPER_GUIDE.md) and [how to contribute to this project](CONTRIBUTING.md). 
 
-1. Download OpenSearch for the version that matches the [OpenSearch Dashboards version specified in package.json](./package.json#L5).
-1. Download the OpenSearch Dashboards source code for the [version specified in package.json](./package.json#L5) you want to set up.
+## Getting Help
 
-1. Change your node version to the version specified in `.node-version` inside the OpenSearch Dashboards root directory.
-1. cd into the OpenSearch Dashboards source code directory.
-1. Check out this package from version control into the `plugins` directory.
-```
-rm plugins -r
-git clone git@github.com:opensearch-project/dashboards-visualizations.git plugins --no-checkout
-cd plugins
-echo 'gantt-chart/*' >> .git/info/sparse-checkout
-git config core.sparseCheckout true
-git checkout main
-```
-6. Run `yarn osd bootstrap` inside `OpenSearch-Dashboards` directory.
+If you find a bug, or have a feature request, please don't hesitate to open an issue in this repository.
 
-Ultimately, your directory structure should look like this:
+For more information, see [project website](https://opensearch.org/) and [documentation](https://docs-beta.opensearch.org/). If you need help and are unsure where to open an issue, try [forums](https://discuss.opendistrocommunity.dev/).
 
-```md
-.
-├── OpenSearch Dashboards
-│   └── plugins
-│       └── gantt-chart
-```
+## Code of Conduct
 
+This project has adopted the [Amazon Open Source Code of Conduct](CODE_OF_CONDUCT.md). For more information see the [Code of Conduct FAQ](https://aws.github.io/code-of-conduct-faq), or contact [opensource-codeofconduct@amazon.com](mailto:opensource-codeofconduct@amazon.com) with any additional questions or comments.
 
-## Build
+## Security
 
-To build the plugin's distributable zip simply run `yarn build`.
-
-Example output: `./build/ganttchartDashboards*.zip`
-
-
-## Run
-
-- `yarn start`
-
-  Starts OpenSearch Dashboards and includes this plugin. OpenSearch Dashboards will be available on `localhost:5601`.
-
-- `npx cypress run`
-
-  Runs the plugin cypress tests.
-
-
-## Contributing to OpenSearch Dashboards Visualizations
-
-We welcome you to get involved in development, documentation, testing the visualizations plugin. See our [CONTRIBUTING.md](./CONTRIBUTING.md) and join in.
-
-## Bugs, Enhancements or Questions
-
-Please file an issue to report any bugs you may find, enhancements you may need or questions you may have [here](https://github.com/opensearch-project/dashboards-visualizations/issues).
+If you discover a potential security issue in this project we ask that you notify AWS/Amazon Security via our [vulnerability reporting page](http://aws.amazon.com/security/vulnerability-reporting/). Please do **not** create a public GitHub issue.
 
 ## License
 
-This code is licensed under the Apache 2.0 License. 
+This project is licensed under the [Apache v2.0 License](LICENSE.txt).
 
 ## Copyright
 
-Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
+Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
