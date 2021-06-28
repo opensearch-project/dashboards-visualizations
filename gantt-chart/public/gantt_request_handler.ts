@@ -44,7 +44,7 @@ const constructRequest = (
   { timeRange, filters, query, index, visParams }: GanttRequestHandlerDeps
 ) => {
   const DSL = buildOpenSearchQuery(index, query, filters);
-  const request = {
+  const request: any = {
     index: index.title,
     size: visParams.size,
     body: {
