@@ -1,5 +1,5 @@
 [![Dashboards Visualizations CI](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml/badge.svg)](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml)
-[![codecov](https://codecov.io/gh/opensearch-project/dashboards-visualizations/branch/main/graphs/badge.svg)](https://github.com/opensearch-project/dashboards-visualizations)
+[![codecov](https://codecov.io/gh/opensearch-project/dashboards-visualizations/branch/main/graphs/badge.svg)](https://codecov.io/gh/opensearch-project/dashboards-visualizations)
 
 # OpenSearch Dashboards Visualizations
 
