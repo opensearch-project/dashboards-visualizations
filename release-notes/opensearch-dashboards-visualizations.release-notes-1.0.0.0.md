@@ -3,14 +3,14 @@
 Compatible with OpenSearch 1.0.0
 
 ### Bug Fixes
-* Bump glob-parent from 5.1.1 to 5.1.2 in /gantt-chart ([#14](https://github.com/opensearch-project/repo/pull/14))
+* Bump glob-parent from 5.1.1 to 5.1.2 in /gantt-chart ([#14](https://github.com/opensearch-project/dashboards-visualizations/pull/14))
 
 ### Infrastructure
-* Add unit tests and codecov ([#19](https://github.com/opensearch-project/repo/pull/19))
+* Add unit tests and codecov ([#19](https://github.com/opensearch-project/dashboards-visualizations/pull/19))
 
 ### Documentation
-* Level up markdown contents ([#16](https://github.com/opensearch-project/repo/pull/16))
+* Level up markdown contents ([#16](https://github.com/opensearch-project/dashboards-visualizations/pull/16))
 
 ### Maintenance
-* Bump version to 1.0.0.0 and add release notes ([#20](https://github.com/opensearch-project/repo/pull/20))
+* Bump version to 1.0.0.0 and add release notes ([#20](https://github.com/opensearch-project/dashboards-visualizations/pull/20))
 
