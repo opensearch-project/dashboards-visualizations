@@ -62,6 +62,14 @@ describe('<OptionsEditor /> spec', () => {
     expect(setValue).toBeCalledWith('xAxisShowGrid', false);
   });
 
+  it('sets colors', () => {
+    const setValue = jest.fn();
+    const utils = render(<OptionsEditor {...mockEditorProps(setValue)} />);
+    const colorPicker = utils.getByTestId('colorPickerAnchor');
+    fireEvent.change(colorPicker, { target: { value: '#EEEEEE' } });
+    expect(setValue).toBeCalledWith('colors', '#EEEEEE');
+  });
+
   it('sets y axis', () => {
     const setValue = jest.fn();
     const utils = render(<OptionsEditor {...mockEditorProps(setValue)} />);
