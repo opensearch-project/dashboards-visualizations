@@ -1,3 +1,6 @@
+[![Dashboards Visualizations CI](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml/badge.svg)](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml)
+[![codecov](https://codecov.io/gh/opensearch-project/dashboards-visualizations/branch/main/graphs/badge.svg)](https://codecov.io/gh/opensearch-project/dashboards-visualizations)
+
 # OpenSearch Dashboards Visualizations
 
 The OpenSearch Dashboards Visualizations enables you to use additional types of visualizations inside OpenSearch Dashboards Visualize and integrate them in Dashboard.

@@ -34,6 +34,14 @@ jobs:
         run: |
           cd OpenSearch-Dashboards/plugins/gantt-chart
           yarn osd bootstrap
+      - name: Test
+        run: |
+          cd OpenSearch-Dashboards/plugins/gantt-chart
+          yarn test --coverage
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build Artifact
         run: |
           cd OpenSearch-Dashboards/plugins/gantt-chart

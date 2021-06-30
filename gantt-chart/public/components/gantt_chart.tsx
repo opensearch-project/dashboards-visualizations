@@ -24,16 +24,17 @@
  * permissions and limitations under the License.
  */
 
+import { EuiEmptyPrompt, EuiText } from '@elastic/eui';
 import _ from 'lodash';
 import moment from 'moment';
-import React, { Fragment, useEffect } from 'react';
-import plotComponentFactory from "react-plotly.js/factory";
-import Plotly, { PlotData } from "plotly.js-dist";
-import { EuiEmptyPrompt, EuiText } from '@elastic/eui';
+// @ts-ignore
+import Plotly, { PlotData } from 'plotly.js-dist';
+import React, { useEffect } from 'react';
+import plotComponentFactory from 'react-plotly.js/factory';
 import { UiSettingsClient } from 'src/core/public/ui_settings';
 import { ExprVis } from 'src/plugins/visualizations/public';
-import { GanttParams, GanttSuccessResponse } from '../gantt_vis_type';
 import { v1 as uuid } from 'uuid';
+import { GanttParams, GanttSuccessResponse } from '../gantt_vis_type';
 
 export function GanttChart({
   config,
@@ -48,7 +49,13 @@ export function GanttChart({
 }) {
   const PlotComponent = plotComponentFactory(Plotly);
 
-  const getGanttData = (): { data: PlotData[], tickvals: number[], ticktext: string[], yLabels: string[], yTexts: string[] } => {
+  const getGanttData = (): {
+    data: PlotData[];
+    tickvals: number[];
+    ticktext: string[];
+    yLabels: string[];
+    yTexts: string[];
+  } => {
     const source: any[] = visData.source;
     const data: PlotData[] = [];
     if (source.length === 0) return { data, tickvals: [], ticktext: [], yLabels: [], yTexts: [] };
@@ -116,37 +123,44 @@ export function GanttChart({
   const toTimeString = (val: number) => {
     let divisor = 1;
     const valStr = Math.floor(val).toString();
-    if (valStr.length <= 10)  // unit is seconds
+    if (valStr.length <= 10)
+      // unit is seconds
       divisor = 0.001;
-    else if (valStr.length <= 13)  // unit is milliseconds
+    else if (valStr.length <= 13)
+      // unit is milliseconds
       divisor = 1;
-    else if (valStr.length <= 16)  // unit is microseconds
-      divisor = 1000
-    else if (valStr.length <= 19)  // unit is nanoseconds
+    else if (valStr.length <= 16)
+      // unit is microseconds
+      divisor = 1000;
+    else if (valStr.length <= 19)
+      // unit is nanoseconds
       divisor = 1000 * 1000;
     return moment(val / divisor).format(visParams.timeFormat);
   };
 
   const ganttData = getGanttData();
-  
+
   // workaround to disable 'data-loading' filter effects
   useEffect(() => {
-    let node = document.querySelector('#plotly-gantt-chart');
+    let node: Element | null = document.querySelector('#plotly-gantt-chart');
     while (node && node?.tagName !== 'HTML') {
       if (node?.className.includes('visEditor')) {
         break;
       }
       if (node?.getAttribute('data-loading')) {
-        node.setAttribute('data-type', 'plotlyGanttChart')
+        node.setAttribute('data-type', 'plotlyGanttChart');
         break;
       }
-      node = node?.parentNode;
+      node = node?.parentElement;
     }
   }, []);
 
   return (
     <>
-      {visParams.labelField && visParams.startTimeField && visParams.durationField && ganttData.data.length > 0 ? (
+      {visParams.labelField &&
+      visParams.startTimeField &&
+      visParams.durationField &&
+      ganttData.data.length > 0 ? (
         <PlotComponent
           divId="plotly-gantt-chart"
           data={ganttData.data}
@@ -160,12 +174,20 @@ export function GanttChart({
               t: visParams.xAxisPosition === 'top' ? 80 : 30,
               b: visParams.xAxisPosition === 'bottom' ? 80 : 30,
               l: visParams.yAxisPosition === 'left' ? 150 : 30,
-              r: visParams.yAxisPosition === 'right' ? 150 + (visParams.legendOrientation === 'v' ? 150 : 0) : 30,
+              r:
+                visParams.yAxisPosition === 'right'
+                  ? 150 + (visParams.legendOrientation === 'v' ? 150 : 0)
+                  : 30,
             },
             showlegend: visParams.showLegend,
             legend: {
               orientation: visParams.legendOrientation,
-              x: visParams.legendOrientation === 'h' ? 0 : visParams.yAxisPosition === 'right' ? 1.23 : 1.02,
+              x:
+                visParams.legendOrientation === 'h'
+                  ? 0
+                  : visParams.yAxisPosition === 'right'
+                  ? 1.23
+                  : 1.02,
               traceorder: 'normal',
             },
             xaxis: {
@@ -176,7 +198,7 @@ export function GanttChart({
               showgrid: visParams.xAxisShowGrid,
               showline: visParams.xAxisShowLine,
               zeroline: false,
-              tickmode: "array",
+              tickmode: 'array',
               tickvals: ganttData.tickvals,
               ticktext: ganttData.ticktext,
             },
@@ -193,18 +215,23 @@ export function GanttChart({
             },
           }}
         />
+      ) : visParams.labelField && visParams.startTimeField && visParams.durationField ? (
+        <EuiEmptyPrompt
+          title={<h2>No data</h2>}
+          body={<EuiText>No data matching the selected filter.</EuiText>}
+        />
       ) : (
-          visParams.labelField && visParams.startTimeField && visParams.durationField ?
-            (<EuiEmptyPrompt
-              title={<h2>No data</h2>}
-              body={<EuiText>No data matching the selected filter.</EuiText>}
-            />
-            ) : (
-              <EuiEmptyPrompt
-                title={<h2>No data</h2>}
-                body={<EuiText>Specify data to plot the chart using the Data & Options panel<br />on the right.</EuiText>}
-              />
-            ))}
+        <EuiEmptyPrompt
+          title={<h2>No data</h2>}
+          body={
+            <EuiText>
+              Specify data to plot the chart using the Data & Options panel
+              <br />
+              on the right.
+            </EuiText>
+          }
+        />
+      )}
     </>
   );
 }

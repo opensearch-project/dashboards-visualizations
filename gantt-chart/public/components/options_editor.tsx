@@ -35,7 +35,13 @@ import {
   EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
-import { GanttParams, PlotlyAxisPosition, PlotlyAxisType, PlotlyLegendOrientation, VisOptionsProps } from '../gantt_vis_type';
+import {
+  GanttParams,
+  PlotlyAxisPosition,
+  PlotlyAxisType,
+  PlotlyLegendOrientation,
+  VisOptionsProps,
+} from '../gantt_vis_type';
 
 export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<GanttParams>) {
   const legendOrientationOptions: Array<{ value: PlotlyLegendOrientation; text: string }> = [
@@ -53,15 +59,17 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-legend-switch"
             label="Show legend"
             checked={stateParams.showLegend}
             onChange={(e) => setValue('showLegend', e.target.checked)}
           />
         </EuiFormRow>
 
-        {stateParams.showLegend &&
+        {stateParams.showLegend && (
           <EuiFormRow label="Orientation">
             <EuiSelect
+              data-test-subj="options-editor-legend-orientation-select"
               options={legendOrientationOptions}
               value={stateParams.legendOrientation}
               onChange={(e) =>
@@ -70,7 +78,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
               disabled={!stateParams.showLegend}
             />
           </EuiFormRow>
-        }
+        )}
       </EuiPanel>
     );
   };
@@ -85,6 +93,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-grid-y-switch"
             label="Show Y-axis grids"
             checked={stateParams.yAxisShowGrid}
             onChange={(e) => setValue('yAxisShowGrid', e.target.checked)}
@@ -92,6 +101,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiFormRow>
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-grid-x-switch"
             label="Show X-axis grids"
             checked={stateParams.xAxisShowGrid}
             onChange={(e) => setValue('xAxisShowGrid', e.target.checked)}
@@ -154,6 +164,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow label="Position">
           <EuiSelect
+            data-test-subj="options-editor-y-axis-position-select"
             options={yAxisPositionOptions}
             value={stateParams.yAxisPosition}
             onChange={(e) => setValue('yAxisPosition', e.target.value as PlotlyAxisPosition)}
@@ -162,6 +173,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-y-axis-switch"
             label="Show Y-axis line"
             checked={stateParams.yAxisShowLine}
             onChange={(e) => setValue('yAxisShowLine', e.target.checked)}
@@ -169,6 +181,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiFormRow>
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-y-axis-label-switch"
             label="Show Y-axis label"
             checked={stateParams.yAxisShowTitle}
             onChange={(e) => setValue('yAxisShowTitle', e.target.checked)}
@@ -178,6 +191,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         {stateParams.yAxisShowTitle ? (
           <EuiFormRow label="Label">
             <EuiFieldText
+              data-test-subj="options-editor-y-axis-label-input"
               placeholder="Label"
               value={stateParams.yAxisTitle}
               onChange={(e) => setValue('yAxisTitle', e.target.value)}
@@ -198,6 +212,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow label="Position">
           <EuiSelect
+            data-test-subj="options-editor-x-axis-position-select"
             options={xAxisPositionOptions}
             value={stateParams.xAxisPosition}
             onChange={(e) => setValue('xAxisPosition', e.target.value as PlotlyAxisPosition)}
@@ -205,6 +220,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiFormRow>
         <EuiFormRow label="Scale type">
           <EuiSelect
+            data-test-subj="options-editor-x-axis-scale-type-select"
             options={axisTypeOptions}
             value={stateParams.xAxisType}
             onChange={(e) => setValue('xAxisType', e.target.value as PlotlyAxisType)}
@@ -212,6 +228,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiFormRow>
         <EuiFormRow label="Time format">
           <EuiSelect
+            data-test-subj="options-editor-x-axis-time-format-select"
             options={timeFormatOptions}
             value={stateParams.timeFormat}
             onChange={(e) => setValue('timeFormat', e.target.value)}
@@ -220,6 +237,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-x-axis-switch"
             label="Show X-axis line"
             checked={stateParams.xAxisShowLine}
             onChange={(e) => setValue('xAxisShowLine', e.target.checked)}
@@ -227,6 +245,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiFormRow>
         <EuiFormRow>
           <EuiSwitch
+            data-test-subj="options-editor-x-axis-label-switch"
             label="Show X-axis label"
             checked={stateParams.xAxisShowTitle}
             onChange={(e) => setValue('xAxisShowTitle', e.target.checked)}
@@ -236,6 +255,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         {stateParams.xAxisShowTitle ? (
           <EuiFormRow label="Label">
             <EuiFieldText
+              data-test-subj="options-editor-x-axis-label-input"
               placeholder="Label"
               value={stateParams.xAxisTitle}
               onChange={(e) => setValue('xAxisTitle', e.target.value)}
@@ -245,7 +265,6 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
       </EuiPanel>
     );
   };
-
 
   return (
     <>
