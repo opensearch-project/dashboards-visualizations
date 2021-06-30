@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "build": "yarn plugin-helpers build",
     "plugin-helpers": "node ../../scripts/plugin_helpers",
+    "test": "../../node_modules/.bin/jest --config ./test/jest.config.js",
     "test:cypress": "cypress run"
   },
   "dependencies": {
@@ -19,9 +20,14 @@
     "react-plotly.js": "^2.4.0"
   },
   "devDependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react-plotly.js": "^2.2.4",
+    "@types/showdown": "^1.9.3",
     "cypress": "^5.0.0",
-    "eslint": "^6.8.0"
+    "enzyme-adapter-react-16": "^1.15.2",
+    "eslint": "^6.8.0",
+    "jest": "^26.4.2",
+    "jest-dom": "^4.0.0"
   },
   "engines": {
     "node": "10.23.1",

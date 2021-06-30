@@ -1,5 +1,6 @@
 node_modules/
 build/
 target/
+coverage/
 .cypress/screenshots
 .cypress/videos

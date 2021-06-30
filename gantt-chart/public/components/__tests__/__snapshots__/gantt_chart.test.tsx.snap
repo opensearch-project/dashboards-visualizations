@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<GanttChart /> spec renders empty prompt when no data is returned 1`] = `
+<div
+  class="euiEmptyPrompt"
+>
+  <span
+    class="euiTextColor euiTextColor--subdued"
+  >
+    <h2
+      class="euiTitle euiTitle--medium"
+    >
+      No data
+    </h2>
+    <div
+      class="euiSpacer euiSpacer--m"
+    />
+    <div
+      class="euiText euiText--medium"
+    >
+      <div
+        class="euiText euiText--medium"
+      >
+        No data matching the selected filter.
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`<GanttChart /> spec renders empty prompt when no field is selected 1`] = `
+<div
+  class="euiEmptyPrompt"
+>
+  <span
+    class="euiTextColor euiTextColor--subdued"
+  >
+    <h2
+      class="euiTitle euiTitle--medium"
+    >
+      No data
+    </h2>
+    <div
+      class="euiSpacer euiSpacer--m"
+    />
+    <div
+      class="euiText euiText--medium"
+    >
+      <div
+        class="euiText euiText--medium"
+      >
+        Specify data to plot the chart using the Data & Options panel
+        <br />
+        on the right.
+      </div>
+    </div>
+  </span>
+</div>
+`;
+
+exports[`<GanttChart /> spec renders the component 1`] = `
+<div
+  id="plotly-gantt-chart"
+  style="width: 100%; height: 100%;"
+/>
+`;
+
+exports[`<GanttChart /> spec renders the component with different props 1`] = `
+<div
+  id="plotly-gantt-chart"
+  style="width: 100%; height: 100%;"
+/>
+`;
