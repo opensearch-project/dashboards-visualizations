@@ -26,7 +26,48 @@
 
 /// <reference types="cypress" />
 
-import { delay, GANTT_VIS_NAME, Y_LABEL, X_LABEL, DEFAULT_SIZE } from '../utils/constants';
+import {
+  testDataSet,
+  delay,
+  GANTT_VIS_NAME,
+  Y_LABEL,
+  X_LABEL,
+  DEFAULT_SIZE,
+} from '../utils/constants';
+
+describe('Dump test data', () => {
+  it('Indexes test data for gantt chart', () => {
+    const dumpDataSet = (url, index) =>
+      cy.request(url).then((response) => {
+        cy.request({
+          method: 'POST',
+          form: true,
+          url: 'api/console/proxy',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+            'osd-xsrf': true,
+          },
+          qs: {
+            path: `${index}/_bulk`,
+            method: 'POST',
+          },
+          body: response.body,
+        });
+      });
+    testDataSet.forEach(({ url, index }) => dumpDataSet(url, index));
+
+    cy.request({
+      method: 'POST',
+      failOnStatusCode: false,
+      url: 'api/saved_objects/index-pattern/jaeger',
+      headers: {
+        'content-type': 'application/json',
+        'osd-xsrf': true,
+      },
+      body: JSON.stringify({ attributes: { title: 'jaeger' } }),
+    });
+  });
+});
 
 describe('Save a gantt chart', () => {
   beforeEach(() => {
