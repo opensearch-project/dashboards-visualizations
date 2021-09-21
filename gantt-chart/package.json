@@ -26,7 +26,6 @@
     "cypress": "^5.0.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",
-    "jest": "^26.4.2",
     "jest-dom": "^4.0.0"
   }
 }
