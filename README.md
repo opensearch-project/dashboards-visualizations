@@ -1,6 +1,8 @@
 [![Dashboards Visualizations CI](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml/badge.svg)](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml)
 [![codecov](https://codecov.io/gh/opensearch-project/dashboards-visualizations/branch/main/graphs/badge.svg)](https://codecov.io/gh/opensearch-project/dashboards-visualizations)
 
+<img src="https://opensearch.org/assets/img/opensearch-logo-themed.svg" alt="OpenSearch" height="64">
+
 # OpenSearch Dashboards Visualizations
 
 The OpenSearch Dashboards Visualizations enables you to use additional types of visualizations inside OpenSearch Dashboards Visualize and integrate them in Dashboard.
@@ -30,8 +32,8 @@ If you discover a potential security issue in this project we ask that you notif
 
 ## License
 
-This project is licensed under the [Apache v2.0 License](LICENSE.txt).
+This project is licensed under the [Apache v2.0 License](LICENSE).
 
 ## Copyright
 
-Copyright OpenSearch Contributors. See [NOTICE](NOTICE.txt) for details.
+Copyright OpenSearch Contributors. See [NOTICE](NOTICE) for details.
