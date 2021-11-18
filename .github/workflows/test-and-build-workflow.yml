@@ -60,8 +60,8 @@ jobs:
       - name: Upload coverage
         uses: codecov/codecov-action@v1
         with:
+          directory: ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
           token: ${{ secrets.CODECOV_TOKEN }}
-          direcotry: ./dashboards-visualizations/OpenSearch-Dashboards/plugins/trace-analytics
 
       - name: Build Artifact
         run: |
