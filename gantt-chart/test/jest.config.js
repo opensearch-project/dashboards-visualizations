@@ -24,4 +24,5 @@ module.exports = {
     '\\.(css|less|sass|scss)$': '<rootDir>/test/mocks/styleMock.ts',
     '\\.(gif|ttf|eot|svg)$': '<rootDir>/test/mocks/fileMock.ts',
   },
+  testEnvironment: 'jsdom',
 };
