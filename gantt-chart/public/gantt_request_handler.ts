@@ -29,12 +29,18 @@ const constructRequest = (
   uiSettings: IUiSettingsClient,
   { timeRange, filters, query, index, visParams }: GanttRequestHandlerDeps
 ) => {
-  const config: OpenSearchQueryConfig = {
-    allowLeadingWildcards: uiSettings.get('query:allowLeadingWildcards', false),
-    queryStringOptions: uiSettings.get('query:queryString:options', {}),
-    ignoreFilterIfFieldNotInIndex: uiSettings.get('courier:ignoreFilterIfFieldNotInIndex', false),
-  };
-  const DSL = buildOpenSearchQuery(index, query, filters, config);
+  let DSL;
+  try {
+    const config: OpenSearchQueryConfig = {
+      allowLeadingWildcards: uiSettings.get('query:allowLeadingWildcards'),
+      queryStringOptions: uiSettings.get('query:queryString:options'),
+      ignoreFilterIfFieldNotInIndex: uiSettings.get('courier:ignoreFilterIfFieldNotInIndex'),
+    };
+    DSL = buildOpenSearchQuery(index, query, filters, config);
+  } catch (error) {
+    DSL = buildOpenSearchQuery(index, query, filters);
+  }
+
   const request: any = {
     index: index.title,
     size: visParams.size,
