@@ -4,14 +4,14 @@ exports[`<GanttChart /> spec renders empty prompt when no data is returned 1`] =
 <div
   class="euiEmptyPrompt"
 >
+  <h2
+    class="euiTitle euiTitle--medium"
+  >
+    No data
+  </h2>
   <span
     class="euiTextColor euiTextColor--subdued"
   >
-    <h2
-      class="euiTitle euiTitle--medium"
-    >
-      No data
-    </h2>
     <div
       class="euiSpacer euiSpacer--m"
     />
@@ -32,14 +32,14 @@ exports[`<GanttChart /> spec renders empty prompt when no field is selected 1`] 
 <div
   class="euiEmptyPrompt"
 >
+  <h2
+    class="euiTitle euiTitle--medium"
+  >
+    No data
+  </h2>
   <span
     class="euiTextColor euiTextColor--subdued"
   >
-    <h2
-      class="euiTitle euiTitle--medium"
-    >
-      No data
-    </h2>
     <div
       class="euiSpacer euiSpacer--m"
     />
