@@ -2,7 +2,7 @@
 
 exports[`<GanttChartEditor /> spec renders the component 1`] = `
 <div
-  class="euiPanel euiPanel--paddingSmall euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+  class="euiPanel euiPanel--paddingSmall"
 >
   <h3
     class="euiTitle euiTitle--xsmall"
@@ -30,55 +30,54 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
       class="euiFormRow__fieldWrapper"
     >
       <div
-        class="euiPopover euiPopover--anchorDownLeft euiPopover--displayBlock euiInputPopover euiSuperSelect"
+        class="euiPopover euiPopover--anchorDownCenter euiPopover--displayBlock euiSuperSelect"
       >
         <div
           class="euiPopover__anchor"
         >
-          <div>
-            <input
-              id="random_html_id"
-              type="hidden"
-              value="spanID"
-            />
+          <input
+            id="random_html_id"
+            type="hidden"
+            value="spanID"
+          />
+          <div
+            class="euiFormControlLayout"
+          >
             <div
-              class="euiFormControlLayout"
+              class="euiFormControlLayout__childrenWrapper"
             >
+              <span
+                class="euiScreenReaderOnly"
+                id="random_html_id"
+              >
+                Select an option: 
+                , is selected
+              </span>
+              <button
+                aria-describedby="random_html_id-help"
+                aria-haspopup="true"
+                aria-labelledby="random_html_id random_html_id"
+                class="euiSuperSelectControl"
+                data-test-subj="gantt-chart-editor-label-field"
+                type="button"
+              />
               <div
-                class="euiFormControlLayout__childrenWrapper"
+                class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
               >
                 <span
-                  class="euiScreenReaderOnly"
-                  id="random_html_id"
+                  class="euiFormControlLayoutCustomIcon"
                 >
-                  Select an option: , is selected
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  />
                 </span>
-                <button
-                  aria-describedby="random_html_id-help-0"
-                  aria-haspopup="true"
-                  aria-labelledby="random_html_id random_html_id"
-                  class="euiSuperSelectControl"
-                  data-test-subj="gantt-chart-editor-label-field"
-                  type="button"
-                />
-                <div
-                  class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
-                >
-                  <span
-                    class="euiFormControlLayoutCustomIcon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    />
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -86,7 +85,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
       </div>
       <div
         class="euiFormHelpText euiFormRow__text"
-        id="random_html_id-help-0"
+        id="random_html_id-help"
       >
         Gantt chart allows you to compare schedules of the selected field.
       </div>
@@ -110,55 +109,54 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
       class="euiFormRow__fieldWrapper"
     >
       <div
-        class="euiPopover euiPopover--anchorDownLeft euiPopover--displayBlock euiInputPopover euiSuperSelect"
+        class="euiPopover euiPopover--anchorDownCenter euiPopover--displayBlock euiSuperSelect"
       >
         <div
           class="euiPopover__anchor"
         >
-          <div>
-            <input
-              id="random_html_id"
-              type="hidden"
-              value="startTime"
-            />
+          <input
+            id="random_html_id"
+            type="hidden"
+            value="startTime"
+          />
+          <div
+            class="euiFormControlLayout"
+          >
             <div
-              class="euiFormControlLayout"
+              class="euiFormControlLayout__childrenWrapper"
             >
+              <span
+                class="euiScreenReaderOnly"
+                id="random_html_id"
+              >
+                Select an option: 
+                , is selected
+              </span>
+              <button
+                aria-describedby="random_html_id-help"
+                aria-haspopup="true"
+                aria-labelledby="random_html_id random_html_id"
+                class="euiSuperSelectControl"
+                data-test-subj="gantt-chart-editor-start-time-field"
+                type="button"
+              />
               <div
-                class="euiFormControlLayout__childrenWrapper"
+                class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
               >
                 <span
-                  class="euiScreenReaderOnly"
-                  id="random_html_id"
+                  class="euiFormControlLayoutCustomIcon"
                 >
-                  Select an option: , is selected
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  />
                 </span>
-                <button
-                  aria-describedby="random_html_id-help-0"
-                  aria-haspopup="true"
-                  aria-labelledby="random_html_id random_html_id"
-                  class="euiSuperSelectControl"
-                  data-test-subj="gantt-chart-editor-start-time-field"
-                  type="button"
-                />
-                <div
-                  class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
-                >
-                  <span
-                    class="euiFormControlLayoutCustomIcon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    />
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -166,7 +164,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
       </div>
       <div
         class="euiFormHelpText euiFormRow__text"
-        id="random_html_id-help-0"
+        id="random_html_id-help"
       >
         Select a timestamp field to represent the beginning of a schedule.
       </div>
@@ -190,55 +188,54 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
       class="euiFormRow__fieldWrapper"
     >
       <div
-        class="euiPopover euiPopover--anchorDownLeft euiPopover--displayBlock euiInputPopover euiSuperSelect"
+        class="euiPopover euiPopover--anchorDownCenter euiPopover--displayBlock euiSuperSelect"
       >
         <div
           class="euiPopover__anchor"
         >
-          <div>
-            <input
-              id="random_html_id"
-              type="hidden"
-              value="duration"
-            />
+          <input
+            id="random_html_id"
+            type="hidden"
+            value="duration"
+          />
+          <div
+            class="euiFormControlLayout"
+          >
             <div
-              class="euiFormControlLayout"
+              class="euiFormControlLayout__childrenWrapper"
             >
+              <span
+                class="euiScreenReaderOnly"
+                id="random_html_id"
+              >
+                Select an option: 
+                , is selected
+              </span>
+              <button
+                aria-describedby="random_html_id-help"
+                aria-haspopup="true"
+                aria-labelledby="random_html_id random_html_id"
+                class="euiSuperSelectControl"
+                data-test-subj="gantt-chart-editor-duration-field"
+                type="button"
+              />
               <div
-                class="euiFormControlLayout__childrenWrapper"
+                class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
               >
                 <span
-                  class="euiScreenReaderOnly"
-                  id="random_html_id"
+                  class="euiFormControlLayoutCustomIcon"
                 >
-                  Select an option: , is selected
+                  <svg
+                    aria-hidden="true"
+                    class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                    focusable="false"
+                    height="16"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  />
                 </span>
-                <button
-                  aria-describedby="random_html_id-help-0"
-                  aria-haspopup="true"
-                  aria-labelledby="random_html_id random_html_id"
-                  class="euiSuperSelectControl"
-                  data-test-subj="gantt-chart-editor-duration-field"
-                  type="button"
-                />
-                <div
-                  class="euiFormControlLayoutIcons euiFormControlLayoutIcons--right"
-                >
-                  <span
-                    class="euiFormControlLayoutCustomIcon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
-                      focusable="false"
-                      height="16"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    />
-                  </span>
-                </div>
               </div>
             </div>
           </div>
@@ -246,7 +243,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
       </div>
       <div
         class="euiFormHelpText euiFormRow__text"
-        id="random_html_id-help-0"
+        id="random_html_id-help"
       >
         Value of duration field must be a time interval that can be added to the start timestamp field.
       </div>

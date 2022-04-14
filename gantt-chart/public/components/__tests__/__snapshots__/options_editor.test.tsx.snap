@@ -2,7 +2,7 @@
 
 exports[`<OptionsEditor /> spec renders the component 1`] = `
 <div
-  class="euiPanel euiPanel--paddingSmall euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+  class="euiPanel euiPanel--paddingSmall"
 >
   <h3
     class="euiTitle euiTitle--xsmall"
@@ -233,7 +233,7 @@ exports[`<OptionsEditor /> spec renders the component 1`] = `
 
 exports[`<OptionsEditor /> spec renders the component with different options 1`] = `
 <div
-  class="euiPanel euiPanel--paddingSmall euiPanel--borderRadiusMedium euiPanel--plain euiPanel--hasShadow"
+  class="euiPanel euiPanel--paddingSmall"
 >
   <h3
     class="euiTitle euiTitle--xsmall"
