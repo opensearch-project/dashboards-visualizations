@@ -6,7 +6,14 @@
 import { IUiSettingsClient } from 'opensearch-dashboards/public';
 import { IndexPattern } from 'src/plugins/data/public';
 import { VisParams } from 'src/plugins/visualizations/public';
-import { buildOpenSearchQuery, Filter, Query, TimeRange, getTime, OpenSearchQueryConfig } from '../../../src/plugins/data/common';
+import {
+  buildOpenSearchQuery,
+  Filter,
+  getTime,
+  OpenSearchQueryConfig,
+  Query,
+  TimeRange,
+} from '../../../src/plugins/data/common';
 import { GanttVisDependencies } from './plugin';
 
 interface GanttRequestHandlerDeps {
@@ -26,7 +33,7 @@ const constructRequest = (
     allowLeadingWildcards: uiSettings.get('query:allowLeadingWildcards', false),
     queryStringOptions: uiSettings.get('query:queryString:options', {}),
     ignoreFilterIfFieldNotInIndex: uiSettings.get('courier:ignoreFilterIfFieldNotInIndex', false),
-  }
+  };
   const DSL = buildOpenSearchQuery(index, query, filters, config);
   const request: any = {
     index: index.title,
