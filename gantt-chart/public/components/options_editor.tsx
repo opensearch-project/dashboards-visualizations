@@ -99,10 +99,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         <EuiSpacer size="s" />
 
         <EuiFormRow label="Color">
-          <EuiColorPicker
-            color={stateParams.colors}
-            onChange={(e) => setValue('colors', e)}
-          />
+          <EuiColorPicker color={stateParams.colors} onChange={(e) => setValue('colors', e)} />
         </EuiFormRow>
       </EuiPanel>
     );

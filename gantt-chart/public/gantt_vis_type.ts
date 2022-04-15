@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Vis, PersistedState } from 'src/plugins/visualizations/public';
 import { IAggConfigs } from 'src/plugins/data/public';
+import { PersistedState, Vis } from 'src/plugins/visualizations/public';
 import { GanttChart } from './components/gantt_chart';
 import { GanttChartEditor } from './components/gantt_chart_editor';
-import { GanttVisDependencies } from './plugin';
 import { OptionsEditor } from './components/options_editor';
 import { getGanttRequestHandler } from './gantt_request_handler';
+import { GanttVisDependencies } from './plugin';
 
 export interface SearchResponse {
   _index: string;
@@ -77,19 +77,15 @@ export interface GanttSuccessResponse {
   total: number;
 }
 
-const getGanttResponseHandler = () => async ({
-  total,
-  hits,
-}: {
-  total: number;
-  hits: SearchResponse[];
-}) => {
-  const responseData: GanttSuccessResponse = {
-    total,
-    source: hits.map((hit) => hit._source),
+const getGanttResponseHandler =
+  () =>
+  async ({ total, hits }: { total: number; hits: SearchResponse[] }) => {
+    const responseData: GanttSuccessResponse = {
+      total,
+      source: hits.map((hit) => hit._source),
+    };
+    return responseData;
   };
-  return responseData;
-};
 
 export function getGanttVisDefinition(dependencies: GanttVisDependencies) {
   const ganttRequestHandler = getGanttRequestHandler(dependencies);

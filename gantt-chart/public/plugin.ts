@@ -3,7 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CoreSetup, Plugin, CoreStart, IUiSettingsClient, HttpSetup } from 'opensearch-dashboards/public';
+import {
+  CoreSetup,
+  CoreStart,
+  HttpSetup,
+  IUiSettingsClient,
+  Plugin,
+} from 'opensearch-dashboards/public';
 import { VisualizationsSetup } from '../../../src/plugins/visualizations/public';
 import { getGanttVisDefinition } from './gantt_vis_type';
 
@@ -17,7 +23,8 @@ export interface GanttVisDependencies extends Partial<CoreStart> {
 }
 
 export class CustomVisualizationsPublicPlugin
-  implements Plugin<CustomVisualizationsSetup, CustomVisualizationsStart> {
+  implements Plugin<CustomVisualizationsSetup, CustomVisualizationsStart>
+{
   public setup(core: CoreSetup, setupDeps: SetupDependencies) {
     const dependencies: GanttVisDependencies = {
       uiSettings: core.uiSettings,
