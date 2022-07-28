@@ -1,32 +1,52 @@
 /*
+ * Copyright OpenSearch Contributors
  * SPDX-License-Identifier: Apache-2.0
- *
- * The OpenSearch Contributors require contributions made to
- * this file be licensed under the Apache-2.0 license or a
- * compatible open source license.
- *
- * Modifications Copyright OpenSearch Contributors. See
- * GitHub history for details.
- */
-
-/*
- *   Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- *   Licensed under the Apache License, Version 2.0 (the "License").
- *   You may not use this file except in compliance with the License.
- *   A copy of the License is located at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- *   or in the "license" file accompanying this file. This file is distributed
- *   on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- *   express or implied. See the License for the specific language governing
- *   permissions and limitations under the License.
  */
 
 /// <reference types="cypress" />
 
-import { delay, GANTT_VIS_NAME, Y_LABEL, X_LABEL, DEFAULT_SIZE } from '../utils/constants';
+import {
+  testDataSet,
+  delay,
+  GANTT_VIS_NAME,
+  Y_LABEL,
+  X_LABEL,
+  DEFAULT_SIZE,
+} from '../utils/constants';
+
+describe('Dump test data', () => {
+  it('Indexes test data for gantt chart', () => {
+    const dumpDataSet = (url, index) =>
+      cy.request(url).then((response) => {
+        cy.request({
+          method: 'POST',
+          form: true,
+          url: 'api/console/proxy',
+          headers: {
+            'content-type': 'application/json;charset=UTF-8',
+            'osd-xsrf': true,
+          },
+          qs: {
+            path: `${index}/_bulk`,
+            method: 'POST',
+          },
+          body: response.body,
+        });
+      });
+    testDataSet.forEach(({ url, index }) => dumpDataSet(url, index));
+
+    cy.request({
+      method: 'POST',
+      failOnStatusCode: false,
+      url: 'api/saved_objects/index-pattern/jaeger',
+      headers: {
+        'content-type': 'application/json',
+        'osd-xsrf': true,
+      },
+      body: JSON.stringify({ attributes: { title: 'jaeger' } }),
+    });
+  });
+});
 
 describe('Save a gantt chart', () => {
   beforeEach(() => {

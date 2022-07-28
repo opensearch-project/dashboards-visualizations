@@ -1,6 +1,8 @@
 [![Dashboards Visualizations CI](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml/badge.svg)](https://github.com/opensearch-project/dashboards-visualizations/actions/workflows/test-and-build-workflow.yml)
 [![codecov](https://codecov.io/gh/opensearch-project/dashboards-visualizations/branch/main/graphs/badge.svg)](https://codecov.io/gh/opensearch-project/dashboards-visualizations)
 
+<img src="https://opensearch.org/assets/img/opensearch-logo-themed.svg" alt="OpenSearch" height="64">
+
 # OpenSearch Dashboards Visualizations
 
 The OpenSearch Dashboards Visualizations enables you to use additional types of visualizations inside OpenSearch Dashboards Visualize and integrate them in Dashboard.
@@ -8,7 +10,7 @@ The OpenSearch Dashboards Visualizations enables you to use additional types of 
 
 ## Documentation
 
-Please see our technical [documentation](https://docs-beta.opensearch.org/dashboards/gantt/) to learn more about its features.
+Please see our technical [documentation](https://opensearch.org/docs/dashboards/gantt/) to learn more about its features.
 
 ## Contributing
 
@@ -18,7 +20,7 @@ See [developer guide](DEVELOPER_GUIDE.md) and [how to contribute to this project
 
 If you find a bug, or have a feature request, please don't hesitate to open an issue in this repository.
 
-For more information, see [project website](https://opensearch.org/) and [documentation](https://docs-beta.opensearch.org/). If you need help and are unsure where to open an issue, try [forums](https://discuss.opendistrocommunity.dev/).
+For more information, see [project website](https://opensearch.org/) and [documentation](https://opensearch.org/docs/dashboards/gantt/). If you need help and are unsure where to open an issue, try [forums](https://discuss.opendistrocommunity.dev/).
 
 ## Code of Conduct
 
@@ -30,8 +32,8 @@ If you discover a potential security issue in this project we ask that you notif
 
 ## License
 
-This project is licensed under the [Apache v2.0 License](LICENSE.txt).
+This project is licensed under the [Apache v2.0 License](LICENSE).
 
 ## Copyright
 
-Copyright 2020-2021 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Copyright OpenSearch Contributors. See [NOTICE](NOTICE) for details.
