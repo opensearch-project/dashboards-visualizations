@@ -78,7 +78,6 @@ jobs:
   windows-build:
 
     runs-on: windows-latest
-    working_directory: X:\
     steps:
       - name: Checkout Plugin
         uses: actions/checkout@v2
