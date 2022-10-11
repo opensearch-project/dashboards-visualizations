@@ -122,7 +122,7 @@ jobs:
       - name: Test
         run: |
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
-          yarn test --coverage
+          yarn test
 
       - name: Build Artifact
         run: |
@@ -181,7 +181,7 @@ jobs:
       - name: Test
         run: |
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
-          yarn test --coverage
+          yarn test
 
       - name: Build Artifact
         run: |
