@@ -81,9 +81,7 @@ jobs:
     steps:
       - name: Checkout Plugin
         uses: actions/checkout@v2
-      # Shorten path for windows
-      - name: Shorten Path
-        run: subst 'X:' .
+      # Enable longer filenames for windows
       - name: Enable longer filenames
         run: git config --system core.longpaths true
 
