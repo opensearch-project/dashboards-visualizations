@@ -82,6 +82,9 @@ jobs:
     steps:
       - name: Checkout Plugin
         uses: actions/checkout@v2
+      # Shorten path for windows
+      - name: Shorten Path
+        run: subst 'X:' .
 
       - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v2
