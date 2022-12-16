@@ -1,6 +1,6 @@
 {
   "name": "gantt-chart-dashboards",
-  "version": "2.4.1.0",
+  "version": "2.4.2.0",
   "license": "Apache-2.0",
   "scripts": {
     "osd": "node ../../scripts/osd",
