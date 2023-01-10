@@ -1593,7 +1593,7 @@ react-plotly.js@^2.4.0:
   resolved "https://registry.yarnpkg.com/react-plotly.js/-/react-plotly.js-2.5.1.tgz#11182bf599ef11a0dbfcd171c6f5645535a2b486"
   integrity sha512-Oya14whSHvPsYXdI0nHOGs1pZhMzV2edV7HAW1xFHD58Y73m/LbG2Encvyz1tztL0vfjph0JNhiwO8cGBJnlhg==
   dependencies:
-    prop-types "^15.7.2"
+    prop-types "^15.8.1"
 
 readable-stream@^2.2.2:
   version "2.3.7"

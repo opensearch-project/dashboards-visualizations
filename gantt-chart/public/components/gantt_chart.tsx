@@ -52,7 +52,7 @@ export function GanttChart({
       const rawStartTime: number = getStartTime(document);
       // subtract with start time of earliest trace to get relative start time
       const startTime: number = rawStartTime - minStartTime;
-      const duration: number = _.get(document, visParams.durationField);
+      const duration: number = Number(_.get(document, visParams.durationField));
       maxEndTime = Math.max(maxEndTime, rawStartTime + duration);
 
       const label: string = _.get(document, visParams.labelField);
