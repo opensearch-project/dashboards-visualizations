@@ -6,7 +6,7 @@ on: [pull_request, push]
 env:
   PLUGIN_NAME: gantt-chart-dashboards
   OPENSEARCH_VERSION: 'main'
-  OPENSEARCH_PLUGIN_VERSION: 2.5.0.0
+  OPENSEARCH_PLUGIN_VERSION: 2.6.0.0
 
 jobs:
 
