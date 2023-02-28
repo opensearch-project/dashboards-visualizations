@@ -4,7 +4,13 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 
 ## Current Maintainers
 
-| Maintainer | GitHub ID                                       | Affiliation |
-| ---------- | ----------------------------------------------- | ----------- |
-| David Cui  | [davidcui1225](https://github.com/davidcui1225) | Amazon      |
-| Joshua Li  | [joshuali925](https://github.com/joshuali925)   | Amazon      |
+| Maintainer        | GitHub ID                                         | Affiliation |
+| ----------------- | ------------------------------------------------- | ----------- |
+
+## Emeritus Maintainers
+
+| Maintainer        | GitHub ID                                               | Affiliation |
+| ----------------- | ------------------------------------------------------- | ----------- |
+| Charlotte Henkle  | [CEHENKLE](https://github.com/CEHENKLE)                 | Amazon      |
+| Anirudha Jadhav   | [anirudha](https://github.com/anirudha)                 | Amazon      |
+| Nick Knize        | [nknize](https://github.com/nknize)                     | Amazon      |
