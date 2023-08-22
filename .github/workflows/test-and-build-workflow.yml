@@ -51,6 +51,11 @@ jobs:
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
           yarn osd bootstrap
 
+      - name: Run Stylelint
+        run: |
+          cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
+          yarn lint:style
+
       - name: Test
         run: |
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
@@ -117,6 +122,11 @@ jobs:
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
           yarn osd bootstrap
 
+      - name: Run Stylelint
+        run: |
+          cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
+          yarn lint:style
+
       - name: Test
         run: |
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
@@ -174,6 +184,11 @@ jobs:
         run: |
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
           yarn osd bootstrap
+
+      - name: Run Stylelint
+        run: |
+          cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
+          yarn lint:style
 
       - name: Test
         run: |
