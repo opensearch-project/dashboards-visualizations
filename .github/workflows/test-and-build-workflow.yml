@@ -9,10 +9,20 @@ env:
   OPENSEARCH_PLUGIN_VERSION: 3.0.0.0
 
 jobs:
+  Get-CI-Image-Tag:
+    uses: opensearch-project/opensearch-build/.github/workflows/get-ci-image-tag.yml@main
+    with:
+      product: opensearch-dashboards
 
   linux-build:
-
+    needs: Get-CI-Image-Tag
     runs-on: ubuntu-latest
+    container:
+      # using the same image which is used by opensearch-build team to build the OpenSearch Distribution
+      # this image tag is subject to change as more dependencies and updates will arrive over time
+      image: ${{ needs.Get-CI-Image-Tag.outputs.ci-image-version-linux }}
+      # need to switch to root so that github actions can install runner binary on container without permission issues.
+      options: --user root
 
     steps:
       - name: Checkout Plugin
@@ -25,41 +35,17 @@ jobs:
           ref: ${{ env.OPENSEARCH_VERSION }}
           path: dashboards-visualizations/OpenSearch-Dashboards
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: './dashboards-visualizations/OpenSearch-Dashboards/.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install Yarn
-        # Need to use bash to avoid having a windows/linux specific step
-        shell: bash
-        run: |
-          YARN_VERSION=$(node -p "require('./dashboards-visualizations/OpenSearch-Dashboards/package.json').engines.yarn")
-          echo "Installing yarn@$YARN_VERSION"
-          npm i -g yarn@$YARN_VERSION
-
-      - run: node -v
-      - run: yarn -v
-
       - name: Move Gantt Chart to Plugins Dir
         run: |
           mv gantt-chart ./dashboards-visualizations/OpenSearch-Dashboards/plugins
 
-      - name: Plugin Bootstrap
+      - name: Plugin Bootstrap / stylelint / test
         run: |
-          cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
-          yarn osd bootstrap
-
-      - name: Run Stylelint
-        run: |
-          cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
-          yarn lint:style
-
-      - name: Test
-        run: |
-          cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
-          yarn test --coverage
+          chown -R 1000:1000 `pwd`
+          cd dashboards-visualizations/OpenSearch-Dashboards/
+          su `id -un 1000` -c "source $NVM_DIR/nvm.sh && nvm use && node -v && yarn -v &&
+                               cd ./plugins/gantt-chart &&
+                               whoami && yarn osd bootstrap && yarn lint:style && yarn test --coverage"
 
       - name: Upload coverage
         uses: codecov/codecov-action@v1
@@ -69,8 +55,9 @@ jobs:
 
       - name: Build Artifact
         run: |
+          chown -R 1000:1000 `pwd`
           cd ./dashboards-visualizations/OpenSearch-Dashboards/plugins/gantt-chart
-          yarn build
+          su `id -un 1000` -c "source $NVM_DIR/nvm.sh && nvm use && node -v && yarn -v && yarn build"
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
 
       - name: Upload Artifact
