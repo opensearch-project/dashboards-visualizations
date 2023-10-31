@@ -42,7 +42,7 @@ jobs:
       - name: Plugin Bootstrap / stylelint / test
         run: |
           chown -R 1000:1000 `pwd`
-          cd ./OpenSearch-Dashboards/
+          cd dashboards-visualizations/OpenSearch-Dashboards/
           su `id -un 1000` -c "source $NVM_DIR/nvm.sh && nvm use && node -v && yarn -v &&
                                cd ./plugins/gantt-chart &&
                                whoami && yarn osd bootstrap && yarn lint:style && yarn test --coverage"
