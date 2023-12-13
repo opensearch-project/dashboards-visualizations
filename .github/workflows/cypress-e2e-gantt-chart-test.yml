@@ -74,7 +74,7 @@ jobs:
             cypress
             test
 
-      - name: Move Gantt Chart to Plugins Dir
+      - name: Install Gantt Chart to Opensearch Dashboards Plugins Dir
         run: |
           mv gantt-chart ./OpenSearch-Dashboards/plugins
 
