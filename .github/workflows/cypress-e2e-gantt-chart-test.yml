@@ -136,7 +136,6 @@ jobs:
       - name: Get Cypress version
         id: cypress_version
         run: |
-          cd ./OpenSearch-Dashboards/plugins/gantt-chart
           echo "::set-output name=cypress_version::$(cat ./package.json | jq '.dependencies.cypress' | tr -d '"')"
         working-directory: OpenSearch-Dashboards/plugins/gantt-chart
 
