@@ -68,7 +68,7 @@ jobs:
         with:
           path: OpenSearch-Dashboards
           repository: opensearch-project/OpenSearch-Dashboards
-          ref: 'main'
+          ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           fetch-depth: 0
           filter: |
             cypress
@@ -85,22 +85,41 @@ jobs:
         run: |
           mv gantt-chart ./OpenSearch-Dashboards/plugins
 
+      - id: tool-versions
+        run: |
+          echo "node_version=$(cat .node-version)" >> $GITHUB_OUTPUT
+          echo "yarn_version=$(jq -r '.engines.yarn' package.json)" >> $GITHUB_OUTPUT
+        working-directory: OpenSearch-Dashboards
+        shell: bash
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.tool-versions.outputs.node_version }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup Opensearch Dashboards
+        run: |
+          npm uninstall -g yarn
+          echo "Installing yarn ${{ steps.tool-versions.outputs.yarn_version }}"
+          npm i -g yarn@${{ steps.tool-versions.outputs.yarn_version }}
+          yarn cache clean
+          yarn add sha.js
+        working-directory: OpenSearch-Dashboards
+        shell: bash
+
       - name: Boodstrap Opensearch Dashboards
         run: |
-          cd ./OpenSearch-Dashboards
-          nvm use
-          npm i -g yarn
           yarn osd bootstrap
+        working-directory: OpenSearch-Dashboards
       
       - name: Run Opensearch Dashboards with Gantt Chart Installed
         run: |
-          cd ./OpenSearch-Dashboards
           nohup yarn start --no-base-path --no-watch | tee dashboard.log &
+        working-directory: OpenSearch-Dashboards
 
       - name : Check If OpenSearch Dashboards Is Ready
         if: ${{ runner.os == 'Linux' }}
         run: |
-          cd ./OpenSearch-Dashboards
           echo "Start checking OpenSearch Dashboards."
           for i in {1..60}; do
             if grep -q "bundles compiled successfully after" "dashboard.log"; then
@@ -112,7 +131,8 @@ jobs:
               exit 1
             fi
             sleep 10
-          done      
+          done
+        working-directory: OpenSearch-Dashboards
 
       - name: DEBUGGING PWD
         run : |
