@@ -74,13 +74,6 @@ jobs:
             cypress
             test
 
-      - name: DEBUGGING PWD
-        run : |
-          pwd
-          ls
-          cd ./OpenSearch-Dashboards/plugins
-          ls
-
       - name: Move Gantt Chart to Plugins Dir
         run: |
           mv gantt-chart ./OpenSearch-Dashboards/plugins
