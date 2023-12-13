@@ -160,7 +160,7 @@ jobs:
   
       - name: Capture test video
         uses: actions/upload-artifact@v1
-        if: always()
+        if: failure()
         with:
           name: cypress-videos-${{ matrix.os }}
           path: OpenSearch-Dashboards/plugins/gantt-chart/.cypress/videos
