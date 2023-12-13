@@ -129,20 +129,21 @@ jobs:
 
       - name: Install Cypress
         run: |
-          cd ./OpenSearch-Dashboards/plugins/gantt-chart
           npx cypress install
         shell: bash
+        working-directory: OpenSearch-Dashboards/plugins/gantt-chart
 
       - name: Get Cypress version
         id: cypress_version
         run: |
           cd ./OpenSearch-Dashboards/plugins/gantt-chart
           echo "::set-output name=cypress_version::$(cat ./package.json | jq '.dependencies.cypress' | tr -d '"')"
+        working-directory: OpenSearch-Dashboards/plugins/gantt-chart
 
       - name: Run Cypress tests
         run: |
-          cd ./OpenSearch-Dashboards/plugins/gantt-chart
           yarn cypress:run --browser chrome --headless --spec '.cypress/integration/${{ matrix.testgroups }}/*'
+        working-directory: OpenSearch-Dashboards/plugins/gantt-chart
   
       - name: Capture failure screenshots
         uses: actions/upload-artifact@v1
