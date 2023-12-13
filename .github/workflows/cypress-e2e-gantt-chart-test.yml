@@ -25,6 +25,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.jdk }}
+      
+      - name: Checkout Plugin
+        uses: actions/checkout@v2
 
       - name: Download OpenSearch
         uses: peternied/download-file@v2
@@ -55,7 +58,8 @@ jobs:
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
       
-      - if: always()
+      - name: Show OpenSearch Logs
+        if: always()
         run: cat ./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/logs/opensearch.log
         shell: bash
       
@@ -70,10 +74,23 @@ jobs:
             cypress
             test
 
+      - name: DEBUGGING PWD
+        run : |
+          pwd
+          ls
+          cd ./OpenSearch-Dashboards/plugins
+          ls
+
       - name: Move Gantt Chart to Plugins Dir
         run: |
           mv gantt-chart ./dashboards-visualizations/OpenSearch-Dashboards/plugins
 
+      - name: Boodstrap Opensearch Dashboards
+        run: |
+          nvm use
+          npm i -g yarn
+          yarn osd bootstrap
+      
       - name: DEBUGGING PWD
         run : |
           pwd
