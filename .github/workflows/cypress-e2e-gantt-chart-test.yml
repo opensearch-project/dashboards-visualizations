@@ -45,7 +45,7 @@ jobs:
     
       - name: Check OpenSearch Running on Linux
         if: ${{ runner.os != 'Windows'}}
-        run: curl https://localhost:9200/_cat/plugins -u 'admin:admin' -k -v
+        run: curl http://localhost:9200/
         shell: bash
 
       - name: Checkout OpenSearch Dashboards
