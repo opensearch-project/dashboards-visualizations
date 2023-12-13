@@ -1,0 +1,52 @@
+name: Cypress E2E Gantt Chart Test
+
+on: [pull_request, push]
+
+env:
+  PLUGIN_NAME: gantt-chart-dashboards
+  OPENSEARCH_VERSION: 'main'
+  OPENSEARCH_PLUGIN_VERSION: 3.0.0.0
+
+jobs:
+  Get-CI-Image-Tag:
+    uses: opensearch-project/opensearch-build/.github/workflows/get-ci-image-tag.yml@main
+    with:
+      product: opensearch-dashboards
+
+  test:
+    needs: Get-CI-Image-Tag
+    runs-on: ubuntu-latest
+    container:
+      # using the same image which is used by opensearch-build team to build the OpenSearch Distribution
+      # this image tag is subject to change as more dependencies and updates will arrive over time
+      image: ${{ needs.Get-CI-Image-Tag.outputs.ci-image-version-linux }}
+      # need to switch to root so that github actions can install runner binary on container without permission issues.
+      options: --user root
+
+    steps:
+      - name: Checkout Plugin
+        uses: actions/checkout@v2
+
+      - name: Checkout OpenSearch Dashboards
+        uses: actions/checkout@v2
+        with:
+          repository: opensearch-project/Opensearch-Dashboards
+          ref: ${{ env.OPENSEARCH_VERSION }}
+          path: dashboards-visualizations/OpenSearch-Dashboards
+
+      - name: Move Gantt Chart to Plugins Dir
+        run: |
+          mv gantt-chart ./dashboards-visualizations/OpenSearch-Dashboards/plugins
+
+          - name: Plugin Bootstrap / stylelint / test
+          run: |
+            chown -R 1000:1000 `pwd`
+            cd dashboards-visualizations/OpenSearch-Dashboards/
+            su `id -un 1000` -c "source $NVM_DIR/nvm.sh && nvm use && node -v && yarn -v &&
+                                 cd ./plugins/gantt-chart &&
+                                 whoami && yarn osd bootstrap 
+      
+      - name: Where am I
+        run: |
+          pwd
+          npx cypress run                          
