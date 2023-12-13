@@ -42,6 +42,11 @@ jobs:
           /bin/bash -c "./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/bin/opensearch &"
           sleep 30
         shell: bash
+    
+      - name: Check OpenSearch Running on Linux
+        if: ${{ runner.os != 'Windows'}}
+        run: curl https://localhost:9200/_cat/plugins -u 'admin:admin' -k -v
+        shell: bash
 
       - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v2
@@ -49,8 +54,29 @@ jobs:
           repository: opensearch-project/Opensearch-Dashboards
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
+      
+      - if: always()
+        run: cat ./opensearch-${{ env.OPENSEARCH_VERSION }}-SNAPSHOT/logs/opensearch.log
+        shell: bash
+      
+      - name: Checkout OpenSearch Dashboards
+        uses: actions/checkout@v2
+        with:
+          path: OpenSearch-Dashboards
+          repository: opensearch-project/OpenSearch-Dashboards
+          ref: 'main'
+          fetch-depth: 0
+          filter: |
+            cypress
+            test
+
+      - name: Move Gantt Chart to Plugins Dir
+        run: |
+          mv gantt-chart ./dashboards-visualizations/OpenSearch-Dashboards/plugins
 
       - name: DEBUGGING PWD
         run : |
           pwd
+          ls
+          cd ./OpenSearch-Dashboards/plugins
           ls
