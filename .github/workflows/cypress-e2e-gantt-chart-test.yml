@@ -83,14 +83,37 @@ jobs:
 
       - name: Move Gantt Chart to Plugins Dir
         run: |
-          mv gantt-chart ./dashboards-visualizations/OpenSearch-Dashboards/plugins
+          mv gantt-chart ./OpenSearch-Dashboards/plugins
 
       - name: Boodstrap Opensearch Dashboards
         run: |
+          cd ./OpenSearch-Dashboards
           nvm use
           npm i -g yarn
           yarn osd bootstrap
       
+      - name: Run Opensearch Dashboards with Gantt Chart Installed
+        run: |
+          cd ./OpenSearch-Dashboards
+          nohup yarn start --no-base-path --no-watch | tee dashboard.log &
+
+      - name : Check If OpenSearch Dashboards Is Ready
+        if: ${{ runner.os == 'Linux' }}
+        run: |
+          cd ./OpenSearch-Dashboards
+          echo "Start checking OpenSearch Dashboards."
+          for i in {1..60}; do
+            if grep -q "bundles compiled successfully after" "dashboard.log"; then
+              echo "OpenSearch Dashboards compiled successfully."
+              break
+            fi
+            if [ $i -eq 60 ]; then
+              echo "Timeout for 600 seconds reached. OpenSearch Dashboards did not finish compiling."
+              exit 1
+            fi
+            sleep 10
+          done      
+
       - name: DEBUGGING PWD
         run : |
           pwd
