@@ -106,18 +106,12 @@ jobs:
       - name : Check If OpenSearch Dashboards Is Ready
         if: ${{ runner.os == 'Linux' }}
         run: |
-          echo "Start checking OpenSearch Dashboards."
-          for i in {1..60}; do
-            if grep -q "bundles compiled successfully after" "dashboard.log"; then
-              echo "OpenSearch Dashboards compiled successfully."
-              break
-            fi
-            if [ $i -eq 60 ]; then
-              echo "Timeout for 600 seconds reached. OpenSearch Dashboards did not finish compiling."
-              exit 1
-            fi
-            sleep 10
-          done
+          if timeout 600 grep -q "bundles compiled successfully after" <(tail -n0 -f dashboard.log); then
+            echo "OpenSearch Dashboards compiled successfully."
+          else
+            echo "Timeout for 600 seconds reached. OpenSearch Dashboards did not finish compiling."
+            exit 1
+          fi
         working-directory: OpenSearch-Dashboards
 
       - name: Install Cypress
