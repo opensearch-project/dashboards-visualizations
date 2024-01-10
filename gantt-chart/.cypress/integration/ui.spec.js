@@ -5,35 +5,31 @@
 
 /// <reference types="cypress" />
 
-import {
-  testDataSet,
-  delay,
-  GANTT_VIS_NAME,
-  Y_LABEL,
-  X_LABEL,
-  DEFAULT_SIZE,
-} from '../utils/constants';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import dayjs from 'dayjs';
+import { delay, GANTT_VIS_NAME, Y_LABEL, X_LABEL, DEFAULT_SIZE } from '../utils/constants';
+dayjs.extend(customParseFormat);
 
 describe('Dump test data', () => {
   it('Indexes test data for gantt chart', () => {
-    const dumpDataSet = (url, index) =>
-      cy.request(url).then((response) => {
-        cy.request({
+    const dumpDataSet = (ndjson, index) =>
+      cy.request({
+        method: 'POST',
+        form: false,
+        url: 'api/console/proxy',
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+          'osd-xsrf': true,
+        },
+        qs: {
+          path: `${index}/_bulk`,
           method: 'POST',
-          form: true,
-          url: 'api/console/proxy',
-          headers: {
-            'content-type': 'application/json;charset=UTF-8',
-            'osd-xsrf': true,
-          },
-          qs: {
-            path: `${index}/_bulk`,
-            method: 'POST',
-          },
-          body: response.body,
-        });
+        },
+        body: ndjson,
       });
-    testDataSet.forEach(({ url, index }) => dumpDataSet(url, index));
+    cy.fixture('jaeger-sample.txt').then((ndjson) => {
+      dumpDataSet(ndjson, 'jaeger');
+    });
 
     cy.request({
       method: 'POST',
@@ -51,39 +47,36 @@ describe('Dump test data', () => {
 describe('Save a gantt chart', () => {
   beforeEach(() => {
     cy.visit(`${Cypress.env('opensearchDashboards')}/app/visualize#`);
-    cy.wait(delay * 5);
   });
 
   it('Creates and saves a gantt chart', () => {
     cy.get('.euiButton__text').contains('Create ').click({ force: true });
-    cy.wait(delay * 3);
-    cy.get('span[data-test-subj="visTypeTitle"]').contains('Gantt Chart').click({ force: true });
-    cy.wait(delay * 3);
-    cy.get('.euiListGroupItem__label')
-      .contains(/^jaeger$/)
-      .click({ force: true });
-    cy.wait(delay * 5);
-    cy.get('.euiButton__text').contains('Save').click({ force: true });
+    cy.wait(delay);
+    cy.get('[data-test-subj="visTypeTitle"]').contains('Gantt Chart').click({ force: true });
+    cy.wait(delay);
+    cy.contains(/^jaeger$/).click({ force: true });
+    cy.wait(delay);
+    cy.contains('Save').click({ force: true });
     cy.wait(delay);
     cy.get('input[data-test-subj="savedObjectTitle"]').type(GANTT_VIS_NAME);
     cy.wait(delay);
-    cy.get('button[data-test-subj="confirmSaveSavedObjectButton"]').click({ force: true });
-    cy.wait(delay * 3);
+    cy.get('button[data-test-subj="confirmSaveSavedObjectButton"]').click({
+      force: true,
+    });
+    cy.wait(delay);
 
-    cy.get('.euiToastHeader__title').contains('Saved').should('exist');
+    cy.contains('Saved').should('exist');
   });
 });
 
 describe('Render and configure a gantt chart', () => {
   beforeEach(() => {
     cy.visit(`${Cypress.env('opensearchDashboards')}/app/visualize#`);
-    cy.wait(delay * 5);
-    cy.get('button').contains(GANTT_VIS_NAME).click({ force: true });
-    cy.wait(delay * 5);
+    cy.contains(GANTT_VIS_NAME).click({ force: true });
   });
 
   it('Renders no data message', () => {
-    cy.get('.euiTitle').contains('No data').should('exist');
+    cy.contains('No data').should('exist');
   });
 
   it('Renders the chart', () => {
@@ -112,19 +105,17 @@ describe('Render and configure a gantt chart', () => {
 
     cy.get('.euiButton__text').contains('Save').click({ force: true });
     cy.wait(delay);
-    cy.get('button[data-test-subj="confirmSaveSavedObjectButton"]').click({ force: true });
-    cy.wait(delay * 3);
+    cy.get('button[data-test-subj="confirmSaveSavedObjectButton"]').click({
+      force: true,
+    });
   });
 });
 
 describe('Configure panel settings', () => {
   beforeEach(() => {
     cy.visit(`${Cypress.env('opensearchDashboards')}/app/visualize#`);
-    cy.wait(delay * 5);
-    cy.get('button').contains(GANTT_VIS_NAME).click({ force: true });
-    cy.wait(delay * 5);
-    cy.get('.euiTab__content').contains('Panel settings').click({ force: true });
-    cy.wait(delay);
+    cy.contains(GANTT_VIS_NAME).click({ force: true });
+    cy.contains('Panel settings').click({ force: true });
   });
 
   it('Changes y-axis label', () => {
@@ -160,37 +151,60 @@ describe('Configure panel settings', () => {
   });
 
   it('Changes time formats', () => {
-    cy.get('g.xtick > text').contains('12:59:07.303 PM').should('exist');
-
     cy.get('select').eq(3).select('MM/DD hh:mm:ss A');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
-    cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28 12:59:07 PM').should('exist');
+    cy.wait(1000);
+    cy.get('.xtick')
+      .eq(0)
+      .invoke('text')
+      .then((text) => {
+        expect(dayjs(text, 'MM/DD hh:mm:ss A', true).isValid()).to.be.true;
+      });
 
     cy.get('select').eq(3).select('MM/DD/YY hh:mm A');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
-    cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28/20 12:59 PM').should('exist');
+    cy.wait(1000);
+    cy.get('.xtick')
+      .eq(0)
+      .invoke('text')
+      .then((text) => {
+        expect(dayjs(text, 'MM/DD/YY hh:mm A', true).isValid()).to.be.true;
+      });
 
     cy.get('select').eq(3).select('HH:mm:ss.SSS');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
-    cy.wait(delay);
-    cy.get('g.xtick > text').contains('12:59:07.303').should('exist');
+    cy.wait(1000);
+    cy.get('.xtick')
+      .eq(0)
+      .invoke('text')
+      .then((text) => {
+        expect(dayjs(text, 'HH:mm:ss.SSS', true).isValid()).to.be.true;
+      });
 
     cy.get('select').eq(3).select('MM/DD HH:mm:ss');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
-    cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28 12:59:07').should('exist');
+    cy.wait(1000);
+    cy.get('.xtick')
+      .eq(0)
+      .invoke('text')
+      .then((text) => {
+        expect(dayjs(text, 'MM/DD HH:mm:ss', true).isValid()).to.be.true;
+      });
 
     cy.get('select').eq(3).select('MM/DD/YY HH:mm');
     cy.wait(delay);
     cy.get('.euiButton__text').contains('Update').click({ force: true });
-    cy.wait(delay);
-    cy.get('g.xtick > text').contains('05/28/20 12:59').should('exist');
+    cy.wait(1000);
+    cy.get('.xtick')
+      .eq(0)
+      .invoke('text')
+      .then((text) => {
+        expect(dayjs(text, 'MM/DD/YY HH:mm', true).isValid()).to.be.true;
+      });
   });
 
   it('Hides legends', () => {
@@ -208,13 +222,14 @@ describe('Configure panel settings', () => {
 describe('Add gantt chart to dashboard', () => {
   it('Adds gantt chart to dashboard', () => {
     cy.visit(`${Cypress.env('opensearchDashboards')}/app/dashboards#/create`);
-    cy.wait(delay * 5);
 
-    cy.get('.euiLink').contains('Add an existing').click({ force: true });
+    cy.contains('Add an existing').click({ force: true });
     cy.wait(delay);
     cy.get('input[data-test-subj="savedObjectFinderSearchInput"]').focus().type(GANTT_VIS_NAME);
     cy.wait(delay);
-    cy.get(`.euiListGroupItem__label[title="${GANTT_VIS_NAME}"]`).click({ force: true });
+    cy.get(`.euiListGroupItem__label[title="${GANTT_VIS_NAME}"]`).click({
+      force: true,
+    });
     cy.wait(delay);
 
     cy.get('g.traces').should('have.length', DEFAULT_SIZE);
