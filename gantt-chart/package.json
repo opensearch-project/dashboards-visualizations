@@ -14,14 +14,14 @@
     "cypress:open": "TZ=America/Los_Angeles cypress open"
   },
   "dependencies": {
-    "plotly.js-dist": "^1.57.1",
-    "react-plotly.js": "^2.4.0"
+    "plotly.js-dist": "^2.2.0",
+    "react-plotly.js": "^2.5.1"
   },
   "devDependencies": {
     "@types/enzyme-adapter-react-16": "^1.0.6",
-    "@types/react-plotly.js": "^2.2.4",
+    "@types/react-plotly.js": "^2.5.0",
     "@types/showdown": "^1.9.3",
-    "cypress": "^12.8.1",
+    "cypress": "^13.6.0",
     "eslint": "^6.8.0",
     "jest-dom": "^4.0.0"
   },
