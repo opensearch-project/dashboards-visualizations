@@ -46,7 +46,7 @@ jobs:
           npm i -g yarn@${{ steps.versions_step.outputs.yarn_version }}
 
       - name: Bootstrap the plugin
-        working-directory: OpenSearch-Dashboards/plugins/${{ env.PLUGIN_NAME }}
+        working-directory: OpenSearch-Dashboards/plugins/gantt-chart
         run: yarn osd bootstrap
 
       - name: Get list of changed files using GitHub Action
