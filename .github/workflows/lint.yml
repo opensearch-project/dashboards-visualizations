@@ -77,4 +77,4 @@ jobs:
           else
             echo "No matched files to lint."
           fi
-        working-directory: OpenSearch-Dashboards/plugins/${{ env.PLUGIN_NAME }}      
+        working-directory: OpenSearch-Dashboards/plugins/gantt-chart     
