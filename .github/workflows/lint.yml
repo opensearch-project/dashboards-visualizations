@@ -71,7 +71,7 @@ jobs:
             while IFS= read -r file; do
               if [[ $file == *.js || $file == *.ts || $file == *.tsx ]]; then
                 echo "linting file $file"
-                yarn lint "$file"
+                yarn lint "../$file"
               fi
             done < /tmp/changed_files.txt
           else
