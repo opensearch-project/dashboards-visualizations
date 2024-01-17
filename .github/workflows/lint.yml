@@ -4,7 +4,7 @@ on: [pull_request]
 
 env:
   PLUGIN_NAME: dashboards-visualizations
-  OPENSEARCH_DASHBOARDS_VERSION: "main"
+  OPENSEARCH_DASHBOARDS_VERSION: "2.x"
 
 jobs:
   build:
@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout Plugin
         uses: actions/checkout@v2
+        with: 
+          ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
 
       - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v2
