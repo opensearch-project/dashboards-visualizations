@@ -11,12 +11,8 @@ So you want to contribute code to this project? Excellent! We're glad you're her
 1. cd into the OpenSearch Dashboards source code directory.
 1. Check out this package from version control into the `plugins` directory.
 ```
-rm plugins -r
-git clone git@github.com:opensearch-project/dashboards-visualizations.git plugins --no-checkout
 cd plugins
-echo 'gantt-chart/*' >> .git/info/sparse-checkout
-git config core.sparseCheckout true
-git checkout main
+git clone git@github.com:opensearch-project/dashboards-visualizations.git
 ```
 6. Run `yarn osd bootstrap` inside `OpenSearch-Dashboards` directory.
 
@@ -26,7 +22,7 @@ Ultimately, your directory structure should look like this:
 .
 ├── OpenSearch Dashboards
 │   └── plugins
-│       └── gantt-chart
+│       └── dashboards-visualizations
 ```
 
 
