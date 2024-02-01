@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Plugin
-        uses: actions/checkout@v2
-
       - name: Checkout OpenSearch Dashboards
         uses: actions/checkout@v2
         with:
@@ -22,9 +19,10 @@ jobs:
           ref: ${{ env.OPENSEARCH_DASHBOARDS_VERSION }}
           path: OpenSearch-Dashboards
 
-      - name: Install Gantt Chart to Opensearch Dashboards Plugins Dir
-        run: |
-          mv gantt-chart ./OpenSearch-Dashboards/plugins
+      - name: Checkout Plugin
+        uses: actions/checkout@v2
+        with:
+          path: OpenSearch-Dashboards/plugins/dashboards-visualizations
 
       - name: Get node and yarn versions
         working-directory: ${{ env.WORKING_DIR }}
@@ -46,7 +44,7 @@ jobs:
           npm i -g yarn@${{ steps.versions_step.outputs.yarn_version }}
 
       - name: Bootstrap the plugin
-        working-directory: OpenSearch-Dashboards/plugins/gantt-chart
+        working-directory: OpenSearch-Dashboards/plugins/dashboards-visualizations
         run: yarn osd bootstrap
 
       - name: Get list of changed files using GitHub Action
@@ -63,18 +61,12 @@ jobs:
 
       - name: Lint Changed Files
         run: |
-          jq -r '.[]' ${HOME}/files_modified.json ${HOME}/files_added.json | sort | uniq > /tmp/changed_files.txt
-          CHANGED_FILES=$(cat /tmp/changed_files.txt)
-          echo "These are the changed files: $CHANGED_FILES"
+          CHANGED_FILES=($(jq -r '.[]' ${HOME}/files_modified.json ${HOME}/files_added.json | grep '.\+.\(js\|ts\|tsx\)$' | sort -u))
           if [[ -n "$CHANGED_FILES" ]]; then
-            echo "Linting changed files..."
-            while IFS= read -r file; do
-              if [[ $file =~ ^gantt-chart/.+\.(js|ts|tsx)$ ]]; then
-                echo "linting file $file"
-                yarn lint "../$file"
-              fi
-            done < /tmp/changed_files.txt
+            echo 'These are the changed files:'
+            printf '%s\n' "${CHANGED_FILES[@]}"
+            yarn lint "${CHANGED_FILES[@]}"
           else
             echo "No matched files to lint."
           fi
-        working-directory: OpenSearch-Dashboards/plugins/gantt-chart     
+        working-directory: OpenSearch-Dashboards/plugins/dashboards-visualizations

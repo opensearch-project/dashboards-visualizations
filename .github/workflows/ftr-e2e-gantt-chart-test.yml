@@ -67,9 +67,10 @@ jobs:
             cypress
             test
 
-      - name: Install Gantt Chart to Opensearch Dashboards Plugins Dir
-        run: |
-          mv gantt-chart ./OpenSearch-Dashboards/plugins
+      - name: Checkout Plugin
+        uses: actions/checkout@v2
+        with:
+          path: OpenSearch-Dashboards/plugins/dashboards-visualizations
 
       - id: tool-versions
         run: |
