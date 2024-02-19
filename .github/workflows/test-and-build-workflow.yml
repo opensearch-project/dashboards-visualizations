@@ -42,7 +42,7 @@ jobs:
           cd OpenSearch-Dashboards/
           su `id -un 1000` -c "source $NVM_DIR/nvm.sh && nvm use && node -v && yarn -v &&
                                cd ./plugins/dashboards-visualizations &&
-                               whoami && yarn osd bootstrap && yarn lint:style && yarn test --coverage"
+                               whoami && yarn osd bootstrap --single-version=loose && yarn lint:style && yarn test --coverage"
 
       - name: Upload coverage
         uses: codecov/codecov-action@v1
@@ -102,7 +102,7 @@ jobs:
       - name: Plugin Bootstrap
         run: |
           cd ./OpenSearch-Dashboards/plugins/dashboards-visualizations
-          yarn osd bootstrap
+          yarn osd bootstrap --single-version=loose
 
       - name: Run Stylelint
         run: |
@@ -162,7 +162,7 @@ jobs:
       - name: Plugin Bootstrap
         run: |
           cd ./OpenSearch-Dashboards/plugins/dashboards-visualizations
-          yarn osd bootstrap
+          yarn osd bootstrap --single-version=loose
 
       - name: Run Stylelint
         run: |
