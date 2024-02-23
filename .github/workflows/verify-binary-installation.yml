@@ -39,7 +39,7 @@ jobs:
         uses: derek-ho/setup-opensearch-dashboards@v2
         with:
           plugin_name: dashboards-visualizations
-          built_plugin_name: gnattChartDashboards
+          built_plugin_name: ganttChartDashboards
           built_plugin_suffix: ${{ env.OPENSEARCH_VERSION }}
           install_zip: true
           
