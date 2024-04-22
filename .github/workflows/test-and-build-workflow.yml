@@ -5,7 +5,7 @@ on: [pull_request, push]
 env:
   PLUGIN_NAME: gantt-chart-dashboards
   OPENSEARCH_VERSION: "2.x"
-  OPENSEARCH_PLUGIN_VERSION: 2.10.0.0
+  OPENSEARCH_PLUGIN_VERSION: 2.14.0.0
 
 jobs:
   Get-CI-Image-Tag:
