@@ -10,7 +10,7 @@ import {
   EuiPanel,
   EuiCompressedSelect,
   EuiSpacer,
-  EuiSwitch,
+  EuiCompressedSwitch,
   EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
@@ -37,7 +37,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         <EuiSpacer size="s" />
 
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-legend-switch"
             label="Show legend"
             checked={stateParams.showLegend}
@@ -71,7 +71,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         <EuiSpacer size="s" />
 
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-grid-y-switch"
             label="Show Y-axis grids"
             checked={stateParams.yAxisShowGrid}
@@ -79,7 +79,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
           />
         </EuiCompressedFormRow>
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-grid-x-switch"
             label="Show X-axis grids"
             checked={stateParams.xAxisShowGrid}
@@ -148,7 +148,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiCompressedFormRow>
 
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-y-axis-switch"
             label="Show Y-axis line"
             checked={stateParams.yAxisShowLine}
@@ -156,7 +156,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
           />
         </EuiCompressedFormRow>
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-y-axis-label-switch"
             label="Show Y-axis label"
             checked={stateParams.yAxisShowTitle}
@@ -212,7 +212,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiCompressedFormRow>
 
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-x-axis-switch"
             label="Show X-axis line"
             checked={stateParams.xAxisShowLine}
@@ -220,7 +220,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
           />
         </EuiCompressedFormRow>
         <EuiCompressedFormRow>
-          <EuiSwitch
+          <EuiCompressedSwitch
             data-test-subj="options-editor-x-axis-label-switch"
             label="Show X-axis label"
             checked={stateParams.xAxisShowTitle}
