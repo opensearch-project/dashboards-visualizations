@@ -5,7 +5,7 @@
 
 import {
   EuiColorPicker,
-  EuiFieldText,
+  EuiCompressedFieldText,
   EuiCompressedFormRow,
   EuiPanel,
   EuiSelect,
@@ -166,7 +166,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         {stateParams.yAxisShowTitle ? (
           <EuiCompressedFormRow label="Label">
-            <EuiFieldText
+            <EuiCompressedFieldText
               data-test-subj="options-editor-y-axis-label-input"
               placeholder="Label"
               value={stateParams.yAxisTitle}
@@ -230,7 +230,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         {stateParams.xAxisShowTitle ? (
           <EuiCompressedFormRow label="Label">
-            <EuiFieldText
+            <EuiCompressedFieldText
               data-test-subj="options-editor-x-axis-label-input"
               placeholder="Label"
               value={stateParams.xAxisTitle}

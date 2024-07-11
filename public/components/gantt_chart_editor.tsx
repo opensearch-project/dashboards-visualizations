@@ -4,7 +4,7 @@
  */
 
 import {
-  EuiFieldNumber,
+  EuiCompressedFieldNumber,
   EuiCompressedFormRow,
   EuiPanel,
   EuiSpacer,
@@ -76,7 +76,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           label="View number of results"
           helpText="Results ordered by descending start time."
         >
-          <EuiFieldNumber
+          <EuiCompressedFieldNumber
             data-test-subj="gantt-chart-editor-size-field"
             value={stateParams.size}
             onChange={(e) => setValue('size', parseInt(e.target.value, 10))}
