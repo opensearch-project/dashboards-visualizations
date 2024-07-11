@@ -5,7 +5,7 @@
 
 import {
   EuiFieldNumber,
-  EuiFormRow,
+  EuiCompressedFormRow,
   EuiPanel,
   EuiSpacer,
   EuiSuperSelect,
@@ -30,7 +30,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           <h3>Metrics</h3>
         </EuiTitle>
         <EuiSpacer size="s" />
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="Event"
           helpText="Gantt chart allows you to compare schedules of the selected field."
         >
@@ -40,8 +40,8 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
             valueOfSelected={stateParams.labelField || 'select'}
             onChange={(value) => setValue('labelField', value)}
           />
-        </EuiFormRow>
-        <EuiFormRow
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow
           label="Start time"
           helpText="Select a timestamp field to represent the beginning of a schedule."
         >
@@ -51,8 +51,8 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
             valueOfSelected={stateParams.startTimeField}
             onChange={(value) => setValue('startTimeField', value)}
           />
-        </EuiFormRow>
-        <EuiFormRow
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow
           label="Duration"
           helpText="Value of duration field must be a time interval that can be added to the start timestamp field."
         >
@@ -62,7 +62,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
             valueOfSelected={stateParams.durationField}
             onChange={(value) => setValue('durationField', value)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       </EuiPanel>
 
       <EuiSpacer size="s" />
@@ -72,7 +72,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           <h3>Results</h3>
         </EuiTitle>
         <EuiSpacer size="s" />
-        <EuiFormRow
+        <EuiCompressedFormRow
           label="View number of results"
           helpText="Results ordered by descending start time."
         >
@@ -81,7 +81,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
             value={stateParams.size}
             onChange={(e) => setValue('size', parseInt(e.target.value, 10))}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       </EuiPanel>
     </>
   );

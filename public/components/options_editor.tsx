@@ -6,7 +6,7 @@
 import {
   EuiColorPicker,
   EuiFieldText,
-  EuiFormRow,
+  EuiCompressedFormRow,
   EuiPanel,
   EuiSelect,
   EuiSpacer,
@@ -36,17 +36,17 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiTitle>
         <EuiSpacer size="s" />
 
-        <EuiFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-legend-switch"
             label="Show legend"
             checked={stateParams.showLegend}
             onChange={(e) => setValue('showLegend', e.target.checked)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
 
         {stateParams.showLegend && (
-          <EuiFormRow label="Orientation">
+          <EuiCompressedFormRow label="Orientation">
             <EuiSelect
               data-test-subj="options-editor-legend-orientation-select"
               options={legendOrientationOptions}
@@ -56,7 +56,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
               }
               disabled={!stateParams.showLegend}
             />
-          </EuiFormRow>
+          </EuiCompressedFormRow>
         )}
       </EuiPanel>
     );
@@ -70,22 +70,22 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiTitle>
         <EuiSpacer size="s" />
 
-        <EuiFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-grid-y-switch"
             label="Show Y-axis grids"
             checked={stateParams.yAxisShowGrid}
             onChange={(e) => setValue('yAxisShowGrid', e.target.checked)}
           />
-        </EuiFormRow>
-        <EuiFormRow>
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-grid-x-switch"
             label="Show X-axis grids"
             checked={stateParams.xAxisShowGrid}
             onChange={(e) => setValue('xAxisShowGrid', e.target.checked)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       </EuiPanel>
     );
   };
@@ -98,9 +98,9 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiTitle>
         <EuiSpacer size="s" />
 
-        <EuiFormRow label="Color">
+        <EuiCompressedFormRow label="Color">
           <EuiColorPicker color={stateParams.colors} onChange={(e) => setValue('colors', e)} />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
       </EuiPanel>
     );
   };
@@ -138,41 +138,41 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiTitle>
         <EuiSpacer size="s" />
 
-        <EuiFormRow label="Position">
+        <EuiCompressedFormRow label="Position">
           <EuiSelect
             data-test-subj="options-editor-y-axis-position-select"
             options={yAxisPositionOptions}
             value={stateParams.yAxisPosition}
             onChange={(e) => setValue('yAxisPosition', e.target.value as PlotlyAxisPosition)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
 
-        <EuiFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-y-axis-switch"
             label="Show Y-axis line"
             checked={stateParams.yAxisShowLine}
             onChange={(e) => setValue('yAxisShowLine', e.target.checked)}
           />
-        </EuiFormRow>
-        <EuiFormRow>
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-y-axis-label-switch"
             label="Show Y-axis label"
             checked={stateParams.yAxisShowTitle}
             onChange={(e) => setValue('yAxisShowTitle', e.target.checked)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
 
         {stateParams.yAxisShowTitle ? (
-          <EuiFormRow label="Label">
+          <EuiCompressedFormRow label="Label">
             <EuiFieldText
               data-test-subj="options-editor-y-axis-label-input"
               placeholder="Label"
               value={stateParams.yAxisTitle}
               onChange={(e) => setValue('yAxisTitle', e.target.value)}
             />
-          </EuiFormRow>
+          </EuiCompressedFormRow>
         ) : null}
       </EuiPanel>
     );
@@ -186,57 +186,57 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         </EuiTitle>
         <EuiSpacer size="s" />
 
-        <EuiFormRow label="Position">
+        <EuiCompressedFormRow label="Position">
           <EuiSelect
             data-test-subj="options-editor-x-axis-position-select"
             options={xAxisPositionOptions}
             value={stateParams.xAxisPosition}
             onChange={(e) => setValue('xAxisPosition', e.target.value as PlotlyAxisPosition)}
           />
-        </EuiFormRow>
-        <EuiFormRow label="Scale type">
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow label="Scale type">
           <EuiSelect
             data-test-subj="options-editor-x-axis-scale-type-select"
             options={axisTypeOptions}
             value={stateParams.xAxisType}
             onChange={(e) => setValue('xAxisType', e.target.value as PlotlyAxisType)}
           />
-        </EuiFormRow>
-        <EuiFormRow label="Time format">
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow label="Time format">
           <EuiSelect
             data-test-subj="options-editor-x-axis-time-format-select"
             options={timeFormatOptions}
             value={stateParams.timeFormat}
             onChange={(e) => setValue('timeFormat', e.target.value)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
 
-        <EuiFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-x-axis-switch"
             label="Show X-axis line"
             checked={stateParams.xAxisShowLine}
             onChange={(e) => setValue('xAxisShowLine', e.target.checked)}
           />
-        </EuiFormRow>
-        <EuiFormRow>
+        </EuiCompressedFormRow>
+        <EuiCompressedFormRow>
           <EuiSwitch
             data-test-subj="options-editor-x-axis-label-switch"
             label="Show X-axis label"
             checked={stateParams.xAxisShowTitle}
             onChange={(e) => setValue('xAxisShowTitle', e.target.checked)}
           />
-        </EuiFormRow>
+        </EuiCompressedFormRow>
 
         {stateParams.xAxisShowTitle ? (
-          <EuiFormRow label="Label">
+          <EuiCompressedFormRow label="Label">
             <EuiFieldText
               data-test-subj="options-editor-x-axis-label-input"
               placeholder="Label"
               value={stateParams.xAxisTitle}
               onChange={(e) => setValue('xAxisTitle', e.target.value)}
             />
-          </EuiFormRow>
+          </EuiCompressedFormRow>
         ) : null}
       </EuiPanel>
     );
