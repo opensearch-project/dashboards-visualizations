@@ -8,7 +8,7 @@ import {
   EuiCompressedFormRow,
   EuiPanel,
   EuiSpacer,
-  EuiSuperSelect,
+  EuiCompressedSuperSelect,
   EuiTitle,
 } from '@elastic/eui';
 import React from 'react';
@@ -34,7 +34,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           label="Event"
           helpText="Gantt chart allows you to compare schedules of the selected field."
         >
-          <EuiSuperSelect
+          <EuiCompressedSuperSelect
             data-test-subj="gantt-chart-editor-label-field"
             options={fieldOptions}
             valueOfSelected={stateParams.labelField || 'select'}
@@ -45,7 +45,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           label="Start time"
           helpText="Select a timestamp field to represent the beginning of a schedule."
         >
-          <EuiSuperSelect
+          <EuiCompressedSuperSelect
             data-test-subj="gantt-chart-editor-start-time-field"
             options={fieldOptions}
             valueOfSelected={stateParams.startTimeField}
@@ -56,7 +56,7 @@ export function GanttChartEditor({ aggs, stateParams, setValue }: VisOptionsProp
           label="Duration"
           helpText="Value of duration field must be a time interval that can be added to the start timestamp field."
         >
-          <EuiSuperSelect
+          <EuiCompressedSuperSelect
             data-test-subj="gantt-chart-editor-duration-field"
             options={fieldOptions}
             valueOfSelected={stateParams.durationField}

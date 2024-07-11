@@ -8,7 +8,7 @@ import {
   EuiCompressedFieldText,
   EuiCompressedFormRow,
   EuiPanel,
-  EuiSelect,
+  EuiCompressedSelect,
   EuiSpacer,
   EuiSwitch,
   EuiTitle,
@@ -47,7 +47,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
 
         {stateParams.showLegend && (
           <EuiCompressedFormRow label="Orientation">
-            <EuiSelect
+            <EuiCompressedSelect
               data-test-subj="options-editor-legend-orientation-select"
               options={legendOrientationOptions}
               value={stateParams.legendOrientation}
@@ -139,7 +139,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         <EuiSpacer size="s" />
 
         <EuiCompressedFormRow label="Position">
-          <EuiSelect
+          <EuiCompressedSelect
             data-test-subj="options-editor-y-axis-position-select"
             options={yAxisPositionOptions}
             value={stateParams.yAxisPosition}
@@ -187,7 +187,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
         <EuiSpacer size="s" />
 
         <EuiCompressedFormRow label="Position">
-          <EuiSelect
+          <EuiCompressedSelect
             data-test-subj="options-editor-x-axis-position-select"
             options={xAxisPositionOptions}
             value={stateParams.xAxisPosition}
@@ -195,7 +195,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
           />
         </EuiCompressedFormRow>
         <EuiCompressedFormRow label="Scale type">
-          <EuiSelect
+          <EuiCompressedSelect
             data-test-subj="options-editor-x-axis-scale-type-select"
             options={axisTypeOptions}
             value={stateParams.xAxisType}
@@ -203,7 +203,7 @@ export function OptionsEditor({ aggs, stateParams, setValue }: VisOptionsProps<G
           />
         </EuiCompressedFormRow>
         <EuiCompressedFormRow label="Time format">
-          <EuiSelect
+          <EuiCompressedSelect
             data-test-subj="options-editor-x-axis-time-format-select"
             options={timeFormatOptions}
             value={stateParams.timeFormat}
