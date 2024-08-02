@@ -13,7 +13,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
     class="euiSpacer euiSpacer--s"
   />
   <div
-    class="euiFormRow"
+    class="euiFormRow euiFormRow--compressed"
     id="random_html_id-row"
   >
     <div
@@ -42,7 +42,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
               value="spanID"
             />
             <div
-              class="euiFormControlLayout"
+              class="euiFormControlLayout euiFormControlLayout--compressed"
             >
               <div
                 class="euiFormControlLayout__childrenWrapper"
@@ -57,7 +57,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
                   aria-describedby="random_html_id-help-0"
                   aria-haspopup="true"
                   aria-labelledby="random_html_id random_html_id"
-                  class="euiSuperSelectControl"
+                  class="euiSuperSelectControl euiSuperSelectControl--compressed"
                   data-test-subj="gantt-chart-editor-label-field"
                   type="button"
                 />
@@ -69,7 +69,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                      class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                       focusable="false"
                       height="16"
                       role="img"
@@ -97,7 +97,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
     </div>
   </div>
   <div
-    class="euiFormRow"
+    class="euiFormRow euiFormRow--compressed"
     id="random_html_id-row"
   >
     <div
@@ -126,7 +126,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
               value="startTime"
             />
             <div
-              class="euiFormControlLayout"
+              class="euiFormControlLayout euiFormControlLayout--compressed"
             >
               <div
                 class="euiFormControlLayout__childrenWrapper"
@@ -141,7 +141,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
                   aria-describedby="random_html_id-help-0"
                   aria-haspopup="true"
                   aria-labelledby="random_html_id random_html_id"
-                  class="euiSuperSelectControl"
+                  class="euiSuperSelectControl euiSuperSelectControl--compressed"
                   data-test-subj="gantt-chart-editor-start-time-field"
                   type="button"
                 />
@@ -153,7 +153,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                      class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                       focusable="false"
                       height="16"
                       role="img"
@@ -181,7 +181,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
     </div>
   </div>
   <div
-    class="euiFormRow"
+    class="euiFormRow euiFormRow--compressed"
     id="random_html_id-row"
   >
     <div
@@ -210,7 +210,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
               value="duration"
             />
             <div
-              class="euiFormControlLayout"
+              class="euiFormControlLayout euiFormControlLayout--compressed"
             >
               <div
                 class="euiFormControlLayout__childrenWrapper"
@@ -225,7 +225,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
                   aria-describedby="random_html_id-help-0"
                   aria-haspopup="true"
                   aria-labelledby="random_html_id random_html_id"
-                  class="euiSuperSelectControl"
+                  class="euiSuperSelectControl euiSuperSelectControl--compressed"
                   data-test-subj="gantt-chart-editor-duration-field"
                   type="button"
                 />
@@ -237,7 +237,7 @@ exports[`<GanttChartEditor /> spec renders the component 1`] = `
                   >
                     <svg
                       aria-hidden="true"
-                      class="euiIcon euiIcon--medium euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
+                      class="euiIcon euiIcon--small euiIcon-isLoading euiFormControlLayoutCustomIcon__icon"
                       focusable="false"
                       height="16"
                       role="img"
