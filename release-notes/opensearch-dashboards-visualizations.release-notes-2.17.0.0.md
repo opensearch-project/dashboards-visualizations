@@ -4,7 +4,8 @@ Compatible with OpenSearch Dashboards 2.17.0.0
 
 ### Maintenance
 
-- Increment version to 2.17.0.0 ([#392](https://github.com/opensearch-project/dashboards-visualizations/pull/392))
+- Increment version to 2.17.0.0 ([#386](https://github.com/opensearch-project/dashboards-visualizations/pull/386))
+- Adding release notes for 2.17.0 ([#392](https://github.com/opensearch-project/dashboards-visualizations/pull/392))
 
 ### Enhancements
 
