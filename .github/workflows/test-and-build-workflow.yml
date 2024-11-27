@@ -68,7 +68,7 @@ jobs:
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: gantt-chart-ubuntu
           path: ./OpenSearch-Dashboards/plugins/dashboards-visualizations/build
@@ -128,7 +128,7 @@ jobs:
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: gantt-chart-windows
           path: ./OpenSearch-Dashboards/plugins/dashboards-visualizations/build
