@@ -8,3 +8,4 @@ Compatible with OpenSearch Dashboards 2.19.0.0
 - Downgrade cypress to 12.17.4 ([#413](https://github.com/opensearch-project/dashboards-visualizations/pull/413))
 - Bump cross-spawn to 7.0.5 ([#417](https://github.com/opensearch-project/dashboards-visualizations/pull/417))
 - Adding release notes for 2.19.0 ([#427](https://github.com/opensearch-project/dashboards-visualizations/pull/427))
+- [CVE-2024-21538] Update cross-spawn in yarn.lock([#423](https://github.com/opensearch-project/dashboards-visualizations/pull/423))
