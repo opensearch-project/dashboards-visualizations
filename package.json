@@ -23,7 +23,6 @@
     "@types/react-plotly.js": "^2.6.0",
     "@types/showdown": "^1.9.3",
     "cypress": "12.17.4",
-    "eslint": "^6.8.0",
     "jest-dom": "^4.0.0"
   },
   "resolutions": {
@@ -32,7 +31,6 @@
     "glob-parent": "^6.0.1",
     "tough-cookie": "^4.1.3",
     "semver": "^7.5.2",
-    "@cypress/request": "^3.0.0",
-    "**/eslint/cross-spawn": "^7.0.5"
+    "@cypress/request": "^3.0.0"
   }
 }
