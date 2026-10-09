@@ -25,14 +25,14 @@ jobs:
 
     steps:
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: opensearch-project/Opensearch-Dashboards
           ref: ${{ env.OPENSEARCH_VERSION }}
           path: OpenSearch-Dashboards
 
       - name: Checkout Plugin
-        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-visualizations
 
@@ -45,7 +45,7 @@ jobs:
                                whoami && yarn osd bootstrap --single-version=loose && yarn lint:style && yarn test --coverage"
 
       - name: Upload coverage
-        uses: codecov/codecov-action@29386c70ef20e286228c72b668a06fd0e8399192 # v1
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           directory: ./OpenSearch-Dashboards/plugins/dashboards-visualizations
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -58,7 +58,7 @@ jobs:
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: gantt-chart-ubuntu
           path: ./OpenSearch-Dashboards/plugins/dashboards-visualizations/build
@@ -71,19 +71,19 @@ jobs:
         run: git config --system core.longpaths true
 
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: opensearch-project/Opensearch-Dashboards
           ref: ${{ env.OPENSEARCH_VERSION }}
           path: OpenSearch-Dashboards
 
       - name: Checkout Plugin
-        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-visualizations
 
       - name: Setup Node
-        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: './OpenSearch-Dashboards/.nvmrc'
           registry-url: 'https://registry.npmjs.org'
@@ -121,7 +121,7 @@ jobs:
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: gantt-chart-windows
           path: ./OpenSearch-Dashboards/plugins/dashboards-visualizations/build
@@ -131,19 +131,19 @@ jobs:
 
     steps:
       - name: Checkout OpenSearch Dashboards
-        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: opensearch-project/Opensearch-Dashboards
           ref: ${{ env.OPENSEARCH_VERSION }}
           path: OpenSearch-Dashboards
 
       - name: Checkout Plugin
-        uses: actions/checkout@0717577d45739eb3c851188b29f50ed6c0b2194e # v2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           path: OpenSearch-Dashboards/plugins/dashboards-visualizations
 
       - name: Setup Node
-        uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: './OpenSearch-Dashboards/.nvmrc'
           registry-url: 'https://registry.npmjs.org'
@@ -181,7 +181,7 @@ jobs:
           mv ./build/*.zip ./build/${{ env.PLUGIN_NAME }}-${{ env.OPENSEARCH_PLUGIN_VERSION }}.zip
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: gantt-chart-macos
           path: ./OpenSearch-Dashboards/plugins/dashboards-visualizations/build
